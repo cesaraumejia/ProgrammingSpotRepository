@@ -7,6 +7,7 @@ public class Project {
     private String name;
     private float totalPrice;
     private String programmingType;
+    private String state;
     
 
 	public Project() {
@@ -14,12 +15,12 @@ public class Project {
 	}
 
 
-	public Project(ArrayList<Worker> workers, String name, float totalPrice, String programmingType) {
+	public Project(ArrayList<Worker> workers, String name, String programmingType, String state) {
 		super();
 		this.workers = workers;
 		this.name = name;
-		this.totalPrice = totalPrice;
 		this.programmingType = programmingType;
+		this.state = state;
 	}
 
 
@@ -60,6 +61,22 @@ public class Project {
 
 	public void setProgrammingType(String programmingType) {
 		this.programmingType = programmingType;
+	}
+	public float calculateBasePrice() {
+		float aux = 0f;
+		for (Worker i: workers)
+			aux += i.getSalary();
+		return aux*1.15f;
+	}
+
+
+	public String getState() {
+		return state;
+	}
+
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }

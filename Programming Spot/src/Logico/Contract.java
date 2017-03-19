@@ -3,10 +3,9 @@ package Logico;
 public class Contract {
 	private int initialDate;
 	private int finalDate;
-	private String contractID;
-	private String clientID;
+	private int contractID;
+	private Client client;
 	private Project project;
-	private float penalitation;
 	
 
 	public Contract() {
@@ -14,15 +13,13 @@ public class Contract {
 	}
 
 
-	public Contract(int initialDate, int finalDate, String contractID, String clientID, Project project,
-			float penalitation) {
+	public Contract(int initialDate, int finalDate, int contractID, Client clientID, Project project) {
 		super();
 		this.initialDate = initialDate;
 		this.finalDate = finalDate;
 		this.contractID = contractID;
-		this.clientID = clientID;
+		this.client = clientID;
 		this.project = project;
-		this.penalitation = penalitation;
 	}
 
 
@@ -46,43 +43,43 @@ public class Contract {
 	}
 
 
-	public String getContractID() {
+	public int getContractID() {
 		return contractID;
 	}
 
 
-	public void setContractID(String contractID) {
+	public void setContractID(int contractID) {
 		this.contractID = contractID;
 	}
 
 
-	public String getClientID() {
-		return clientID;
+	public Client getClient() {
+		return client;
 	}
 
 
-	public void setClientID(String clientID) {
-		this.clientID = clientID;
+	public void setClientID(Client client) {
+		this.client = client;
 	}
 
 
 	public Project getProject() {
 		return project;
 	}
+	
+
+	public float calculatePrice() {
+		return project.calculateBasePrice();
+	}
+
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 
 	public void setProject(Project project) {
 		this.project = project;
-	}
-
-
-	public float getPenalitation() {
-		return penalitation;
-	}
-
-
-	public void setPenalitation(float penalitation) {
-		this.penalitation = penalitation;
 	}
 
 }
