@@ -13,6 +13,7 @@ public abstract class Worker {
 	protected int hourlyPayment;
 	protected int workedHours;
 	protected int projectsQuant;
+	protected boolean available;
 
 	public Worker() {
 		// TODO Auto-generated constructor stub
@@ -33,6 +34,7 @@ public abstract class Worker {
 		this.hourlyPayment = hourlyPayment;
 		this.workedHours = workedHours;
 		this.projectsQuant = projectsQuant;
+		this.available=true;
 	}
 
 	public int getIdNumber() {
@@ -134,5 +136,15 @@ public abstract class Worker {
 	public float computeSalary(){
 		return salary = hourlyPayment * workedHours;
 	}
+
+	public boolean isAvailable() {
+	    return available;
+	}
+
+	public void setAvailable(boolean available) {
+	    this.available = available;
+	}
+	
+	
 
 }
