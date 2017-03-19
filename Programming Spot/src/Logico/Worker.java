@@ -1,22 +1,25 @@
 package Logico;
 
 public abstract class Worker {
-	private int idNumber;
-	private String firstName;
-	private String lastName;
-	private String address;
-	private String sex;
-	private int age;
-	private float salary;
-	private String projetName;
-	private String anualEvaluation;
+	protected int idNumber;
+	protected String firstName;
+	protected String lastName;
+	protected String address;
+	protected String sex;
+	protected int age;
+	protected float salary;
+	protected String projetName;
+	protected String anualEvaluation;
+	protected int hourlyPayment;
+	protected int workedHours;
+	protected int projectsQuant;
 
 	public Worker() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Worker(int idNumber, String firstName, String lastName, String address, String sex, int age, float salary,
-			String projetName, String anualEvaluation) {
+			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant) {
 		super();
 		this.idNumber = idNumber;
 		this.firstName = firstName;
@@ -27,6 +30,9 @@ public abstract class Worker {
 		this.salary = salary;
 		this.projetName = projetName;
 		this.anualEvaluation = anualEvaluation;
+		this.hourlyPayment = hourlyPayment;
+		this.workedHours = workedHours;
+		this.projectsQuant = projectsQuant;
 	}
 
 	public int getIdNumber() {
@@ -99,6 +105,34 @@ public abstract class Worker {
 
 	public void setAnualEvaluation(String anualEvaluation) {
 		this.anualEvaluation = anualEvaluation;
+	}
+	
+	public int getHourlyPayment() {
+		return hourlyPayment;
+	}
+
+	public void setHourlyPayment(int hourlyPayment) {
+		this.hourlyPayment = hourlyPayment;
+	}
+
+	public int getWorkedHours() {
+		return workedHours;
+	}
+
+	public void setWorkedHours(int workedHours) {
+		this.workedHours = workedHours;
+	}
+
+	public int getProjectsQuant() {
+		return projectsQuant;
+	}
+
+	public void setProjectsQuant(int projectsQuant) {
+		this.projectsQuant = projectsQuant;
+	}
+
+	public float computeSalary(){
+		return salary = hourlyPayment * workedHours;
 	}
 
 }

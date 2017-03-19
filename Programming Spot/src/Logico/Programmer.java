@@ -10,8 +10,8 @@ public class Programmer extends Worker {
 	}
 
 	public Programmer(int idNumber, String firstName, String lastName, String address, String sex, int age,
-			float salary, String projetName, String anualEvaluation, String programmingLanguage, String programmerType) {
-		super(idNumber, firstName, lastName, address, sex, age, salary, projetName, anualEvaluation);
+			float salary, String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, String programmingLanguage, String programmerType) {
+		super(idNumber, firstName, lastName, address, sex, age, salary, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
 		this.programmingLanguage = programmingLanguage;
 		this.programmerType = programmerType;
 	}
@@ -30,6 +30,10 @@ public class Programmer extends Worker {
 
 	public void setProgrammerType(String programmerType) {
 		this.programmerType = programmerType;
+	}
+	
+	public float computeSalary(){
+		return super.computeSalary();
 	}
 
 }
