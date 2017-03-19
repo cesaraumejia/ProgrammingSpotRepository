@@ -10,8 +10,8 @@ public class ProjectBoss extends Worker {
 	}
 
 	public ProjectBoss(int idNumber, String firstName, String lastName, String address, String sex, int age,
-			float salary, String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int workerQuant, String password) {
-		super(idNumber, firstName, lastName, address, sex, age, salary, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
+			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int workerQuant, String password) {
+		super(idNumber, firstName, lastName, address, sex, age, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
 		this.workerQuant = workerQuant;
 		this.password = password;
 	}

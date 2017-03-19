@@ -6,9 +6,9 @@ public class Designer extends Worker {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Designer(int idNumber, String firstName, String lastName, String address, String sex, int age, float salary,
+	public Designer(int idNumber, String firstName, String lastName, String address, String sex, int age,
 			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant) {
-		super(idNumber, firstName, lastName, address, sex, age, salary, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
+		super(idNumber, firstName, lastName, address, sex, age, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
 		// TODO Auto-generated constructor stub
 	}
 	

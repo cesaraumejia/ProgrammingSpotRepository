@@ -8,9 +8,9 @@ public class Planner extends Worker {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Planner(int idNumber, String firstName, String lastName, String address, String sex, int age, float salary,
+	public Planner(int idNumber, String firstName, String lastName, String address, String sex, int age,
 			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int daysQuant) {
-		super(idNumber, firstName, lastName, address, sex, age, salary, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
+		super(idNumber, firstName, lastName, address, sex, age, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
 		this.daysQuant = daysQuant;
 	}
 

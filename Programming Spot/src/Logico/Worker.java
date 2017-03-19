@@ -18,7 +18,7 @@ public abstract class Worker {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Worker(int idNumber, String firstName, String lastName, String address, String sex, int age, float salary,
+	public Worker(int idNumber, String firstName, String lastName, String address, String sex, int age,
 			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant) {
 		super();
 		this.idNumber = idNumber;
@@ -27,7 +27,6 @@ public abstract class Worker {
 		this.address = address;
 		this.sex = sex;
 		this.age = age;
-		this.salary = salary;
 		this.projetName = projetName;
 		this.anualEvaluation = anualEvaluation;
 		this.hourlyPayment = hourlyPayment;
@@ -87,9 +86,6 @@ public abstract class Worker {
 		return salary;
 	}
 
-	public void setSalary(float salary) {
-		this.salary = salary;
-	}
 
 	public String getProjetName() {
 		return projetName;
@@ -130,6 +126,9 @@ public abstract class Worker {
 	public void setProjectsQuant(int projectsQuant) {
 		this.projectsQuant = projectsQuant;
 	}
+
+
+
 
 	public float computeSalary(){
 		return salary = hourlyPayment * workedHours;
