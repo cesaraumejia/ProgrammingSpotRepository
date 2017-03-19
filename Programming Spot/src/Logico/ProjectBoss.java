@@ -1,4 +1,4 @@
-package Logical;
+package Logico;
 
 public class ProjectBoss extends Worker {
 	private int workerQuant;

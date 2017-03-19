@@ -1,4 +1,4 @@
-package Logical;
+package Logico;
 
 public abstract class Worker {
 	private int idNumber;

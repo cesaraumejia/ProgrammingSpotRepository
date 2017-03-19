@@ -1,4 +1,4 @@
-package Logical;
+package Logico;
 import java.util.ArrayList;
 
 public class Project {

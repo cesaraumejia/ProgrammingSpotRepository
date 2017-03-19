@@ -1,4 +1,4 @@
-package Logical;
+package Logico;
 
 public class Planner extends Worker {
 

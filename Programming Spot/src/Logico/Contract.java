@@ -1,4 +1,4 @@
-package Logical;
+package Logico;
 
 public class Contract {
 	private int initialDate;
