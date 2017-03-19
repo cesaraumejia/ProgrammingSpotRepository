@@ -1,3 +1,4 @@
+package Logical;
 
 public abstract class Worker {
 	private int idNumber;

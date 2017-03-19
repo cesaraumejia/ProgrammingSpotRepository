@@ -1,5 +1,6 @@
+package Logical;
 import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
+
 
 public class Admin {
 	private ArrayList<Client> clients = new ArrayList<>();

@@ -1,3 +1,4 @@
+package Logical;
 
 public class SoftwareTester extends Worker {
 
