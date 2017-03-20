@@ -9,152 +9,164 @@ public class Admin {
 	public static int IDContractGenerator = 0;
 
 	public Admin() {
-		// TODO Auto-generated constructor stub
+	    this.clients=new ArrayList<>();
+	    this.contracts=new ArrayList<>();
+	    this.workers=new ArrayList<>();
 	}
-
-	public Admin(ArrayList<Client> clients, ArrayList<Contract> contracts, ArrayList<Worker> workers) {
-		super();
-		this.clients = clients;
-		this.contracts = contracts;
-		this.workers = workers;
-	}
-
+///////////////////////////Setters And Getters////////////////////////
 	public ArrayList<Client> getClients() {
 		return clients;
 	}
 
-	public void setClients(ArrayList<Client> clients) {
-		this.clients = clients;
-	}
+
 
 	public ArrayList<Contract> getContracts() {
 		return contracts;
 	}
 
-	public void setContracts(ArrayList<Contract> contracts) {
-		this.contracts = contracts;
-	}
 
 	public ArrayList<Worker> getWorkers() {
 		return workers;
 	}
+	
+///////////////////////////////////////////////////////////////////////////	
 
-	public void setWorkers(ArrayList<Worker> workers) {
-		this.workers = workers;
+///////////////////////////////Support Methods/////////////////////////////
+	
+	/*private boolean availability() {
+		boolean available = false;
+		int counterProgrammer = 0;
+		int counterBoss = 0;
+		for (Worker wrk: workers) {
+        		if (wrk instanceof ProjectBoss && wrk.isAvailable()){
+        		    counterBoss++;
+        		}else if (wrk instanceof Programmer && wrk.isAvailable()){
+        		    counterProgrammer++;
+        		}
+		}
+		if (counterBoss>=1 && counterProgrammer>=2){
+		    available = true;
+		}
+		return available;
+	}*/
+	
+	/*private int getAnyWorkerIndex(Worker pWorker){
+	    int index=-1;
+	    if(availability()){
+		for(Worker wrk:workers){
+		    if(wrk.getClass()==pWorker.getClass()){
+			index=workers.indexOf(wrk);
+		    }
+		}
+	    }
+	    return index;  
+	}*/
+	
+//////////////////////////////////////Metodos Referentes a los CLIENTES///////////////////////////////////////
+	private Client searchClient(Client client) {
+		Client foundClient = null;
+		for (Client clt: clients) {
+		    if (clt == client){
+			foundClient = clt; 
+		    }
+		}
+		return foundClient;
 	}
-	private boolean availability() {
-		boolean aux = false;
-		int counter1 = 0;
-    	int counter = 0;
-		for (Worker i: workers) {
-    		if (i instanceof ProjectBoss)
-    			counter++;
-    		else if (i instanceof Programmer)
-    			counter1++;
-    	}
-		if (counter>=1 && counter1>=2)
-			aux = true;
-		return aux;
+	
+	public void addClient(Client client){
+	    if(searchClient(client)==null){
+		clients.add(client);
+	    }
 	}
-	private int getBossIndex() {
-		int aux = -1;
-		if (availability()) {
-		for (Worker i: workers) {
-			if (i instanceof ProjectBoss)
-				aux = workers.indexOf(i);
-		}
-		}
-		return aux;
-	}
-	private int getProgrammerIndex1() {
-		int aux = -1;
-		if (availability()) {
-		for (Worker i: workers) {
-			if (i instanceof Programmer)
-				aux = workers.indexOf(i);
-		}
-		}
-		return aux;
-	}
-	private int getProgrammerIndex2() {
-		int aux = -1;
-		if (availability()) {
-		for (Worker i: workers) {
-			if (i instanceof Programmer)
-				aux = workers.indexOf(i);
-		}
-		}
-		return aux;
-	}
-	private int getTesterIndex() {
-		int aux = -1;
-		if (availability()) {
-		for (Worker i: workers) {
-			if (i instanceof SoftwareTester)
-				aux = workers.indexOf(i);
-		}
-		}
-		return aux;
-	}
-	private int getPlannerIndex() {
-		int aux = -1;
-		if (availability()) {
-		for (Worker i: workers) {
-			if (i instanceof Planner)
-				aux = workers.indexOf(i);
-		}
-		}
-		return aux;
-	}
-	private int getDesignerIndex() {
-		int aux = -1;
-		if (availability()) {
-		for (Worker i: workers) {
-			if (i instanceof Designer)
-				aux = workers.indexOf(i);
-		}
-		}
-		return aux;
-	}
-	private boolean clientRegistered(Client client) {
-		boolean aux = false;
-		for (Client i: clients) {
-			if (i == client)
-				aux = true;
-		}
-		return aux;
-	}
-    public boolean createProject(String name, String programmingType, Client client, int initialDate, int finalDate, boolean planner, boolean designer, boolean tester) {
-    	boolean aux = false;
-    	Project project = new Project(null, name, programmingType, null);
-    	Contract contract = new Contract(initialDate, finalDate, IDContractGenerator++, client, null);
-    	ArrayList<Worker> pWorker = new ArrayList<>();
-    	if (availability() && clientRegistered(client)) {
-    		pWorker.add(workers.get(getBossIndex()));
-    		workers.remove(getBossIndex());
-    		pWorker.add(workers.get(getProgrammerIndex1()));
-    		workers.remove(getProgrammerIndex1());
-    		pWorker.add(workers.get(getProgrammerIndex2()));
-    		workers.remove(getProgrammerIndex2());
-    		if (planner && getPlannerIndex()!=-1) {
-    			pWorker.add(workers.get(getPlannerIndex()));
-    			workers.remove(getPlannerIndex());
-    		}
-    		if (designer && getDesignerIndex()!=-1) {
-    			pWorker.add(workers.get(getDesignerIndex()));
-    			workers.remove(getDesignerIndex());
-    		}
-    		if (tester && getTesterIndex()!=-1) {
-    			pWorker.add(workers.get(getTesterIndex()));
-    			workers.remove(getTesterIndex());
-    		}
-    		project.setWorkers(pWorker);
-    		project.setState("En proceso");
-    		aux = true;
-    		contract.setProject(project);
-    		contracts.add(contract);
-    	}
-    	return aux;
-    }
 
+	
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+/////////////////////////////////////////Metodos Referentes a los TRABAJADORES///////////////////////////////////////
+	private Worker searchWorker(Worker worker){
+	    Worker foundWorker=null;
+	    for(Worker wrk:workers){
+		if(worker==wrk){
+		    foundWorker=wrk;
+		}   
+	    }
+	    return foundWorker;
+	}
+	
+	public void addWorker(Worker worker){
+	    if(searchWorker(worker)==null){
+		workers.add(worker);
+	    }
+	}
+	
+
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////Metodos Referentes a los Proyectos y Contratos//////////////////////////////////////////////
+	private Contract searchContract(Contract contract){
+	    Contract foundContract=null;
+	    for(Contract crt:contracts){
+		if(contract==crt){
+		    foundContract=crt;
+		}   
+	    }
+	    return foundContract;
+	}
+	public void addContract(Contract contract){
+	    if(searchContract(contract)==null){
+		contracts.add(contract);
+	    }
+	}
+
+	//TODO terminar este metodo.
+	
+	public boolean createContract(Client client,Project project,double finalPrice){
+	    boolean contractCreated=false;
+		
+		
+		
+		
+		contractCreated=false;
+	    
+	    
+	    return contractCreated;
+	    
+	}
+	
+	public boolean workersAvailable(ProjectBoss boss,Programmer pr1,Programmer pr2){
+	    boolean workersAvailable=false;
+	    if(workers.get(workers.indexOf(boss)).isAvailable() && workers.get(workers.indexOf(pr1)).isAvailable() && workers.get(workers.indexOf(pr2)).isAvailable()){
+		workersAvailable=true;
+	    }
+	    return workersAvailable;
+	}
+	
+	//TODO comprobar este.
+	
+	public Project createProject(String name,String programmingType,String state,ProjectBoss boss, Planner planner, Designer designer,SoftwareTester tester, Programmer pr1,Programmer pr2){
+	   Project createdProject=null;
+	   ArrayList<Worker>projectWorkers=new ArrayList<>();
+	   if(workersAvailable(boss, pr1, pr2)){
+	       projectWorkers.add(boss);
+	       projectWorkers.add(pr1);
+	       projectWorkers.add(pr2);
+	       if(planner!=null){
+		       projectWorkers.add(planner);
+		   }
+		   if(designer!=null){
+		       projectWorkers.add(designer);
+		   }
+		   if(tester!=null){
+		       projectWorkers.add(tester);
+		   }
+		   
+		   createdProject=new Project(workers, name, programmingType, state);
+	    }
+	
+	    return createdProject;
+	}
+	
 }
+
