@@ -7,8 +7,9 @@ public class Admin {
 	private ArrayList<Contract> contracts  = new ArrayList<>();
 	private ArrayList<Worker> workers = new ArrayList<>();
 	public static int IDContractGenerator = 0;
+	private static Admin miAdmin;
 
-	public Admin() {
+	private Admin() {
 	    this.clients=new ArrayList<>();
 	    this.contracts=new ArrayList<>();
 	    this.workers=new ArrayList<>();
@@ -27,6 +28,11 @@ public class Admin {
 
 	public ArrayList<Worker> getWorkers() {
 		return workers;
+	}
+	public static Admin getAdmin() {
+		if (miAdmin==null)
+			miAdmin = new Admin();
+		return miAdmin;
 	}
 	
 ///////////////////////////////////////////////////////////////////////////	
@@ -167,6 +173,46 @@ public class Admin {
 	
 	    return createdProject;
 	}
-	
+	///////////////////////////////////Dar el premio al mas destacado///////////////////////////////////////////////////////////////////
+	private Worker findBestWorker() {
+		Worker aux = workers.get(0);
+		for (Worker i: workers) {
+			if (i.getAnualEvaluation().equals("Destacado"))
+				aux = i;
+		}
+		return aux;
+	}
+	public float givePrize() {
+		float aux = 0f;
+		for (Contract i: contracts) {
+			for (Worker j: i.getProject().getWorkers()) {
+				if (j==findBestWorker())
+					aux += i.getProject().getTotalPrice()*0.1f;
+			}
+		}
+		return aux;
+	}
+	////////////////////////////////////////Metodo para saber cuales projectos generaron perdidas////////////////////////////////////////
+	public boolean findProject(Project project) {
+		boolean aux = false;
+		for (Contract i: contracts) {
+			if (i.getProject()==project)
+				aux = true;
+		}
+		return aux;
+	}
+	public boolean winning(Project project) {
+		boolean aux = false;
+		if (findProject(project)) {
+			if (project.calculateBasePrice()<getProjectFinalPrice())
+				aux = true;
+		}
+		return aux;
+		
+	}
+	private float getProjectFinalPrice() {
+		// TODO if you find this, Bryan, complete this method
+		return 0;
+	}
 }
 

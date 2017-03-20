@@ -129,8 +129,7 @@ public abstract class Worker {
 		this.projectsQuant = projectsQuant;
 	}
 
-
-
+   
 
 	public float computeSalary(){
 		return salary = hourlyPayment * workedHours;
