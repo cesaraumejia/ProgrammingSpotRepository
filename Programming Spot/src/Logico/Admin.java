@@ -120,6 +120,13 @@ public class Admin {
 	    }
 	    return foundContract;
 	}
+	private boolean findContract(Contract contract) {
+		boolean aux = false;
+		for (Contract i: contracts)
+			if (i==contract)
+				aux = true;
+		return aux;
+	}
 	public void addContract(Contract contract){
 	    if(searchContract(contract)==null){
 		contracts.add(contract);
@@ -175,6 +182,7 @@ public class Admin {
 	}
 	///////////////////////////////////Dar el premio al mas destacado///////////////////////////////////////////////////////////////////
 	private Worker findBestWorker() {
+		setResponsibility();
 		Worker aux = workers.get(0);
 		for (Worker i: workers) {
 			if (i.getAnualEvaluation().equals("Destacado"))
@@ -193,26 +201,55 @@ public class Admin {
 		return aux;
 	}
 	////////////////////////////////////////Metodo para saber cuales projectos generaron perdidas////////////////////////////////////////
-	public boolean findProject(Project project) {
+	/*public boolean findProject(Project project) {
 		boolean aux = false;
 		for (Contract i: contracts) {
 			if (i.getProject()==project)
 				aux = true;
 		}
 		return aux;
-	}
-	public boolean winning(Project project) {
+	}*/
+	public boolean winning(Contract contract) {
 		boolean aux = false;
-		if (findProject(project)) {
-			if (project.calculateBasePrice()<getProjectFinalPrice())
+		if (findContract(contract)) {
+			if (contract.getProject().getTotalPrice()>getProjectFinalPrice(contract))
 				aux = true;
 		}
 		return aux;
 		
 	}
-	private float getProjectFinalPrice() {
-		// TODO if you find this, Bryan, complete this method
-		return 0;
+	private double getProjectFinalPrice(Contract contract) {
+		double aux = 0;
+		if (findContract(contract))
+			aux = contract.getFinalPrice();
+	     return aux;
 	}
+	///////////////////////////////////Determinacion de programadores cumplidores e incumplidores y el destacado////////////////////////////////
+	public void setResponsibility() {
+		int bestWorkerIndex = -1;
+		float bestWorkerAverage = 0f;
+		for (Worker i: workers) {
+			float counter =0;
+			float counter1 = 0;
+			for (Contract j: contracts)
+			{
+				if (j.getProject().getWorkers().contains(i)) {
+					counter1++;
+				    if (winning(j))
+			            counter++;
+				} 
+			}
+			if ((counter/counter1)*100 >= 70 && counter1!=0) {
+				i.setAnualEvaluation("Cumplidor");
+				if ((counter/counter1)*100 > bestWorkerAverage){
+					bestWorkerIndex = workers.indexOf(i);
+				}
+			}
+			else
+				i.setAnualEvaluation("Incumplidor");
+		}
+		workers.get(bestWorkerIndex).setAnualEvaluation("Destacado");
+	}
+	
 }
 
