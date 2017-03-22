@@ -4,25 +4,47 @@ import java.util.ArrayList;
 public class Client {
 	private int idNumber;
 	private String name;
-	private ArrayList<Project> projects = new ArrayList<>();
+	private ArrayList<Project> projects;
 	private String address;
 	
 	
 
 	public Client() {
-		// TODO Auto-generated constructor stub
+		this.projects=new ArrayList<>();
 	}
 
 
 
-	public Client(int idNumber, String name, ArrayList<Project> projects, String address) {
+	public Client(int idNumber, String name,String address) {
 		super();
 		this.idNumber = idNumber;
 		this.name = name;
-		this.projects = projects;
 		this.address = address;
+		this.projects=new ArrayList<>();
 	}
 
+	//TODO Deberian los clientes tener contratos o proyectos?
+	/*
+	private void searchProject(){
+	    Contract foundContract=null;
+	    for (Contract crt : projects) {
+		
+	    }
+	    
+	}*/
+	/*
+	public void assignContract(Contract contract){
+	    
+	}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	////////////////////////////Setters And Getters////////////////////////////
 
 
 	public int getIdNumber() {

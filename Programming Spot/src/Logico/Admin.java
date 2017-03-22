@@ -84,6 +84,15 @@ public class Admin {
 		clients.add(client);
 	    }
 	}
+	
+	//TODO terminar
+	
+	/*public void assignContract(Client client,Contract contract){
+	    if(searchClient(client)!=null){
+		
+		
+	    }
+	}*/
 
 	
 	
@@ -133,14 +142,11 @@ public class Admin {
 	    }
 	}
 
-	//TODO terminar este metodo.
+	//TODO terminar este metodo. En espera de saber si los clientes tendran proyectos o contratos.
 	
 	public boolean createContract(Client client,Project project,double finalPrice){
 	    boolean contractCreated=false;
-		
-		
-		
-		
+
 		contractCreated=false;
 	    
 	    
@@ -156,7 +162,6 @@ public class Admin {
 	    return workersAvailable;
 	}
 	
-	//TODO comprobar este.
 	
 	public Project createProject(String name,String programmingType,String state,ProjectBoss boss, Planner planner, Designer designer,SoftwareTester tester, Programmer pr1,Programmer pr2){
 	   Project createdProject=null;
@@ -175,7 +180,7 @@ public class Admin {
 		       projectWorkers.add(tester);
 		   }
 		   
-		   createdProject=new Project(workers, name, programmingType, state);
+		   createdProject=new Project(projectWorkers, name, programmingType, state);
 	    }
 	
 	    return createdProject;
