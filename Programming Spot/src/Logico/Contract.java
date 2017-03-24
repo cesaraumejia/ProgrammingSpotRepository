@@ -1,8 +1,8 @@
 package Logico;
 
 public class Contract {
-	private int initialDate;
-	private int finalDate;
+	private String initialDate;
+	private String finalDate;
 	private String contractID;
 	private Client client;
 	private Project project;
@@ -15,33 +15,33 @@ public class Contract {
 
 	
 
-	public Contract(int initialDate, int finalDate, String contractID, Client clientID, Project project,double finalPrice) {
+	public Contract(String initialDate, String finalDate, String contractID, Client client, Project project,double finalPrice) {
 		super();
 		this.initialDate = initialDate;
 		this.finalDate = finalDate;
 		this.contractID = contractID;
-		this.client = clientID;
+		this.client = client;
 		this.project = project;
 		this.finalPrice=finalPrice;
 	}
 
 
-	public int getInitialDate() {
+	public String getInitialDate() {
 		return initialDate;
 	}
 
 
-	public void setInitialDate(int initialDate) {
+	public void setInitialDate(String initialDate) {
 		this.initialDate = initialDate;
 	}
 
 
-	public int getFinalDate() {
+	public String getFinalDate() {
 		return finalDate;
 	}
 
 
-	public void setFinalDate(int finalDate) {
+	public void setFinalDate(String finalDate) {
 		this.finalDate = finalDate;
 	}
 

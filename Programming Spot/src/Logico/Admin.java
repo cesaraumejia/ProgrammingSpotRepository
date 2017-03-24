@@ -69,48 +69,20 @@ public class Admin {
 	}*/
 	
 //////////////////////////////////////Metodos Referentes a los CLIENTES///////////////////////////////////////
-	private Client searchClient(Client client) {
-		Client foundClient = null;
-		for (Client clt: clients) {
-		    if (clt == client){
-			foundClient = clt; 
-		    }
-		}
-		return foundClient;
-	}
-	
+
 	public void addClient(Client client){
-	    if(searchClient(client)==null){
+	    if(!clients.contains(client)){
 		clients.add(client);
 	    }
 	}
-	
-	//TODO terminar
-	
-	/*public void assignContract(Client client,Contract contract){
-	    if(searchClient(client)!=null){
 		
-		
-	    }
-	}*/
-
-	
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 /////////////////////////////////////////Metodos Referentes a los TRABAJADORES///////////////////////////////////////
-	private Worker searchWorker(Worker worker){
-	    Worker foundWorker=null;
-	    for(Worker wrk:workers){
-		if(worker==wrk){
-		    foundWorker=wrk;
-		}   
-	    }
-	    return foundWorker;
-	}
 	
 	public void addWorker(Worker worker){
-	    if(searchWorker(worker)==null){
+	    if(!workers.contains(worker)){
 		workers.add(worker);
 	    }
 	}
@@ -120,41 +92,28 @@ public class Admin {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////Metodos Referentes a los Proyectos y Contratos//////////////////////////////////////////////
-	private Contract searchContract(Contract contract){
-	    Contract foundContract=null;
-	    for(Contract crt:contracts){
-		if(contract==crt){
-		    foundContract=crt;
-		}   
-	    }
-	    return foundContract;
-	}
-	private boolean findContract(Contract contract) {
-		boolean aux = false;
-		for (Contract i: contracts)
-			if (i==contract)
-				aux = true;
-		return aux;
-	}
+
 	public void addContract(Contract contract){
-	    if(searchContract(contract)==null){
+	    if(!contracts.contains(contract)){
 		contracts.add(contract);
 	    }
 	}
 
-	//TODO terminar este metodo. En espera de saber si los clientes tendran proyectos o contratos.
 	
-	public boolean createContract(Client client,Project project,double finalPrice){
+	//TODO terminar este metodo.
+	
+	public boolean createContract(String initialDate, String finalDate,String contractID, Client client,Project project,double finalPrice){
 	    boolean contractCreated=false;
-
-		contractCreated=false;
-	    
-	    
+	    Contract myNewContract=new Contract(initialDate, finalDate, contractID, client, project, finalPrice);
+	    if(!client.getContracts().contains(myNewContract) && client.getActiveProjects()<5){
+		contracts.add(myNewContract);	  
+		this.clients.get(this.clients.indexOf(client)).getContracts().add(myNewContract);
+		contractCreated=true;
+	    }
 	    return contractCreated;
-	    
 	}
 	
-	public boolean workersAvailable(ProjectBoss boss,Programmer pr1,Programmer pr2){
+	private boolean workersAvailable(ProjectBoss boss,Programmer pr1,Programmer pr2){
 	    boolean workersAvailable=false;
 	    if(workers.get(workers.indexOf(boss)).isAvailable() && workers.get(workers.indexOf(pr1)).isAvailable() && workers.get(workers.indexOf(pr2)).isAvailable()){
 		workersAvailable=true;
@@ -179,12 +138,12 @@ public class Admin {
 		   if(tester!=null){
 		       projectWorkers.add(tester);
 		   }
-		   
 		   createdProject=new Project(projectWorkers, name, programmingType, state);
 	    }
 	
 	    return createdProject;
 	}
+	
 	///////////////////////////////////Dar el premio al mas destacado///////////////////////////////////////////////////////////////////
 	private Worker findBestWorker() {
 		setResponsibility();
@@ -216,7 +175,7 @@ public class Admin {
 	}*/
 	public boolean winning(Contract contract) {
 		boolean aux = false;
-		if (findContract(contract)) {
+		if (contracts.contains(contract)) {
 			if (contract.getProject().getTotalPrice()>getProjectFinalPrice(contract))
 				aux = true;
 		}
@@ -225,7 +184,7 @@ public class Admin {
 	}
 	private double getProjectFinalPrice(Contract contract) {
 		double aux = 0;
-		if (findContract(contract))
+		if (contracts.contains(contract))
 			aux = contract.getFinalPrice();
 	     return aux;
 	}
