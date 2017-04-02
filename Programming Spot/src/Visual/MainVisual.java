@@ -25,24 +25,50 @@ public class MainVisual extends JFrame {
 	private JPanel menuPanel;
 	private JPanel extendedPanel;
 	private JPanel topPanel;
+	
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_5;
-	private JLabel lblNewLabel_6;
-    private int x;
-    private int y;
-    private static MainVisual frame;
-    private JLabel label;
-    private JLabel label_1;
-    private JLabel label_2;
-    private JLabel label_3;
-    private JLabel lblClients;
-    private JLabel lblContracts;
-    private JLabel lblWorkers;
-    private JPanel windowsContentPanel;
-    private Dimension dim;
-    private JLabel lblMinimize;
-    private JLabel lblClose;
+	private JLabel lblIcon1;
+	private JLabel lblIcon2;
+	private JLabel lblIcon3;
+	
+	private int x;
+        private int y;
+        
+        private static MainVisual frame;
+        
+        private JLabel lblWorkerMainIcon;
+        private JLabel lblContractsMainIcon;
+        private JLabel lblClientMainIcon;
+        private JLabel lblBackMain;
+        private JLabel lblClientMain;
+        private JLabel lblContractMain;
+        private JLabel lblWorkerMain;
+        private JPanel windowsContentPanel;
+        
+        private Dimension dim;
+        
+        private JLabel lblMinimize;
+        private JLabel lblClose;
+        private JPanel clientsPanel;
+        private JLabel lblListClientsIcon;
+        private JLabel lblRegisterCLientsIcon;
+        private JLabel lblClientsIcon;
+        private JLabel lblBackClientIcon;
+        private JLabel lblClientsMenu;
+        private JLabel lblClientRegister;
+        private JLabel lblClientList;
+        private JLabel menuIcon;
+        
+        private ImageIcon backTransitionIcon= new ImageIcon("src/icons/backTransition.png");
+        private ImageIcon backIcon = new ImageIcon("src/icons/back.png");
+        private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
+        private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
+        private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+        private ImageIcon listClientIcon = new ImageIcon("src/icons/listClient.png");
+        private ImageIcon registerClienticon= new ImageIcon("src/icons/registerClient.png");
+        private ImageIcon menuImageIcon = new ImageIcon("src/icons/nemu.png");
+        private ImageIcon menuTransitionIcon = new ImageIcon("src/icons/menuTransition.png");
+        private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
 
 
 	/**
@@ -80,7 +106,7 @@ public class MainVisual extends JFrame {
 		this.setResizable(false);
 		setLocationRelativeTo(null);
 		
-		
+
 		
 		menuPanel = new JPanel();
 		menuPanel.setBounds(0, 34, 34, 966);
@@ -88,29 +114,41 @@ public class MainVisual extends JFrame {
 		menuPanel.setBackground(new Color(128, 128, 128));
 		menuPanel.setLayout(null);
 		
-		JLabel menuIcon = new JLabel("New label");
-		menuIcon.setIcon(new ImageIcon("src/icons/nemu.png"));
+		menuIcon = new JLabel("New label");
+		menuIcon.setIcon(menuImageIcon);
 		menuIcon.setBounds(3, 0, 24, 37);
 		menuPanel.add(menuIcon);
 		
-		lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setIcon(new ImageIcon("src/icons/client.png"));
-		lblNewLabel_4.setBounds(3, 35, 24, 37);
-		menuPanel.add(lblNewLabel_4);
+		lblIcon1 = new JLabel("New label");
+		lblIcon1.setIcon(clientIcon);
+		lblIcon1.setBounds(3, 35, 24, 37);
+		menuPanel.add(lblIcon1);
 		
-		lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setIcon(new ImageIcon("src/icons/desc.png"));
-		lblNewLabel_5.setBounds(3, 82, 24, 37);
-		menuPanel.add(lblNewLabel_5);
+		lblIcon2 = new JLabel("New label");
+		lblIcon2.setIcon(contractIcon);
+		lblIcon2.setBounds(3, 82, 24, 37);
+		menuPanel.add(lblIcon2);
 		
-		lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setIcon(new ImageIcon("src/icons/worker.png"));
-		lblNewLabel_6.setBounds(3, 130, 24, 37);
-		menuPanel.add(lblNewLabel_6);
+		lblIcon3 = new JLabel("New label");
+		lblIcon3.setIcon(workerIcon);
+		lblIcon3.setBounds(3, 130, 24, 37);
+		menuPanel.add(lblIcon3);
+		
 		menuIcon.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				menuPanel.setVisible(false);
+				
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				menuIcon.setIcon(menuTransitionIcon);
+
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			    	menuPanel.setVisible(false);
 				extendedPanel.setVisible(true);
+				menuIcon.setIcon(menuImageIcon);
+
 			}
 		});
 		
@@ -120,74 +158,166 @@ public class MainVisual extends JFrame {
 		extendedPanel.setBackground(new Color(128, 128, 128));
 		extendedPanel.setLayout(null);
 		
-		label = new JLabel("New label");
-		label.setIcon(new ImageIcon("src/icons/worker.png"));
-		label.setBounds(3, 130, 24, 37);
-		extendedPanel.add(label);
+		lblWorkerMainIcon = new JLabel("New label");
+		lblWorkerMainIcon.setIcon(workerIcon);
+		lblWorkerMainIcon.setBounds(3, 130, 24, 37);
+		extendedPanel.add(lblWorkerMainIcon);
 		
-		label_1 = new JLabel("New label");
-		label_1.setIcon(new ImageIcon("src/icons/desc.png"));
-		label_1.setBounds(3, 82, 24, 37);
-		extendedPanel.add(label_1);
+		lblContractsMainIcon = new JLabel("New label");
+		lblContractsMainIcon.setIcon(contractIcon);
+		lblContractsMainIcon.setBounds(3, 82, 24, 37);
+		extendedPanel.add(lblContractsMainIcon);
 		
-		label_2 = new JLabel("New label");
-		label_2.setIcon(new ImageIcon("src/icons/client.png"));
-		label_2.setBounds(3, 35, 24, 37);
-		extendedPanel.add(label_2);
+		lblClientMainIcon = new JLabel("New label");
+		lblClientMainIcon.setIcon(clientIcon);
+		lblClientMainIcon.setBounds(3, 35, 24, 37);
+		extendedPanel.add(lblClientMainIcon);
 		
-		label_3 = new JLabel("New label");
-		label_3.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				extendedPanel.setVisible(false);
+		lblBackMain = new JLabel("New label");
+		lblBackMain.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblBackMain.setIcon(backTransitionIcon);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			    	extendedPanel.setVisible(false);
 				menuPanel.setVisible(true);
-			}
-		});
-		label_3.setIcon(new ImageIcon("src/icons/back.png"));
-		label_3.setBounds(3, 0, 24, 37);
-		extendedPanel.add(label_3);
-		
-		lblClients = new JLabel("Clientes");
-		lblClients.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				lblClients.setForeground(new Color(240, 240, 240));
-			}
-			public void mouseReleased(MouseEvent e) {
-				lblClients.setForeground(new Color(0, 0, 0));
-			}
-		});
-		lblClients.setForeground(new Color(0, 0, 0));
+				lblBackMain.setIcon(backIcon);
 
-		lblClients.setBackground(new Color(192, 192, 192));		
-		lblClients.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblClients.setBounds(58, 35, 143, 37);
-		extendedPanel.add(lblClients);
-		
-		lblContracts = new JLabel("Contratos");
-		lblContracts.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				lblContracts.setForeground(new Color(240, 240, 240));
-			}
-			public void mouseReleased(MouseEvent e) {
-				lblContracts.setForeground(new Color(0, 0, 0));
+
 			}
 		});
-		lblContracts.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblContracts.setBounds(58, 80, 143, 37);
-		extendedPanel.add(lblContracts);
+		lblBackMain.setIcon(backIcon);
+		lblBackMain.setBounds(3, 0, 24, 37);
+		extendedPanel.add(lblBackMain);
 		
-		lblWorkers = new JLabel("Empleados");
-		lblWorkers.addMouseListener(new MouseAdapter() {
+		lblClientMain = new JLabel("Clientes");
+		lblClientMain.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				lblWorkers.setForeground(new Color(240, 240, 240));
+				lblClientMain.setForeground(new Color(240, 240, 240));
 			}
 			public void mouseReleased(MouseEvent e) {
-				lblWorkers.setForeground(new Color(0, 0, 0));
+				lblClientMain.setForeground(new Color(0, 0, 0));
+				extendedPanel.setVisible(false);
+				clientsPanel.setVisible(true);
 			}
 		});
-		lblWorkers.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblWorkers.setBounds(58, 130, 143, 37);
-		extendedPanel.add(lblWorkers);
-		extendedPanel.setVisible(false);
+		lblClientMain.setForeground(new Color(0, 0, 0));
+		
+				lblClientMain.setBackground(new Color(192, 192, 192));		
+				lblClientMain.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+				lblClientMain.setBounds(58, 35, 143, 37);
+				extendedPanel.add(lblClientMain);
+				
+				lblContractMain = new JLabel("Contratos");
+				lblContractMain.addMouseListener(new MouseAdapter() {
+					public void mousePressed(MouseEvent e) {
+						lblContractMain.setForeground(new Color(240, 240, 240));
+					}
+					public void mouseReleased(MouseEvent e) {
+						lblContractMain.setForeground(new Color(0, 0, 0));
+					}
+				});
+				lblContractMain.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+				lblContractMain.setBounds(58, 80, 143, 37);
+				extendedPanel.add(lblContractMain);
+				
+				lblWorkerMain = new JLabel("Empleados");
+				lblWorkerMain.addMouseListener(new MouseAdapter() {
+					public void mousePressed(MouseEvent e) {
+						lblWorkerMain.setForeground(new Color(240, 240, 240));
+					}
+					public void mouseReleased(MouseEvent e) {
+						lblWorkerMain.setForeground(new Color(0, 0, 0));
+					}
+				});
+				lblWorkerMain.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+				lblWorkerMain.setBounds(58, 130, 143, 37);
+				extendedPanel.add(lblWorkerMain);
+				extendedPanel.setVisible(false);
+		
+		clientsPanel = new JPanel();
+		clientsPanel.setBounds(0, 34, 233, 966);
+		contentPane.add(clientsPanel);
+		clientsPanel.setBackground(new Color(128, 128, 128));
+		clientsPanel.setLayout(null);
+		clientsPanel.setVisible(false);
+		
+		lblListClientsIcon = new JLabel("");
+		lblListClientsIcon.setBounds(3, 130, 24, 37);
+		clientsPanel.add(lblListClientsIcon);
+		lblListClientsIcon.setIcon(listClientIcon);
+
+		
+		lblRegisterCLientsIcon = new JLabel("");
+		lblRegisterCLientsIcon.setBounds(3, 82, 24, 37);
+		clientsPanel.add(lblRegisterCLientsIcon);
+		lblRegisterCLientsIcon.setIcon(registerClienticon);
+
+		
+		
+		lblClientsIcon = new JLabel("");
+		lblClientsIcon.setBounds(3, 35, 24, 37);
+		clientsPanel.add(lblClientsIcon);
+		lblClientsIcon.setIcon(clientIcon);
+
+		
+		lblBackClientIcon = new JLabel("");
+		lblBackClientIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			    lblBackClientIcon.setIcon(backTransitionIcon);
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			    clientsPanel.setVisible(false);
+			    extendedPanel.setVisible(true);
+			    lblBackClientIcon.setIcon(backIcon);
+
+			}
+		});
+		lblBackClientIcon.setBounds(3, 0, 24, 37);
+		clientsPanel.add(lblBackClientIcon);
+		lblBackClientIcon.setIcon(backIcon);
+
+		
+		lblClientsMenu = new JLabel("Clientes");
+		lblClientsMenu.setForeground(Color.BLACK);
+		lblClientsMenu.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblClientsMenu.setBackground(Color.LIGHT_GRAY);
+		lblClientsMenu.setBounds(58, 35, 143, 37);
+		clientsPanel.add(lblClientsMenu);
+		
+		
+		lblClientRegister = new JLabel("Registrar");
+		lblClientRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			    lblClientRegister.setForeground(new Color(240, 240, 240));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			    lblIcon1.setIcon(clientIcon);
+			    lblIcon2.setIcon(registerClienticon);
+			    lblIcon3.setIcon(listClientIcon);
+			    lblClientRegister.setForeground(new Color(0, 0, 0));
+
+			    menuPanel.setVisible(true);
+			    clientsPanel.setVisible(false);
+			    RegisterClient registerClient=new RegisterClient();
+			    registerClient.setVisible(true);
+			  
+			}
+		});
+		lblClientRegister.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblClientRegister.setBounds(58, 80, 143, 37);
+		clientsPanel.add(lblClientRegister);
+		
+		lblClientList = new JLabel("Listar");
+		lblClientList.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblClientList.setBounds(58, 130, 143, 37);
+		clientsPanel.add(lblClientList);
 		
 		topPanel = new JPanel();
 		topPanel.addMouseMotionListener(new MouseMotionAdapter() {
@@ -222,7 +352,7 @@ public class MainVisual extends JFrame {
 				System.exit(0);
 			}
 		});
-		lblClose.setIcon(new ImageIcon("src/icons/close.png"));
+		lblClose.setIcon(windowsCloseIcon);
 		lblClose.setBounds((int)dim.width-40, 0, 29, 34);
 		topPanel.add(lblClose);
 		
@@ -238,5 +368,41 @@ public class MainVisual extends JFrame {
 		@SuppressWarnings("unused")
 		ImageIcon image = new ImageIcon("src/icons/code.png");
 		
+		
+		
 	}
+
+
+	///////////////////Getters And Setters//////////////////
+	public static MainVisual getInstance(){
+	    return frame;
+	}
+	
+	public JPanel getMenuPanel() {
+	    return menuPanel;
+	}
+
+	public JPanel getClientsPanel() {
+	    return clientsPanel;
+	}
+
+	public JPanel getExtendedPanel() {
+	    return extendedPanel;
+	}
+
+	public JLabel getLblIcon1() {
+	    return lblIcon1;
+	}
+
+	public JLabel getLblIcon2() {
+	    return lblIcon2;
+	}
+
+	public JLabel getLblIcon3() {
+	    return lblIcon3;
+	}
+	
+	
+	
+	
 }
