@@ -1,33 +1,26 @@
 package Visual;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Frame;
-import java.awt.Image;
+import java.awt.Font;
 import java.awt.MouseInfo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.Color;
+public class MainVisual extends JFrame {
 
-import javax.swing.UIManager;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JLabel;
-
-
-import java.awt.Font;
-import java.awt.event.MouseMotionAdapter;
-import javax.swing.JSeparator;
-
-public class Principal extends JFrame {
-
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel menuPanel;
 	private JPanel extendedPanel;
@@ -38,7 +31,7 @@ public class Principal extends JFrame {
 	private JLabel lblNewLabel_6;
     private int x;
     private int y;
-    private static Principal frame;
+    private static MainVisual frame;
     private JLabel label;
     private JLabel label_1;
     private JLabel label_2;
@@ -46,6 +39,11 @@ public class Principal extends JFrame {
     private JLabel lblClients;
     private JLabel lblContracts;
     private JLabel lblWorkers;
+    private JPanel windowsContentPanel;
+    private Dimension dim;
+    private JLabel lblMinimize;
+    private JLabel lblClose;
+
 
 	/**
 	 * Launch the application.
@@ -54,7 +52,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new Principal();
+					frame = new MainVisual();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,10 +64,10 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Principal() {
+	public MainVisual() {
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 773, 475);
+		setBounds(100, 100, 1249, 710);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(153, 153, 153));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,11 +75,15 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		dim = super.getToolkit().getScreenSize(); 
+		super.setSize((dim.width-10),(dim.height-80));
+		this.setResizable(false);
+		setLocationRelativeTo(null);
 		
 		
 		
 		menuPanel = new JPanel();
-		menuPanel.setBounds(0, 34, 34, 441);
+		menuPanel.setBounds(0, 34, 34, 966);
 		contentPane.add(menuPanel);
 		menuPanel.setBackground(new Color(128, 128, 128));
 		menuPanel.setLayout(null);
@@ -113,7 +115,7 @@ public class Principal extends JFrame {
 		});
 		
 		extendedPanel = new JPanel();
-		extendedPanel.setBounds(0, 34, 211, 441);
+		extendedPanel.setBounds(0, 34, 233, 966);
 		contentPane.add(extendedPanel);
 		extendedPanel.setBackground(new Color(128, 128, 128));
 		extendedPanel.setLayout(null);
@@ -200,34 +202,40 @@ public class Principal extends JFrame {
 		        y = e.getY();
 			}
 		});
-		topPanel.setBounds(0, 0, 773, 34);
+		topPanel.setBounds(0, 0, 1910, 34);
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+		lblMinimize = new JLabel("New label");
+		lblMinimize.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(java.awt.event.MouseEvent e) {
 				frame.setExtendedState(ICONIFIED);
 			}
 		});
-		lblNewLabel_1.setIcon(new ImageIcon("src/icons/minimize.png"));
-		lblNewLabel_1.setBounds(705, 0, 29, 34);
-		topPanel.add(lblNewLabel_1);
+		lblMinimize.setIcon(new ImageIcon("src/icons/minimize.png"));
+		lblMinimize.setBounds((int)dim.width-80, 0, 29, 34);
+		topPanel.add(lblMinimize);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.addMouseListener(new MouseAdapter() {
+		lblClose = new JLabel("New label");
+		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				System.exit(0);
 			}
 		});
-		lblNewLabel_2.setIcon(new ImageIcon("src/icons/close.png"));
-		lblNewLabel_2.setBounds(744, 0, 29, 34);
-		topPanel.add(lblNewLabel_2);
+		lblClose.setIcon(new ImageIcon("src/icons/close.png"));
+		lblClose.setBounds((int)dim.width-40, 0, 29, 34);
+		topPanel.add(lblClose);
 		
 		lblNewLabel = new JLabel("Programming Spot");
 		lblNewLabel.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-		lblNewLabel.setBounds(10, 2, 263, 24);
+		lblNewLabel.setBounds(12, 2, 261, 32);
 		topPanel.add(lblNewLabel);
+		
+		windowsContentPanel = new JPanel();
+		windowsContentPanel.setBounds(233, 34, 1677, 966);
+		windowsContentPanel.setBackground(new Color(153, 153, 153));	
+		contentPane.add(windowsContentPanel);
+		@SuppressWarnings("unused")
 		ImageIcon image = new ImageIcon("src/icons/code.png");
 		
 	}
