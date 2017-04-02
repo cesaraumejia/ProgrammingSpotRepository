@@ -29,7 +29,7 @@ public class Admin {
 	public ArrayList<Worker> getWorkers() {
 		return workers;
 	}
-	public static Admin getAdmin() {
+	public static Admin getInstance() {
 		if (miAdmin==null)
 			miAdmin = new Admin();
 		return miAdmin;

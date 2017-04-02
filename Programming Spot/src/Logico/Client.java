@@ -2,8 +2,11 @@ package Logico;
 import java.util.ArrayList;
 
 public class Client {
-	private int idNumber;
+	private String idNumber;
 	private String name;
+	private String lastName;
+	private String phone;
+	private String email;
 	private ArrayList<Contract> contracts;
 	private String address;
 	private int activeProjects;
@@ -15,15 +18,18 @@ public class Client {
 
 
 
-	public Client(int idNumber, String name,String address) {
+	public Client(String idNumber, String name,String address,String lastName,String email, String phone) {
 		super();
 		this.idNumber = idNumber;
 		this.name = name;
 		this.address = address;
 		this.contracts=new ArrayList<>();
+		this.lastName=lastName;
+		this.email=email;
+		this.phone = phone;
+	
 	}
 
-	//TODO Deberian los clientes tener contratos o proyectos?
 	
 
 	
@@ -36,14 +42,27 @@ public class Client {
 	////////////////////////////Setters And Getters////////////////////////////
 
 
-	public int getIdNumber() {
+	public String getIdNumber() {
 		return idNumber;
 	}
 
 
 
-	public void setIdNumber(int idNumber) {
+	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
+	}
+
+	
+
+
+	public String getPhone() {
+	    return phone;
+	}
+
+
+
+	public void setPhone(String phone) {
+	    this.phone = phone;
 	}
 
 
@@ -86,6 +105,32 @@ public class Client {
 	public void setActiveProjects(int activeProjects) {
 	    this.activeProjects = activeProjects;
 	}
+
+
+
+	public String getLastName() {
+	    return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+	    this.lastName = lastName;
+	}
+
+
+
+	public String getEmail() {
+	    return email;
+	}
+
+
+
+	public void setEmail(String email) {
+	    this.email = email;
+	}
+	
+	
 	
 
 	

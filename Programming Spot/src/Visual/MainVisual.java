@@ -365,6 +365,7 @@ public class MainVisual extends JFrame {
 		windowsContentPanel.setBounds(233, 34, 1677, 966);
 		windowsContentPanel.setBackground(new Color(153, 153, 153));	
 		contentPane.add(windowsContentPanel);
+		windowsContentPanel.setLayout(null);
 		@SuppressWarnings("unused")
 		ImageIcon image = new ImageIcon("src/icons/code.png");
 		
@@ -401,6 +402,12 @@ public class MainVisual extends JFrame {
 	public JLabel getLblIcon3() {
 	    return lblIcon3;
 	}
+
+	public JPanel getWindowsContentPanel() {
+	    return windowsContentPanel;
+	}
+	
+	
 	
 	
 	
