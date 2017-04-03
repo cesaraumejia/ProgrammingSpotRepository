@@ -75,6 +75,17 @@ public class Admin {
 		clients.add(client);
 	    }
 	}
+	
+	public Client searchClientByID(String id) {
+	    Client foundClient = null;
+	    for (Client ct : clients) {
+		if(ct.getIdNumber().equalsIgnoreCase(id)){
+		    foundClient=ct;
+		    break;
+		}
+	    }
+	    return foundClient;
+	}
 		
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +133,7 @@ public class Admin {
 	}
 	
 	
-	public Project createProject(String name,String programmingType,String state,ProjectBoss boss, Planner planner, Designer designer,SoftwareTester tester, Programmer pr1,Programmer pr2){
+	public Project createProject(String name,String programmingType,String programmingLanguage,String state,ProjectBoss boss, Planner planner, Designer designer,SoftwareTester tester, Programmer pr1,Programmer pr2){
 	   Project createdProject=null;
 	   ArrayList<Worker>projectWorkers=new ArrayList<>();
 	   if(workersAvailable(boss, pr1, pr2)){
@@ -138,7 +149,7 @@ public class Admin {
 		   if(tester!=null){
 		       projectWorkers.add(tester);
 		   }
-		   createdProject=new Project(projectWorkers, name, programmingType, state);
+		   createdProject=new Project(projectWorkers, name, programmingType,programmingLanguage, state);
 	    }
 	
 	    return createdProject;
@@ -214,6 +225,7 @@ public class Admin {
 		}
 		workers.get(bestWorkerIndex).setAnualEvaluation("Destacado");
 	}
+	
 	
 }
 

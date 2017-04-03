@@ -112,6 +112,105 @@ public class MainVisual extends JFrame {
 		workersPanel.setBackground(new Color(128,128,128));
 		workersPanel.setBounds(0, 34, 233, 966);
 		workersPanel.setVisible(false);
+		
+		clientsPanel = new JPanel();
+		clientsPanel.setBounds(0, 34, 233, 966);
+		contentPane.add(clientsPanel);
+		clientsPanel.setBackground(new Color(128, 128, 128));
+		clientsPanel.setLayout(null);
+		clientsPanel.setVisible(false);
+		
+		lblListClientsIcon = new JLabel("");
+		lblListClientsIcon.setBounds(3, 130, 24, 37);
+		clientsPanel.add(lblListClientsIcon);
+		lblListClientsIcon.setIcon(listClientIcon);
+		
+				
+		lblRegisterCLientsIcon = new JLabel("");
+		lblRegisterCLientsIcon.setBounds(3, 82, 24, 37);
+		clientsPanel.add(lblRegisterCLientsIcon);
+		lblRegisterCLientsIcon.setIcon(registerClienticon);
+
+
+
+		lblClientsIcon = new JLabel("");
+		lblClientsIcon.setBounds(3, 35, 24, 37);
+		clientsPanel.add(lblClientsIcon);
+		lblClientsIcon.setIcon(clientIcon);
+
+
+		lblBackClientIcon = new JLabel("");
+		lblBackClientIcon.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+			lblBackClientIcon.setIcon(backTransitionIcon);
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+			clientsPanel.setVisible(false);
+			extendedPanel.setVisible(true);
+			lblBackClientIcon.setIcon(backIcon);
+
+		    }
+		});
+		lblBackClientIcon.setBounds(3, 0, 24, 37);
+		clientsPanel.add(lblBackClientIcon);
+		lblBackClientIcon.setIcon(backIcon);
+
+
+		lblClientsMenu = new JLabel("Clientes");
+		lblClientsMenu.setForeground(Color.BLACK);
+		lblClientsMenu.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblClientsMenu.setBackground(Color.LIGHT_GRAY);
+		lblClientsMenu.setBounds(58, 35, 143, 37);
+		clientsPanel.add(lblClientsMenu);
+
+
+		lblClientRegister = new JLabel("Registrar");
+		lblClientRegister.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+			lblClientRegister.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+			lblIcon1.setIcon(clientIcon);
+			lblIcon2.setIcon(registerClienticon);
+			lblIcon3.setIcon(listClientIcon);
+			menuPanel.setVisible(true);
+			clientsPanel.setVisible(false);
+			lblClientRegister.setForeground(new Color(0, 0, 0));
+			RegisterClient registerClient=new RegisterClient();
+			registerClient.setVisible(true);
+
+		    }
+		});
+		lblClientRegister.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblClientRegister.setBounds(58, 80, 143, 37);
+		clientsPanel.add(lblClientRegister);
+
+		lblClientList = new JLabel("Listar");
+		lblClientList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+			    lblClientList.setForeground(new Color(240, 240, 240));
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			    	lblIcon1.setIcon(clientIcon);
+				lblIcon2.setIcon(registerClienticon);
+				lblIcon3.setIcon(listClientIcon);
+				menuPanel.setVisible(true);
+				clientsPanel.setVisible(false);
+				lblClientList.setForeground(new Color(0, 0, 0));
+				ListClient listClient =new ListClient();
+				listClient.setVisible(true);
+			}
+		});
+		lblClientList.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblClientList.setBounds(58, 130, 143, 37);
+		clientsPanel.add(lblClientList);
 		contentPane.add(workersPanel);
 		workersPanel.setLayout(null);
 		
@@ -259,8 +358,6 @@ public class MainVisual extends JFrame {
 			    	extendedPanel.setVisible(false);
 				menuPanel.setVisible(true);
 				lblBackMain.setIcon(backIcon);
-
-
 			}
 		});
 		lblBackMain.setIcon(backIcon);
@@ -313,87 +410,6 @@ public class MainVisual extends JFrame {
 				lblWorkerMain.setBounds(58, 130, 143, 37);
 				extendedPanel.add(lblWorkerMain);
 				extendedPanel.setVisible(false);
-		
-		clientsPanel = new JPanel();
-		clientsPanel.setBounds(0, 34, 233, 966);
-		contentPane.add(clientsPanel);
-		clientsPanel.setBackground(new Color(128, 128, 128));
-		clientsPanel.setLayout(null);
-		clientsPanel.setVisible(false);
-		
-		lblListClientsIcon = new JLabel("");
-		lblListClientsIcon.setBounds(3, 130, 24, 37);
-		clientsPanel.add(lblListClientsIcon);
-		lblListClientsIcon.setIcon(listClientIcon);
-
-		
-		lblRegisterCLientsIcon = new JLabel("");
-		lblRegisterCLientsIcon.setBounds(3, 82, 24, 37);
-		clientsPanel.add(lblRegisterCLientsIcon);
-		lblRegisterCLientsIcon.setIcon(registerClienticon);
-
-		
-		
-		lblClientsIcon = new JLabel("");
-		lblClientsIcon.setBounds(3, 35, 24, 37);
-		clientsPanel.add(lblClientsIcon);
-		lblClientsIcon.setIcon(clientIcon);
-
-		
-		lblBackClientIcon = new JLabel("");
-		lblBackClientIcon.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-			    lblBackClientIcon.setIcon(backTransitionIcon);
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			    clientsPanel.setVisible(false);
-			    extendedPanel.setVisible(true);
-			    lblBackClientIcon.setIcon(backIcon);
-
-			}
-		});
-		lblBackClientIcon.setBounds(3, 0, 24, 37);
-		clientsPanel.add(lblBackClientIcon);
-		lblBackClientIcon.setIcon(backIcon);
-
-		
-		lblClientsMenu = new JLabel("Clientes");
-		lblClientsMenu.setForeground(Color.BLACK);
-		lblClientsMenu.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblClientsMenu.setBackground(Color.LIGHT_GRAY);
-		lblClientsMenu.setBounds(58, 35, 143, 37);
-		clientsPanel.add(lblClientsMenu);
-		
-		
-		lblClientRegister = new JLabel("Registrar");
-		lblClientRegister.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-			    lblClientRegister.setForeground(new Color(240, 240, 240));
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			    lblIcon1.setIcon(clientIcon);
-			    lblIcon2.setIcon(registerClienticon);
-			    lblIcon3.setIcon(listClientIcon);
-			    menuPanel.setVisible(true);
-			    clientsPanel.setVisible(false);
-			    lblClientRegister.setForeground(new Color(0, 0, 0));
-			    RegisterClient registerClient=new RegisterClient();
-			    registerClient.setVisible(true);
-			  
-			}
-		});
-		lblClientRegister.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblClientRegister.setBounds(58, 80, 143, 37);
-		clientsPanel.add(lblClientRegister);
-		
-		lblClientList = new JLabel("Listar");
-		lblClientList.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblClientList.setBounds(58, 130, 143, 37);
-		clientsPanel.add(lblClientList);
 		
 		topPanel = new JPanel();
 		topPanel.addMouseMotionListener(new MouseMotionAdapter() {

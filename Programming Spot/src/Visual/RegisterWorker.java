@@ -3,20 +3,29 @@ package Visual;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.border.LineBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -28,16 +37,6 @@ import Logico.ProjectBoss;
 import Logico.SoftwareTester;
 import Logico.Worker;
 
-import javax.swing.JFormattedTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
 
 public class RegisterWorker extends JDialog {
@@ -525,7 +524,6 @@ public class RegisterWorker extends JDialog {
 					    }
 					    	
 					}
-
 				
 				});
 				registrarButton.setBackground(Color.LIGHT_GRAY);

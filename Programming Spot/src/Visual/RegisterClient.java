@@ -86,7 +86,7 @@ public class RegisterClient extends JDialog {
 			    String email= tfdEmailFirst.getText() + "@" + tfdEmailSecond.getText();
 			    String phone=formatedPhone.getText();
 			    String address = cbxProvince.getSelectedItem().toString() + " " + tfdLocation.getText() + " " + tfdStreet.getText() + " " + tfdNumber.getText();
-			    if(idNumber.equalsIgnoreCase("")){
+			    if(idNumber.equalsIgnoreCase("___-_______-_")){
 				JOptionPane.showMessageDialog(null, "Asegurese de introducir una cédula", "No se ha encontrado Cédula", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(name.equalsIgnoreCase("")){
 				JOptionPane.showMessageDialog(null, "Recuerde introducir un nombre", "No se ha encontrado un nombre", JOptionPane.WARNING_MESSAGE, null);
@@ -94,7 +94,7 @@ public class RegisterClient extends JDialog {
 				JOptionPane.showMessageDialog(null, "Recuerde introducir un apellido", "No se ha encontrado un apellido", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(tfdEmailFirst.getText().equalsIgnoreCase("") || tfdEmailSecond.getText().equalsIgnoreCase("")){
 				JOptionPane.showMessageDialog(null, "Asegurese de que el email esté escrito correctamente", "No se ha encontrado un email correcto", JOptionPane.WARNING_MESSAGE, null);
-			    }else if(phone.equalsIgnoreCase("")){
+			    }else if(phone.equalsIgnoreCase("___-___-____")){
 				JOptionPane.showMessageDialog(null, "Recuerde introducir un teléfono", "No se ha encontrado un teléfono", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(cbxProvince.getSelectedIndex()<1){
 				JOptionPane.showMessageDialog(null, "Asegurese de seleccionar una provincia", "Provincia no válida", JOptionPane.WARNING_MESSAGE, null);
@@ -213,7 +213,10 @@ public class RegisterClient extends JDialog {
 		
 		try {
 		    phoneFormatter = new MaskFormatter("###-###-####");
+		    phoneFormatter.setPlaceholderCharacter('_');
+		    
 		    idFormatter = new MaskFormatter("###-#######-#");
+		    idFormatter.setPlaceholderCharacter('_');
 		} catch (ParseException e1) {
 		    // TODO Auto-generated catch block
 		    e1.printStackTrace();
