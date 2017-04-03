@@ -1,12 +1,12 @@
 package Logico;
 
 public abstract class Worker {
-	protected int idNumber;
+	protected String idNumber;
 	protected String firstName;
 	protected String lastName;
 	protected String address;
 	protected String sex;
-	protected int age;
+	protected String birthday;
 	protected float salary;
 	protected String projetName;
 	protected String anualEvaluation;
@@ -14,33 +14,35 @@ public abstract class Worker {
 	protected int workedHours;
 	protected int projectsQuant;
 	protected boolean available;
+	protected String telefono;
 
 	public Worker() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Worker(int idNumber, String firstName, String lastName, String address, String sex, int age,
-			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant) {
+	public Worker(String idNumber, String firstName, String lastName, String address, String sex, String birthday,
+			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, String telefono) {
 		super();
 		this.idNumber = idNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.sex = sex;
-		this.age = age;
+		this.birthday = birthday;
 		this.projetName = projetName;
 		this.anualEvaluation = anualEvaluation;
 		this.hourlyPayment = hourlyPayment;
 		this.workedHours = workedHours;
 		this.projectsQuant = projectsQuant;
 		this.available=true;
+		this.telefono = telefono;
 	}
 
-	public int getIdNumber() {
+	public String getIdNumber() {
 		return idNumber;
 	}
 
-	public void setIdNumber(int idNumber) {
+	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
 
@@ -76,12 +78,13 @@ public abstract class Worker {
 		this.sex = sex;
 	}
 
-	public int getAge() {
-		return age;
+	public String getBirthday() {
+		return birthday;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+		
 	}
 
 	public float getSalary() {
@@ -141,6 +144,14 @@ public abstract class Worker {
 
 	public void setAvailable(boolean available) {
 	    this.available = available;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 	

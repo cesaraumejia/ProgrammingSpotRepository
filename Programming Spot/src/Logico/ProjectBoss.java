@@ -9,10 +9,10 @@ public class ProjectBoss extends Worker {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectBoss(int idNumber, String firstName, String lastName, String address, String sex, int age,
-			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int workerQuant, String password) {
-		super(idNumber, firstName, lastName, address, sex, age, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant);
-		this.workerQuant = workerQuant;
+	public ProjectBoss(String idNumber, String firstName, String lastName, String address, String sex, String birthday,
+			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int workerQuant, String password, String telefono) {
+		super(idNumber, firstName, lastName, address, sex, birthday, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant, telefono);
+		this.workerQuant = workerQuant;        
 		this.password = password;
 	}
 

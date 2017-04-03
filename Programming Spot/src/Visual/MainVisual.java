@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+
 public class MainVisual extends JFrame {
 
 	/**
@@ -69,6 +70,7 @@ public class MainVisual extends JFrame {
         private ImageIcon menuImageIcon = new ImageIcon("src/icons/nemu.png");
         private ImageIcon menuTransitionIcon = new ImageIcon("src/icons/menuTransition.png");
         private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
+        private JPanel workersPanel;
 
 
 	/**
@@ -105,6 +107,79 @@ public class MainVisual extends JFrame {
 		super.setSize((dim.width-10),(dim.height-80));
 		this.setResizable(false);
 		setLocationRelativeTo(null);
+		
+		workersPanel = new JPanel();
+		workersPanel.setBackground(new Color(128,128,128));
+		workersPanel.setBounds(0, 34, 233, 966);
+		workersPanel.setVisible(false);
+		contentPane.add(workersPanel);
+		workersPanel.setLayout(null);
+		
+		final JLabel workersBackButton = new JLabel("New label");
+		workersBackButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				workersBackButton.setIcon(backIcon);
+				extendedPanel.setVisible(true);
+				workersPanel.setVisible(false);
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				workersBackButton.setIcon(backTransitionIcon);
+			}
+		});
+		workersBackButton.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/back.png")));
+		workersBackButton.setBounds(3, 0, 24, 37);
+		workersPanel.add(workersBackButton);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/client.png")));
+		lblNewLabel_2.setBounds(3, 35, 24, 37);
+		workersPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/registerClient.png")));
+		lblNewLabel_3.setBounds(3, 82, 24, 37);
+		workersPanel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/listClient.png")));
+		lblNewLabel_4.setBounds(3, 130, 24, 37);
+		workersPanel.add(lblNewLabel_4);
+		
+		JLabel lblTrabajadores = new JLabel("Trabajadores");
+		lblTrabajadores.setForeground(Color.BLACK);
+		lblTrabajadores.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblTrabajadores.setBackground(Color.LIGHT_GRAY);
+		lblTrabajadores.setBounds(58, 35, 143, 37);
+		workersPanel.add(lblTrabajadores);
+		
+		final JLabel lblRegistrar = new JLabel("Registrar");
+		lblRegistrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblRegistrar.setForeground(new Color(240,240,240));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				 lblIcon1.setIcon(clientIcon);
+				    lblIcon2.setIcon(registerClienticon);
+				    lblIcon3.setIcon(listClientIcon);
+				    menuPanel.setVisible(true);
+				    workersPanel.setVisible(false);
+				lblRegistrar.setForeground(new Color(0,0,0));
+				RegisterWorker workersWindow = new RegisterWorker();
+				workersWindow.setVisible(true);
+			}
+		});
+		lblRegistrar.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblRegistrar.setBounds(58, 80, 143, 37);
+		workersPanel.add(lblRegistrar);
+		
+		JLabel lblListar = new JLabel("Listar");
+		lblListar.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblListar.setBounds(58, 130, 143, 37);
+		workersPanel.add(lblListar);
 		
 
 		
@@ -230,6 +305,8 @@ public class MainVisual extends JFrame {
 					}
 					public void mouseReleased(MouseEvent e) {
 						lblWorkerMain.setForeground(new Color(0, 0, 0));
+						extendedPanel.setVisible(false);
+						workersPanel.setVisible(true);
 					}
 				});
 				lblWorkerMain.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
@@ -301,10 +378,9 @@ public class MainVisual extends JFrame {
 			    lblIcon1.setIcon(clientIcon);
 			    lblIcon2.setIcon(registerClienticon);
 			    lblIcon3.setIcon(listClientIcon);
-			    lblClientRegister.setForeground(new Color(0, 0, 0));
-
 			    menuPanel.setVisible(true);
 			    clientsPanel.setVisible(false);
+			    lblClientRegister.setForeground(new Color(0, 0, 0));
 			    RegisterClient registerClient=new RegisterClient();
 			    registerClient.setVisible(true);
 			  
@@ -406,10 +482,4 @@ public class MainVisual extends JFrame {
 	public JPanel getWindowsContentPanel() {
 	    return windowsContentPanel;
 	}
-	
-	
-	
-	
-	
-	
 }
