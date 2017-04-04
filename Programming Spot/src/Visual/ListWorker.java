@@ -121,7 +121,7 @@ public class ListWorker extends JDialog {
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();   
 		scrollPane.setBounds(14, 28, 667, 356);
 		panel_1.add(scrollPane);
 		///////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////////////

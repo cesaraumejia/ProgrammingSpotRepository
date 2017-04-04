@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SoftwareTester extends Worker {
 
-	public SoftwareTester() {
+	public SoftwareTester() {  
 		// TODO Auto-generated constructor stub
 	}
 

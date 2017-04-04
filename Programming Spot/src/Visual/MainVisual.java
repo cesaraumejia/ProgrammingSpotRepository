@@ -444,7 +444,7 @@ public class MainVisual extends JFrame {
 		        y = e.getY();
 			}
 		});
-		topPanel.setBounds(0, 0, 1910, 34);
+		topPanel.setBounds(0, 0, 1910, 34);   
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 		

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ProjectBoss extends Worker {
 	private int workerQuant;
-	private String password;
+	private String password;   
 	
 
 	public ProjectBoss() {

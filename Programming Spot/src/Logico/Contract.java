@@ -5,7 +5,7 @@ public class Contract {
 	private String finalDate;
 	private String contractID;
 	private Client client;
-	private Project project;
+	private Project project;  
 	private double finalPrice;
 	
 

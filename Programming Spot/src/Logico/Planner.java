@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Planner extends Worker {
 
-	private int daysQuant;
+	private int daysQuant;  
 	
 	public Planner() {
 		// TODO Auto-generated constructor stub

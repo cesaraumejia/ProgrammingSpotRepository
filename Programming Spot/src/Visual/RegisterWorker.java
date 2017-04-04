@@ -557,7 +557,7 @@ public class RegisterWorker extends JDialog {
 		Date fecha1 = fecha.getDate();
 		String introducido = formato.format(fecha1);
 		String hoy = formato.format(fechaActual);
-		String[] introd = introducido.split("/");
+		String[] introd = introducido.split("/");    
 		String[] actual = hoy.split("/");
 		if (Integer.parseInt(actual[1]) < Integer.parseInt(introd[1])) {
 		   if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2])-1)<21)

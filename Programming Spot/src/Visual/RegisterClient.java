@@ -152,7 +152,7 @@ public class RegisterClient extends JDialog {
 		lblClose = new JLabel("New label");
 		lblClose.setBounds(1025, 3, 26, 26);
 		topPanel.add(lblClose);
-		lblClose.addMouseListener(new MouseAdapter() {
+		lblClose.addMouseListener(new MouseAdapter() {   
 			public void mouseReleased(MouseEvent e) {
 			    	MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getClientsPanel().setVisible(true);

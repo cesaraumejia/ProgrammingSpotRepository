@@ -7,7 +7,7 @@ public class Programmer extends Worker {
 	private String programmerType;
 	
 
-	public Programmer() {
+	public Programmer() {  
 		// TODO Auto-generated constructor stub
 	}
 

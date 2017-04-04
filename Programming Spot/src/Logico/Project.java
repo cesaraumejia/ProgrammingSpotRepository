@@ -8,8 +8,7 @@ public class Project {
     private float totalPrice;
     private String programmingType;
     private String state;
-    private String programmingLanguage;
-    
+    private String programmingLanguage;    
 
 	public Project() {
 	

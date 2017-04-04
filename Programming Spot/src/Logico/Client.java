@@ -5,7 +5,7 @@ public class Client {
 	private String idNumber;
 	private String name;
 	private String lastName;
-	private String phone;
+	private String phone;  
 	private String email;
 	private ArrayList<Contract> contracts;
 	private String address;

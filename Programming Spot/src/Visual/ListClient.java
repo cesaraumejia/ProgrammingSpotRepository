@@ -188,7 +188,7 @@ public class ListClient extends JDialog {
 			 
 			};
 			
-			scrollPaneContracts = new JScrollPane();
+			scrollPaneContracts = new JScrollPane();    
 			scrollPaneContracts.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPaneContracts.setBounds(12, 13, 275, 398);
 			panel_2.add(scrollPaneContracts);

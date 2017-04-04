@@ -118,7 +118,7 @@ public abstract class Worker {
 
 	public float computeSalary(){
 		return salary = hourlyPayment * workedHours;
-	}
+	}   
 
 	public boolean isAvailable() {
 	    return available;

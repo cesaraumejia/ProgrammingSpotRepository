@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Designer extends Worker {
 
-	public Designer() {
+	public Designer() {  
 		// TODO Auto-generated constructor stub
 	}
 
