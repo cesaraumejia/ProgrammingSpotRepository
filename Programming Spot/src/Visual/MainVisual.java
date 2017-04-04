@@ -270,7 +270,7 @@ public class MainVisual extends JFrame {
 				    menuPanel.setVisible(true);
 				    workersPanel.setVisible(false);
 				lblRegistrar.setForeground(new Color(0,0,0));
-				RegisterWorker workersWindow = new RegisterWorker();
+				RegisterWorker workersWindow = new RegisterWorker(false, null);
 				workersWindow.setVisible(true);
 			}
 		});

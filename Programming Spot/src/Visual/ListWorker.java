@@ -9,6 +9,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
@@ -65,7 +67,8 @@ public class ListWorker extends JDialog {
     private JRadioButton programador;
     private JRadioButton todos;
     private JTextField busquedaCedula;
-    
+    private ArrayList<Worker> deleted = new ArrayList<>();
+    private JButton modificar;
 	/**
 	 * Launch the application.
 	 */
@@ -145,8 +148,8 @@ public class ListWorker extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			    if(table.getSelectedRow()>=0){
-				    int index = table.getSelectedRow();
-				    loadProjects(Admin.getInstance().getWorkers().get(index).getContract());
+				      int index = table.getSelectedRow();
+				      loadProjects(Admin.getInstance().getWorkers().get(index).getContract());
 			    }
 			}
 		});
@@ -213,7 +216,7 @@ public class ListWorker extends JDialog {
 				tester.setSelected(false);
 				programador.setSelected(false);
 				todos.setSelected(false);
-				filter(1);
+				filter();
 			}
 		});
 		jefeProyecto.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -230,7 +233,7 @@ public class ListWorker extends JDialog {
 				tester.setSelected(false);
 				programador.setSelected(false);
 				todos.setSelected(false);
-				filter(2);
+				filter();
 			}
 		});
 		planeador.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -247,7 +250,7 @@ public class ListWorker extends JDialog {
 				tester.setSelected(true);
 				programador.setSelected(false);
 				todos.setSelected(false);
-				filter(3);
+				filter();
 			}
 		});
 		tester.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -264,7 +267,7 @@ public class ListWorker extends JDialog {
 				tester.setSelected(false);
 				programador.setSelected(false);
 				todos.setSelected(false);
-				filter(4);
+				filter();
 			}
 		});
 		diseniador.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -281,7 +284,7 @@ public class ListWorker extends JDialog {
 				tester.setSelected(false);
 				programador.setSelected(true);
 				todos.setSelected(false);
-				filter(5);
+				filter();
 			}
 		});
 		programador.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -298,7 +301,7 @@ public class ListWorker extends JDialog {
 				tester.setSelected(false);
 				programador.setSelected(false);
 				todos.setSelected(true);
-				filter(6);
+				filter();
 			}
 		});
 		todos.setSelected(true);
@@ -323,7 +326,7 @@ public class ListWorker extends JDialog {
 		busquedaCedula.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				find();
+				findWorker();
 			}
 		});
 		busquedaCedula.setBounds(66, 35, 162, 22);
@@ -336,7 +339,7 @@ public class ListWorker extends JDialog {
 		panel_5.add(lblNewLabel_2);
 		
 		
-		loadWorkers(Admin.getInstance().getWorkers());
+		filter();
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(220,220,220));
@@ -344,6 +347,32 @@ public class ListWorker extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Eliminar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (table.getSelectedRow()>=0) {
+							int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar este Trabajador?", null, JOptionPane.WARNING_MESSAGE);
+							if(JOptionPane.OK_OPTION==resp) {
+						     Worker worker = Admin.getInstance().getWorkers().get(table.getSelectedRow());
+						     deleted.add(worker);
+						     filter();
+								JOptionPane.showMessageDialog(null, "Se ha eliminado este trabajador", null, JOptionPane.INFORMATION_MESSAGE, null);
+							}
+						}
+					}
+				});
+				
+				modificar = new JButton("Modificar");
+				modificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (table.getSelectedRow()>=0) {
+						int index = table.getSelectedRow();
+						Worker work = notDeleted().get(index);
+						RegisterWorker modify = new RegisterWorker(true, work);
+						modify.setVisible(true);
+						}
+					}
+				});
+				buttonPane.add(modificar);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -399,90 +428,99 @@ public class ListWorker extends JDialog {
 	   	    tableModel.addRow(row);
 	   	}
 	    }
-	private void find() {
+	private void findWorker() {
 		String textField = busquedaCedula.getText();
+		ArrayList<Worker> workers = notDeleted();
 		ArrayList<Worker> selected = new ArrayList<>();
 		if (textField.length()==0) {
-			selected = Admin.getInstance().getWorkers();
+			selected = workers;
 		}
 		else if (textField.length()==1) {
-			for (Worker i: Admin.getInstance().getWorkers()) {
+			for (Worker i: workers) {
 				String aux = getIDWorker(1, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
 		}
         else if (textField.length()==2) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(2, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
 		}
         else if (textField.length()==3) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(3, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==4) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(4, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==5) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(5, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==6) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(6, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==7) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(7, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==8) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(8, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==9) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(9, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==10) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(10, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
         else if (textField.length()==11) {
-        	for (Worker i: Admin.getInstance().getWorkers()) {
+        	for (Worker i: workers) {
 				String aux = getIDWorker(11, i);
 				if (textField.equals(aux))
 					selected.add(i);
 			}
         }
 		loadWorkers(selected);
+	}
+	private ArrayList<Worker> notDeleted(){
+		ArrayList<Worker> workersNotDeleted = new ArrayList<>();
+		for (Worker i: Admin.getInstance().getWorkers()) {
+			if (!deleted.contains(i))
+				workersNotDeleted.add(i);
+		}
+		return workersNotDeleted;
 	}
 	private String separator(String cedula) {
 		String[] separado = cedula.split("-");
@@ -495,43 +533,44 @@ public class ListWorker extends JDialog {
 		aux = aux1.substring(0, number);
 		return aux;
 	}
-	private void filter(int number) {
+	private void filter() {
 		ArrayList<Worker> workers = new ArrayList<>();
 		for (Worker i: Admin.getInstance().getWorkers()) {
-			if (number==1) {
+			if(!deleted.contains(i)) {
+			if (jefeProyecto.isSelected()) {
 				if (i instanceof ProjectBoss)
 					workers.add(i);
 			}
-			else if (number==2) {
+			else if (planeador.isSelected()) {
 				if (i instanceof Planner)
 					workers.add(i);
 			}
-			else if (number==3) {
+			else if (tester.isSelected()) {
 				if (i instanceof SoftwareTester)
 					workers.add(i);
 			}
-			else if (number==4) {
+			else if (diseniador.isSelected()) {
 				if (i instanceof Designer)
 					workers.add(i);
 			}
-			else if (number==5) {
+			else if (programador.isSelected()) {
 				if (i instanceof Programmer)
 					workers.add(i);
 			}
-			else if (number==6) {
+			else  {
 					workers.add(i);
 			}
-				
+			}		
 		}
 		loadWorkers(workers);
 	}
     private void loadProjects(ArrayList<Contract> contracts) {
-       	tableModel.setRowCount(0);
+       	tableModel1.setRowCount(0);
 	   	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 	   	tcr.setHorizontalAlignment(SwingConstants.CENTER);
-	   	table.getColumnModel().getColumn(0).setCellRenderer(tcr);
-	   	table.getColumnModel().getColumn(1).setCellRenderer(tcr);
-	   	table.getColumnModel().getColumn(2).setCellRenderer(tcr);
+	   	projectsTable.getColumnModel().getColumn(0).setCellRenderer(tcr);
+	   	projectsTable.getColumnModel().getColumn(1).setCellRenderer(tcr);
+	   	projectsTable.getColumnModel().getColumn(2).setCellRenderer(tcr);
 	   	row1 = new Object[tableModel.getColumnCount()];
 	   	for (Contract pr : contracts) {
 	   	    row1[0]=pr.getProject().getName();

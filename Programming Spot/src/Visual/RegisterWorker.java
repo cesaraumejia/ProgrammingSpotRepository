@@ -71,6 +71,8 @@ public class RegisterWorker extends JDialog {
 	private JLabel lblTipoDeProgramador;
 	private JComboBox<String> provincia;
 	private JDateChooser dateChooser;
+	private Worker worker;
+	private JRadioButton jefeProyecto;
 
 	/**
 	 * Launch the application.
@@ -79,7 +81,8 @@ public class RegisterWorker extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegisterWorker() {
+	public RegisterWorker(final boolean registerModify, final Worker worker) {
+		this.worker = worker;
 		setUndecorated(true);
 		setBounds(100, 100, 1050, 597);
 		getContentPane().setLayout(new BorderLayout());
@@ -119,7 +122,11 @@ public class RegisterWorker extends JDialog {
 				panel.add(lblNewLabel);
 			}
 			{
-				JLabel lblNewLabel_1 = new JLabel("Registrar Trabajador");
+				JLabel lblNewLabel_1;
+				if (!registerModify)
+				lblNewLabel_1 = new JLabel("Registrar Trabajador");
+				else
+					lblNewLabel_1 = new JLabel("Modificar Trabajador");
 				lblNewLabel_1.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
 				lblNewLabel_1.setBounds(12, 1, 185, 27);
 				panel.add(lblNewLabel_1);
@@ -313,7 +320,7 @@ public class RegisterWorker extends JDialog {
 		lblNewLabel_7.setBounds(505, 28, 48, 64);
 		contentPanel.add(lblNewLabel_7);
 		
-		final JRadioButton jefeProyecto = new JRadioButton("Jefe de Proyecto");
+		jefeProyecto = new JRadioButton("Jefe de Proyecto");
         jefeProyecto.setSelected(true);
 		jefeProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -473,11 +480,16 @@ public class RegisterWorker extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton registrarButton = new JButton("Registrar");
+				JButton registrarButton;
+				if (!registerModify)
+				 registrarButton = new JButton("Registrar");
+				else
+					 registrarButton = new JButton("Modificar");
 				registrarButton.addActionListener(new ActionListener() {
 					@SuppressWarnings("deprecation")
 					public void actionPerformed(ActionEvent e) {
-					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals(""))
+						if (!registerModify) {
+					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
 							JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
 					    else if ((jefeProyecto.isSelected()&&contrasenia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
 					    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
@@ -487,30 +499,24 @@ public class RegisterWorker extends JDialog {
 					    else
 					    {
 					    	Worker worker = null;
-					    	if (jefeProyecto.isSelected())
+					    	if (jefeProyecto.isSelected()) {
 					    		worker = new ProjectBoss();
+					    		((ProjectBoss)worker).setPassword(contrasenia.getText());
+					    	}
 					    	else if (diseniador.isSelected())
 					    		worker = new Designer();
-					    	else if (programador.isSelected())
+					    	else if (programador.isSelected()) {
 					    		worker = new Programmer();
+					    		((Programmer)worker).setProgrammerType(tipoProgramador.getText());
+					    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getText());
+					    	}
 					    	else if (tester.isSelected())
 					    		worker = new SoftwareTester();
 					    	else
 					    		worker = new Planner();
 					    	
-					    	if (calle.getText().equals("")&&numero.getText().equals("")) {
-					    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText());
-					    	}
-					    	else if (calle.getText().equals("")&&!numero.getText().equals("")) {
-					    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText()+"/"+numero.getText());
-					    	}
-					    	else if (!calle.getText().equals("")&&numero.getText().equals("")) {
-					    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText()+"/"+calle.getText());
-					    	}
-					    	else
-					    	{
 					    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText()+"/"+calle.getText()+"/"+numero.getText());
-					    	}
+					 
 					    	worker.setWorkedHours(Integer.parseInt(horasTrabajo.getText()));
 					    	worker.setFirstName(nombres.getText());
 					    	worker.setLastName(apellidos.getText());
@@ -521,8 +527,59 @@ public class RegisterWorker extends JDialog {
 					    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
 					    	Admin.getInstance().addWorker(worker);
 							JOptionPane.showMessageDialog(null, "¡El trabajador ha sido agregado!", "Trabajador Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+					        clean();
 					    }
-					    	
+					}
+						else {
+							
+							int index = Admin.getInstance().getWorkers().indexOf(worker);
+							
+							if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
+								JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
+						    else if ((jefeProyecto.isSelected()&&contrasenia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
+						    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
+						    }
+						    else if (!validarFecha(dateChooser))
+						    	JOptionPane.showMessageDialog(null, "La trabajador no puede ser tan joven","Fecha inválida", JOptionPane.WARNING_MESSAGE, null);
+						    else
+						    {
+						    	Worker worker = null;
+						    	if (jefeProyecto.isSelected()) {
+						    		worker = new ProjectBoss();
+						    		((ProjectBoss)worker).setPassword(contrasenia.getText());
+						    	}
+						    	else if (diseniador.isSelected()) {
+						    		worker = new Designer();
+						    	}
+						    	else if (programador.isSelected()) {
+						    		worker = new Programmer();
+						    		((Programmer)worker).setProgrammerType(tipoProgramador.getText());
+						    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getText());
+						    	}
+						    	else if (tester.isSelected()) {
+						    		worker = new SoftwareTester();
+						    	}
+						    	else {
+						    		worker = new Planner();
+						    	}
+						    	
+						    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText()+"/"+calle.getText()+"/"+numero.getText());
+						 
+						    	worker.setWorkedHours(Integer.parseInt(horasTrabajo.getText()));
+						    	worker.setFirstName(nombres.getText());
+						    	worker.setLastName(apellidos.getText());
+						    	worker.setIdNumber(cedulaText.getText());
+						        worker.setSex(sexo.getSelectedItem().toString());
+						    	worker.setBirthday(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
+						    	worker.setTelefono(telefonoText.getText());
+						    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
+						    	Admin.getInstance().getWorkers().remove(index);
+						    	Admin.getInstance().getWorkers().add(worker);
+								JOptionPane.showMessageDialog(null, "¡El trabajador ha sido modificado!", "Trabajador modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+						        dispose();
+						    }
+							
+						}
 					}
 				
 				});
@@ -547,8 +604,11 @@ public class RegisterWorker extends JDialog {
 				salirButton.setBackground(Color.LIGHT_GRAY);
 				salirButton.setActionCommand("Cancel");
 				buttonPane.add(salirButton);
+				
 			}
 		}
+		if (registerModify)
+			loadWorker();
 	}
 	private boolean validarFecha(JDateChooser fecha) {
 		boolean aux = false;
@@ -589,4 +649,77 @@ public class RegisterWorker extends JDialog {
 		}
 		return aux;
 	}
+   private void loadWorker() {
+	    cedulaText.setText(worker.getIdNumber());
+	    cedulaText.setEditable(false);
+	    apellidos.setText(worker.getLastName());
+	    nombres.setText(worker.getFirstName());
+	    for (int i =0; i<2;i++) {
+	    	if (sexo.getItemAt(i).equals(worker.getSex())) 
+	    		sexo.setSelectedIndex(i);
+	    }
+	    sexo.setEnabled(false);
+	    ((JTextField)dateChooser.getDateEditor().getUiComponent()).setText(worker.getBirthday());
+	    salario.setText(String.valueOf(worker.getHourlyPayment()));
+	    horasTrabajo.setText(String.valueOf(worker.getWorkedHours()));
+	    telefonoText.setText(worker.getTelefono());
+	    String[] separator = worker.getAddress().split("/");
+	    for (int i =0;i<32;i++) {
+	    	if (provincia.getItemAt(i).equals(separator[0]));
+	    	provincia.setSelectedIndex(i);
+	    }
+	    localidad.setText(separator[1]);
+	    calle.setText(separator[2]);
+	    numero.setText(separator[3]);
+	    if (worker instanceof ProjectBoss) {
+	    	jefeProyecto.setSelected(true);
+	    	contrasenia.setText(((ProjectBoss)worker).getPassword());
+	    }
+	    else if (worker instanceof Planner) {
+	    	planeador.setSelected(true);
+	    }
+	    else if (worker instanceof Designer) {
+	    	diseniador.setSelected(true);
+	    }
+	    else if (worker instanceof SoftwareTester) {
+	    	tester.setSelected(true);
+	    }
+	    else {
+	    	programador.setSelected(true);
+	    	tipoProgramador.setText(((Programmer)worker).getProgrammerType());
+	    	lenguajeDeProgramacion.setText(((Programmer)worker).getProgrammingLanguage());
+	    }
+	    	jefeProyecto.setEnabled(false);
+	    	planeador.setEnabled(false);
+	    	diseniador.setEnabled(false);
+	    	tester.setEnabled(false);
+	    	programador.setEnabled(false);
+	    	
+	    	
+	    	tipoProgramador.setEditable(false);
+	    	lenguajeDeProgramacion.setEditable(false);
+	    	contrasenia.setEditable(false);   
+   }
+   private void clean() {
+	   cedulaText.setValue(null);
+	   apellidos.setText("");
+	   nombres.setText("");
+	   sexo.setSelectedIndex(0);
+	   ((JTextField)dateChooser.getDateEditor().getUiComponent()).setText("");
+	   salario.setText("");
+	   horasTrabajo.setText("");
+	   telefonoText.setValue(null);
+	   provincia.setSelectedIndex(0);
+	   localidad.setText("");
+	   calle.setText("");
+	   numero.setText("");
+	   jefeProyecto.setSelected(true);
+	   planeador.setSelected(false);
+	   programador.setSelected(false);
+	   diseniador.setSelected(false);
+	   tester.setSelected(false);
+	   tipoProgramador.setText("");
+	   lenguajeDeProgramacion.setText("");
+	   contrasenia.setText("");
+   }
 }
