@@ -71,6 +71,8 @@ public class MainVisual extends JFrame {
         private ImageIcon menuTransitionIcon = new ImageIcon("src/icons/menuTransition.png");
         private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
         private JPanel workersPanel;
+        
+        private JLabel lblListar;
 
 
 	/**
@@ -254,6 +256,7 @@ public class MainVisual extends JFrame {
 		workersPanel.add(lblTrabajadores);
 		
 		final JLabel lblRegistrar = new JLabel("Registrar");
+		lblRegistrar.setForeground(new Color(0,0,0));
 		lblRegistrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -275,7 +278,24 @@ public class MainVisual extends JFrame {
 		lblRegistrar.setBounds(58, 80, 143, 37);
 		workersPanel.add(lblRegistrar);
 		
-		JLabel lblListar = new JLabel("Listar");
+		lblListar = new JLabel("Listar");
+		lblListar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblListar.setForeground(new Color(240,240,240));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblListar.setForeground(new Color(0,0,0));
+				lblIcon1.setIcon(clientIcon);
+				lblIcon2.setIcon(registerClienticon);
+				lblIcon3.setIcon(listClientIcon);
+				menuPanel.setVisible(true);
+				workersPanel.setVisible(false);
+				ListWorker list = new ListWorker();
+				list.setVisible(true);
+			}
+		});
 		lblListar.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		lblListar.setBounds(58, 130, 143, 37);
 		workersPanel.add(lblListar);
@@ -498,4 +518,8 @@ public class MainVisual extends JFrame {
 	public JPanel getWindowsContentPanel() {
 	    return windowsContentPanel;
 	}
+	public JPanel getWorkersPanel() {
+	    return workersPanel;
+	}
+
 }

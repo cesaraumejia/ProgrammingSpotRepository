@@ -1,5 +1,7 @@
 package Logico;
 
+import java.util.ArrayList;
+
 public class ProjectBoss extends Worker {
 	private int workerQuant;
 	private String password;
@@ -10,8 +12,8 @@ public class ProjectBoss extends Worker {
 	}
 
 	public ProjectBoss(String idNumber, String firstName, String lastName, String address, String sex, String birthday,
-			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int workerQuant, String password, String telefono) {
-		super(idNumber, firstName, lastName, address, sex, birthday, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant, telefono);
+			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, int workerQuant, String password, String telefono, ArrayList<Contract> contract) {
+		super(idNumber, firstName, lastName, address, sex, birthday, projetName, anualEvaluation, hourlyPayment, workedHours, projectsQuant, telefono, contract);
 		this.workerQuant = workerQuant;        
 		this.password = password;
 	}

@@ -58,6 +58,7 @@ public class RegisterClient extends JDialog {
     private JComboBox<String> cbxProvince;
     
     public RegisterClient() {
+ ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     	setUndecorated(true);
 	setBounds(100, 100, 1050, 597);
 	getContentPane().setLayout(new BorderLayout());
@@ -68,6 +69,7 @@ public class RegisterClient extends JDialog {
 	this.setResizable(false);
 	setLocationRelativeTo(null);
 	setModal(true);
+////////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 	{
 	    
 	    JPanel buttonPane = new JPanel();

@@ -1,5 +1,7 @@
 package Logico;
 
+import java.util.ArrayList;
+
 public abstract class Worker {
 	protected String idNumber;
 	protected String firstName;
@@ -8,20 +10,19 @@ public abstract class Worker {
 	protected String sex;
 	protected String birthday;
 	protected float salary;
-	protected String projetName;
 	protected String anualEvaluation;
 	protected int hourlyPayment;
 	protected int workedHours;
-	protected int projectsQuant;
 	protected boolean available;
 	protected String telefono;
+	protected ArrayList<Contract> contract = new ArrayList<>();
 
 	public Worker() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Worker(String idNumber, String firstName, String lastName, String address, String sex, String birthday,
-			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, String telefono) {
+			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, String telefono, ArrayList<Contract> contract) {
 		super();
 		this.idNumber = idNumber;
 		this.firstName = firstName;
@@ -29,13 +30,12 @@ public abstract class Worker {
 		this.address = address;
 		this.sex = sex;
 		this.birthday = birthday;
-		this.projetName = projetName;
 		this.anualEvaluation = anualEvaluation;
 		this.hourlyPayment = hourlyPayment;
 		this.workedHours = workedHours;
-		this.projectsQuant = projectsQuant;
 		this.available=true;
 		this.telefono = telefono;
+		this.contract = contract;
 	}
 
 	public String getIdNumber() {
@@ -91,15 +91,6 @@ public abstract class Worker {
 		return salary;
 	}
 
-
-	public String getProjetName() {
-		return projetName;
-	}
-
-	public void setProjetName(String projetName) {
-		this.projetName = projetName;
-	}
-
 	public String getAnualEvaluation() {
 		return anualEvaluation;
 	}
@@ -124,15 +115,6 @@ public abstract class Worker {
 		this.workedHours = workedHours;
 	}
 
-	public int getProjectsQuant() {
-		return projectsQuant;
-	}
-
-	public void setProjectsQuant(int projectsQuant) {
-		this.projectsQuant = projectsQuant;
-	}
-
-   
 
 	public float computeSalary(){
 		return salary = hourlyPayment * workedHours;
@@ -152,6 +134,14 @@ public abstract class Worker {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public ArrayList<Contract> getContract() {
+		return contract;
+	}
+
+	public void setContract(ArrayList<Contract> contract) {
+		this.contract = contract;
 	}
 	
 	

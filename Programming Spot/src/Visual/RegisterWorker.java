@@ -107,7 +107,7 @@ public class RegisterWorker extends JDialog {
 					@Override
 					public void mouseReleased(MouseEvent e) {
 						MainVisual.getInstance().getMenuPanel().setVisible(false);
-						MainVisual.getInstance().getClientsPanel().setVisible(true);
+						MainVisual.getInstance().getWorkersPanel().setVisible(true);
 						MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
 						MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
 						MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
@@ -537,7 +537,7 @@ public class RegisterWorker extends JDialog {
 					@Override
 					public void mouseReleased(MouseEvent e) {
 						MainVisual.getInstance().getMenuPanel().setVisible(false);
-						MainVisual.getInstance().getClientsPanel().setVisible(true);
+						MainVisual.getInstance().getWorkersPanel().setVisible(true);
 						MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
 						MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
 						MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
