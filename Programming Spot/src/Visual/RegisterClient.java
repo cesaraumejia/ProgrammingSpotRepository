@@ -60,7 +60,7 @@ public class RegisterClient extends JDialog {
     public RegisterClient() {
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     	setUndecorated(true);
-	setBounds(100, 100, 1050, 597);
+	setBounds(100, 100, 783, 514);
 	getContentPane().setLayout(new BorderLayout());
 	contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 	contentPane.setBackground(new Color(220, 220, 220));
@@ -139,7 +139,7 @@ public class RegisterClient extends JDialog {
 			}
 		});
 		contentPane.setLayout(null);
-		topPanel.setBounds(0, 0, 1050, 29);
+		topPanel.setBounds(0, 0, 790, 29);
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 		
@@ -150,7 +150,7 @@ public class RegisterClient extends JDialog {
 		
 		
 		lblClose = new JLabel("New label");
-		lblClose.setBounds(1025, 3, 26, 26);
+		lblClose.setBounds(752, 3, 26, 26);
 		topPanel.add(lblClose);
 		lblClose.addMouseListener(new MouseAdapter() {   
 			public void mouseReleased(MouseEvent e) {
@@ -167,14 +167,14 @@ public class RegisterClient extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(220, 220, 220));
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Datos Personales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 103, 1028, 135);
+		panel.setBounds(12, 71, 676, 197);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		
 	
 		tfdName = new JTextField();
-		tfdName.setBounds(99, 76, 203, 22);
+		tfdName.setBounds(89, 79, 236, 22);
 		panel.add(tfdName);
 		tfdName.setBackground(new Color(230, 230, 250));
 		tfdName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -188,25 +188,25 @@ public class RegisterClient extends JDialog {
 		
 		JLabel lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblApellidos.setBounds(333, 30, 75, 16);
+		lblApellidos.setBounds(363, 85, 75, 16);
 		panel.add(lblApellidos);
 		
 		tfdLastName = new JTextField();
 		tfdLastName.setColumns(10);
 		tfdLastName.setBackground(new Color(230, 230, 250));
-		tfdLastName.setBounds(420, 27, 203, 22);
+		tfdLastName.setBounds(450, 82, 203, 22);
 		tfdLastName.setHorizontalAlignment(SwingConstants.CENTER);
 
 		panel.add(tfdLastName);
 		
 		JLabel lblTelfono = new JLabel("Tel\u00E9fono*:");
 		lblTelfono.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTelfono.setBounds(333, 79, 75, 16);
+		lblTelfono.setBounds(363, 134, 75, 16);
 		panel.add(lblTelfono);
 		
-		JLabel lblCorreoElectrnico = new JLabel("Correo Electr\u00F3nico:");
+		JLabel lblCorreoElectrnico = new JLabel("Email:");
 		lblCorreoElectrnico.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCorreoElectrnico.setBounds(648, 27, 140, 16);
+		lblCorreoElectrnico.setBounds(12, 137, 75, 16);
 		panel.add(lblCorreoElectrnico);
 		
 		MaskFormatter phoneFormatter = null ;
@@ -228,7 +228,7 @@ public class RegisterClient extends JDialog {
 		
 		formatedPhone = new JFormattedTextField(phoneFormatter);
 		formatedPhone.setBackground(new Color(230, 230, 250));
-		formatedPhone.setBounds(420, 76, 203, 22);
+		formatedPhone.setBounds(450, 131, 203, 22);
 		formatedPhone.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(formatedPhone);
 		
@@ -236,51 +236,51 @@ public class RegisterClient extends JDialog {
 		
 		formatedID = new JFormattedTextField(idFormatter);		
 		formatedID.setBackground(new Color(230, 230, 250));
-		formatedID.setBounds(99, 27, 203, 22);
+		formatedID.setBounds(89, 31, 236, 22);
 		formatedID.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(formatedID);
 		
 		JLabel tfdID = new JLabel("C\u00E9dula*:");
 		tfdID.setFont(new Font("Tahoma", Font.BOLD, 13));
-		tfdID.setBounds(12, 30, 75, 16);
+		tfdID.setBounds(12, 34, 75, 16);
 		panel.add(tfdID);
 		
 		JLabel label = new JLabel("@");
 		label.setFont(new Font("Tahoma", Font.BOLD, 13));
-		label.setBounds(909, 27, 18, 16);
+		label.setBounds(218, 134, 18, 16);
 		panel.add(label);
 		
 		tfdEmailSecond = new JTextField();
 		tfdEmailSecond.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdEmailSecond.setColumns(10);
 		tfdEmailSecond.setBackground(new Color(230, 230, 250));
-		tfdEmailSecond.setBounds(927, 24, 89, 22);
+		tfdEmailSecond.setBounds(236, 134, 89, 22);
 		panel.add(tfdEmailSecond);
 		
 		tfdEmailFirst = new JTextField();
 		tfdEmailFirst.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdEmailFirst.setColumns(10);
 		tfdEmailFirst.setBackground(new Color(230, 230, 250));
-		tfdEmailFirst.setBounds(780, 24, 117, 22);
+		tfdEmailFirst.setBounds(89, 134, 117, 22);
 		panel.add(tfdEmailFirst);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Direcci\u00F3n", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBackground(new Color(220, 220, 220));
-		panel_1.setBounds(10, 342, 1028, 135);
+		panel_1.setBounds(12, 310, 752, 141);
 		contentPane.add(panel_1);
 		
 		tfdNumber = new JTextField();
 		tfdNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdNumber.setColumns(10);
 		tfdNumber.setBackground(new Color(230, 230, 250));
-		tfdNumber.setBounds(711, 56, 203, 22);
+		tfdNumber.setBounds(632, 82, 51, 22);
 		panel_1.add(tfdNumber);
 		
 		JLabel lblCalle = new JLabel("No:");
 		lblCalle.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCalle.setBounds(669, 59, 45, 16);
+		lblCalle.setBounds(590, 85, 45, 16);
 		panel_1.add(lblCalle);
 		
 		JLabel tfdLocal = new JLabel("Localidad:*");
@@ -297,7 +297,7 @@ public class RegisterClient extends JDialog {
 		
 		JLabel lblCalle_1 = new JLabel("Calle:");
 		lblCalle_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblCalle_1.setBounds(352, 59, 75, 16);
+		lblCalle_1.setBounds(338, 85, 45, 16);
 		panel_1.add(lblCalle_1);
 		
 		JLabel lblProvincia = new JLabel("Provincia*:");
@@ -323,7 +323,7 @@ public class RegisterClient extends JDialog {
 		tfdStreet.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdStreet.setColumns(10);
 		tfdStreet.setBackground(new Color(230, 230, 250));
-		tfdStreet.setBounds(439, 56, 203, 22);
+		tfdStreet.setBounds(394, 82, 164, 22);
 		panel_1.add(tfdStreet);
 		
 		JLabel lblDominicanIcon = new JLabel("");
@@ -338,7 +338,7 @@ public class RegisterClient extends JDialog {
 		
 		JLabel lblParmetros = new JLabel("* -> Par\u00E1metros obligatorios");
 		lblParmetros.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		lblParmetros.setBounds(23, 63, 197, 16);
+		lblParmetros.setBounds(23, 42, 197, 16);
 		contentPane.add(lblParmetros);
 	    
 	    
