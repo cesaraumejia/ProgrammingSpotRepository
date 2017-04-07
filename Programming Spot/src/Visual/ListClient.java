@@ -6,8 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -51,6 +55,7 @@ public class ListClient extends JDialog {
     private JScrollPane scrollPaneContracts;
     private String clientID;
     private Client foundClient;
+    private JTextField tfdIdSearch;
 
     /**
      * Launch the application.
@@ -72,13 +77,13 @@ public class ListClient extends JDialog {
 	    	JPanel panel = new JPanel();
 		panel.setBackground(new Color(220, 220, 220));
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(12, 36, 691, 498);
+		panel.setBounds(12, 134, 691, 400);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		{
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.setBounds(12, 22, 667, 463);
+			scrollPane.setBounds(12, 22, 667, 365);
 			panel.add(scrollPane);
 			{
 			    
@@ -117,14 +122,7 @@ public class ListClient extends JDialog {
 			}
 	    
 		}
-		loadClients();
-		{
-			JButton btnDetails = new JButton("Ver detalles de contrato");
-			btnDetails.setBounds(776, 509, 218, 25);
-			contentPanel.add(btnDetails);
-			btnDetails.setBackground(Color.GRAY);
-			btnDetails.setActionCommand("OK");
-		}
+		loadClients(null);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -161,15 +159,15 @@ public class ListClient extends JDialog {
 			JPanel panelActiveContracts = new JPanel();
 			panelActiveContracts.setBackground(new Color(220, 220, 220));
 			panelActiveContracts.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-			panelActiveContracts.setBounds(715, 36, 323, 461);
+			panelActiveContracts.setBounds(700, 134, 323, 400);
 			contentPanel.add(panelActiveContracts);
 			panelActiveContracts.setLayout(null);
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setLayout(null);
-			panel_2.setBorder(new LineBorder(Color.BLACK, 1, true));
-			panel_2.setBackground(new Color(211, 211, 211));
-			panel_2.setBounds(12, 24, 299, 424);
+			panel_2.setBorder(null);
+			panel_2.setBackground(new Color(220, 220, 220));
+			panel_2.setBounds(12, 24, 299, 363);
 			panelActiveContracts.add(panel_2);
 			
 			
@@ -190,7 +188,7 @@ public class ListClient extends JDialog {
 			
 			scrollPaneContracts = new JScrollPane();    
 			scrollPaneContracts.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPaneContracts.setBounds(12, 13, 275, 398);
+			scrollPaneContracts.setBounds(0, 0, 299, 363);
 			panel_2.add(scrollPaneContracts);
 			
 			
@@ -212,11 +210,51 @@ public class ListClient extends JDialog {
 			
 		
 		}
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_2.setBackground(new Color(220, 220, 220));
+		panel_2.setBounds(12, 38, 238, 88);
+		contentPanel.add(panel_2);
+		
+		JLabel label = new JLabel("C\u00E9dula:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label.setBounds(10, 37, 46, 14);
+		panel_2.add(label);
+		
+		tfdIdSearch = new JTextField();
+		tfdIdSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+			    loadClients(findClients());
+			}
+
+			
+		});
+		tfdIdSearch.setColumns(10);
+		tfdIdSearch.setBounds(66, 33, 162, 22);
+		panel_2.add(tfdIdSearch);
+		
+		JLabel lblintroducirCdulaConguiones = new JLabel("*Introducir c\u00E9dula con guiones");
+		lblintroducirCdulaConguiones.setFont(new Font("Tahoma", Font.ITALIC, 10));
+		lblintroducirCdulaConguiones.setBounds(10, 63, 150, 14);
+		panel_2.add(lblintroducirCdulaConguiones);
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
 	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
+	    {
+	    	JButton btnDetails = new JButton("Ver detalles de contrato");
+	    	buttonPane.add(btnDetails);
+	    	btnDetails.addActionListener(new ActionListener() {
+	    		public void actionPerformed(ActionEvent e) {
+	    		}
+	    	});
+	    	btnDetails.setBackground(Color.GRAY);
+	    	btnDetails.setActionCommand("OK");
+	    }
 	    {
 		JButton btnModify = new JButton("Modificar");
 		btnModify.setBackground(new Color(128, 128, 128));
@@ -243,7 +281,7 @@ public class ListClient extends JDialog {
 	}
     }
     
-    private void loadClients() {
+    private void loadClients( ArrayList<Client> filteredClients) {
    	tableModel.setRowCount(0);
    	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
    	tcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -253,7 +291,12 @@ public class ListClient extends JDialog {
    	table.getColumnModel().getColumn(3).setCellRenderer(tcr);
    	table.getColumnModel().getColumn(4).setCellRenderer(tcr);
    	row = new Object[tableModel.getColumnCount()];
-   	for (Client ct : Admin.getInstance().getClients()) {
+   	ArrayList<Client> clientsList = Admin.getInstance().getClients();
+   	if(filteredClients!=null){
+   	    clientsList=filteredClients;
+   	}
+   	
+   	for (Client ct : clientsList) {
    	    row[0]=ct.getIdNumber();
    	    row[1]=ct.getName();
    	    row[2]=ct.getLastName();
@@ -277,20 +320,16 @@ public class ListClient extends JDialog {
 	    rowContracts[2] = ct.getProject().getProgrammingLanguage();
 	    tableModelContracts.addRow(rowContracts);
    	}
-	
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private ArrayList<Client> findClients() {
+	    ArrayList<Client> filteredClients=new ArrayList<>();
+	    String filter = tfdIdSearch.getText();
+	    for (Client ct : Admin.getInstance().getClients()) {
+		if(ct.getIdNumber().subSequence(0, filter.length()).equals(filter)){
+		    filteredClients.add(ct);
+		}
+	    }
+	    return filteredClients;
+	}
 }
