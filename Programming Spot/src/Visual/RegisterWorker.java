@@ -59,7 +59,7 @@ public class RegisterWorker extends JDialog {
 	private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
 	private JFormattedTextField cedulaText;
 	private JComboBox<String> sexo;
-	private JPasswordField contrasenia;
+	private JPasswordField aniosExperiencia;
 	private JTextField tipoProgramador;
 	private JTextField lenguajeDeProgramacion;
 	private JRadioButton planeador;
@@ -67,12 +67,20 @@ public class RegisterWorker extends JDialog {
 	private JRadioButton diseniador;
 	private JRadioButton tester;
 	private JLabel lblcontrasea;
-	private JLabel lblNewLabel_8;
+	private JLabel lblLenguaje;
 	private JLabel lblTipoDeProgramador;
 	private JComboBox<String> provincia;
 	private JDateChooser dateChooser;
 	private Worker worker;
 	private JRadioButton jefeProyecto;
+	private JTextField orientacion;
+	private JTextField softwareDisenio;
+	private JTextField testingSoftware;
+	private JLabel softwarePrueba;
+	private JLabel softwareD;
+	private JLabel lblOrientacion;
+	private JLabel lblMetodologia;
+	private JTextField metodologia;
 
 	/**
 	 * Launch the application.
@@ -329,12 +337,23 @@ public class RegisterWorker extends JDialog {
 				programador.setSelected(false);
 				planeador.setSelected(false);
 				tester.setSelected(false);
+				
 			    lblcontrasea.setVisible(true);
-			    contrasenia.setVisible(true);
+			    aniosExperiencia.setVisible(true);
 			    lblTipoDeProgramador.setVisible(false);
 			    tipoProgramador.setVisible(false);
-			    lblNewLabel_8.setVisible(false);
+			    lblLenguaje.setVisible(false);
 			    lenguajeDeProgramacion.setVisible(false);
+			    
+			    lblOrientacion.setVisible(false);
+			    orientacion.setVisible(false);
+			    softwareD.setVisible(false);
+			    softwareDisenio.setVisible(false);
+			    softwarePrueba.setVisible(false);
+			    testingSoftware.setVisible(false);
+			    lblMetodologia.setVisible(false);
+			    metodologia.setVisible(false);
+			    
 			}
 		});
 		jefeProyecto.setBackground(new Color(220, 220,220));
@@ -350,12 +369,22 @@ public class RegisterWorker extends JDialog {
 				programador.setSelected(false);
 				planeador.setSelected(true);
 				tester.setSelected(false);
+				
 			    lblcontrasea.setVisible(false);
-			    contrasenia.setVisible(false);
+			    aniosExperiencia.setVisible(false);
 			    lblTipoDeProgramador.setVisible(false);
 			    tipoProgramador.setVisible(false);
-			    lblNewLabel_8.setVisible(false);
+			    lblLenguaje.setVisible(false);
 			    lenguajeDeProgramacion.setVisible(false);
+			    
+			    lblOrientacion.setVisible(false);
+			    orientacion.setVisible(false);
+			    softwareD.setVisible(false);
+			    softwareDisenio.setVisible(false);
+			    softwarePrueba.setVisible(false);
+			    testingSoftware.setVisible(false);
+			    lblMetodologia.setVisible(true);
+			    metodologia.setVisible(true);
 			}
 		});
 		planeador.setBackground(new Color(220, 220,220));
@@ -372,11 +401,20 @@ public class RegisterWorker extends JDialog {
 				planeador.setSelected(false);
 				tester.setSelected(false);
 			    lblcontrasea.setVisible(false);
-			    contrasenia.setVisible(false);
+			    aniosExperiencia.setVisible(false);
 			    lblTipoDeProgramador.setVisible(true);
 			    tipoProgramador.setVisible(true);
-			    lblNewLabel_8.setVisible(true);
+			    lblLenguaje.setVisible(true);
 			    lenguajeDeProgramacion.setVisible(true);
+			    
+			    lblOrientacion.setVisible(false);
+			    orientacion.setVisible(false);
+			    softwareD.setVisible(false);
+			    softwareDisenio.setVisible(false);
+			    softwarePrueba.setVisible(false);
+			    testingSoftware.setVisible(false);
+			    lblMetodologia.setVisible(false);
+			    metodologia.setVisible(false);
 			}
 		});
 		programador.setBackground(new Color(220, 220,220));
@@ -393,11 +431,20 @@ public class RegisterWorker extends JDialog {
 				planeador.setSelected(false);
 				tester.setSelected(false);
 			    lblcontrasea.setVisible(false);
-			    contrasenia.setVisible(false);
+			    aniosExperiencia.setVisible(false);
 			    lblTipoDeProgramador.setVisible(false);
 			    tipoProgramador.setVisible(false);
-			    lblNewLabel_8.setVisible(false);
+			    lblLenguaje.setVisible(false);
 			    lenguajeDeProgramacion.setVisible(false);
+			    
+			    lblOrientacion.setVisible(true);
+			    orientacion.setVisible(true);
+			    softwareD.setVisible(true);
+			    softwareDisenio.setVisible(true);
+			    softwarePrueba.setVisible(false);
+			    testingSoftware.setVisible(false);
+			    lblMetodologia.setVisible(false);
+			    metodologia.setVisible(false);
 			}
 		});
 		diseniador.setBackground(new Color(220, 220,220));
@@ -414,11 +461,20 @@ public class RegisterWorker extends JDialog {
 				planeador.setSelected(false);
 				tester.setSelected(true);
 			    lblcontrasea.setVisible(false);
-			    contrasenia.setVisible(false);
+			    aniosExperiencia.setVisible(false);
 			    lblTipoDeProgramador.setVisible(false);
 			    tipoProgramador.setVisible(false);
-			    lblNewLabel_8.setVisible(false);
+			    lblLenguaje.setVisible(false);
 			    lenguajeDeProgramacion.setVisible(false);
+			    
+			    lblOrientacion.setVisible(false);
+			    orientacion.setVisible(false);
+			    softwareD.setVisible(false);
+			    softwareDisenio.setVisible(false);
+			    softwarePrueba.setVisible(true);
+			    testingSoftware.setVisible(true);
+			    lblMetodologia.setVisible(false);
+			    metodologia.setVisible(false);
 			}
 		});
 		tester.setBackground(new Color(220, 220,220));
@@ -433,16 +489,16 @@ public class RegisterWorker extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		lblcontrasea = new JLabel("*Contrase\u00F1a: ");
+		lblcontrasea = new JLabel("*A\u00F1os de experiencia: ");
 		lblcontrasea.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblcontrasea.setBounds(10, 32, 102, 14);
+		lblcontrasea.setBounds(10, 31, 158, 14);
 		panel.add(lblcontrasea);
 		
-		contrasenia = new JPasswordField();
-		contrasenia.setBackground(new Color(230,230,250));
-		contrasenia.setBounds(120, 30, 310, 22);
-		panel.add(contrasenia);
-		contrasenia.setColumns(10);
+		aniosExperiencia = new JPasswordField();
+		aniosExperiencia.setBackground(new Color(230,230,250));
+		aniosExperiencia.setBounds(178, 29, 252, 22);
+		panel.add(aniosExperiencia);
+		aniosExperiencia.setColumns(10);
 		
 		lblTipoDeProgramador = new JLabel("*Tipo de programador: ");
 		lblTipoDeProgramador.setVisible(false);
@@ -457,11 +513,11 @@ public class RegisterWorker extends JDialog {
 		panel.add(tipoProgramador);
 		tipoProgramador.setColumns(10);
 		
-		lblNewLabel_8 = new JLabel("*Lenguaje de programaci\u00F3n: ");
-		lblNewLabel_8.setVisible(false);
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_8.setBounds(473, 31, 203, 16);
-		panel.add(lblNewLabel_8);
+		lblLenguaje = new JLabel("*Lenguaje de programaci\u00F3n: ");
+		lblLenguaje.setVisible(false);
+		lblLenguaje.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblLenguaje.setBounds(473, 31, 203, 16);
+		panel.add(lblLenguaje);
 		
 		lenguajeDeProgramacion = new JTextField();
 		lenguajeDeProgramacion.setBackground(new Color(230,230,250));
@@ -469,10 +525,63 @@ public class RegisterWorker extends JDialog {
 		lenguajeDeProgramacion.setBounds(722, 29, 251, 22);
 		panel.add(lenguajeDeProgramacion);
 		lenguajeDeProgramacion.setColumns(10);
+		
+		lblOrientacion = new JLabel("*Orientaci\u00F3n de Dise\u00F1o: ");
+		lblOrientacion.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblOrientacion.setBounds(10, 31, 158, 16);
+		panel.add(lblOrientacion);
+		
+		orientacion = new JTextField();
+		orientacion.setBackground(new Color(230, 230, 250));
+		orientacion.setBounds(178, 29, 252, 22);
+		panel.add(orientacion);
+		orientacion.setColumns(10);
+		
+		softwareD = new JLabel("*Software de dise\u00F1o: ");
+		softwareD.setFont(new Font("Tahoma", Font.BOLD, 13));
+		softwareD.setBounds(473, 31, 203, 16);
+		panel.add(softwareD);
+		
+		softwareDisenio = new JTextField();
+		softwareDisenio.setBackground(new Color(230, 230, 250));
+		softwareDisenio.setBounds(722, 29, 252, 22);
+		panel.add(softwareDisenio);
+		softwareDisenio.setColumns(10);
+		
+		softwarePrueba = new JLabel("*Softwares de prueba: ");
+		softwarePrueba.setFont(new Font("Tahoma", Font.BOLD, 13));
+		softwarePrueba.setBounds(10, 31, 158, 16);
+		panel.add(softwarePrueba);
+		
+		testingSoftware = new JTextField();
+		testingSoftware.setBackground(new Color(230, 230, 250));
+		testingSoftware.setBounds(178, 29, 252, 22);
+		panel.add(testingSoftware);
+		testingSoftware.setColumns(10);
+		
+		lblMetodologia = new JLabel("*Metodolog\u00EDa: ");
+		lblMetodologia.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblMetodologia.setBounds(10, 31, 118, 16);
+		panel.add(lblMetodologia);
+		
+		metodologia = new JTextField();
+		metodologia.setBackground(new Color(230, 230, 250));
+		metodologia.setBounds(138, 29, 292, 22);
+		panel.add(metodologia);
+		metodologia.setColumns(10);
 		super.getToolkit().getScreenSize(); 
 		this.setResizable(false);
 		setLocationRelativeTo(null);
 		setModal(true);
+		
+		  lblOrientacion.setVisible(false);
+		  orientacion.setVisible(false);
+		  softwareD.setVisible(false);
+		  softwareDisenio.setVisible(false);
+		  softwarePrueba.setVisible(false);
+		  testingSoftware.setVisible(false);
+		  lblMetodologia.setVisible(false);
+		  metodologia.setVisible(false);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -491,7 +600,7 @@ public class RegisterWorker extends JDialog {
 						if (!registerModify) {
 					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
 							JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-					    else if ((jefeProyecto.isSelected()&&contrasenia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
+					    else if ((jefeProyecto.isSelected()&&aniosExperiencia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
 					    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 					    }
 					    else if (!validarFecha(dateChooser))
@@ -501,17 +610,22 @@ public class RegisterWorker extends JDialog {
 					    	Worker worker = null;
 					    	if (jefeProyecto.isSelected()) {
 					    		worker = new ProjectBoss();
-					    		((ProjectBoss)worker).setPassword(contrasenia.getText());
+					    		((ProjectBoss)worker).setExperienceYears(Integer.parseInt(aniosExperiencia.getText()));
 					    	}
-					    	else if (diseniador.isSelected())
+					    	else if (diseniador.isSelected()){
 					    		worker = new Designer();
+					    		((Designer)worker).setDesignerField("agregar algo");
+					    		((Designer)worker).setDesigningSoftware(("agregar algo"));
+					    	}
 					    	else if (programador.isSelected()) {
 					    		worker = new Programmer();
 					    		((Programmer)worker).setProgrammerType(tipoProgramador.getText());
 					    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getText());
 					    	}
-					    	else if (tester.isSelected())
+					    	else if (tester.isSelected()) {
 					    		worker = new SoftwareTester();
+					    		((SoftwareTester)worker).setTestingSoftware("agregar algo");
+					    	}
 					    	else
 					    		worker = new Planner();
 					    	
@@ -536,7 +650,7 @@ public class RegisterWorker extends JDialog {
 							
 							if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
 								JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-						    else if ((jefeProyecto.isSelected()&&contrasenia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
+						    else if ((jefeProyecto.isSelected()&&aniosExperiencia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
 						    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 						    }
 						    else if (!validarFecha(dateChooser))
@@ -546,7 +660,7 @@ public class RegisterWorker extends JDialog {
 						    	Worker worker = null;
 						    	if (jefeProyecto.isSelected()) {
 						    		worker = new ProjectBoss();
-						    		((ProjectBoss)worker).setPassword(contrasenia.getText());
+						    		((ProjectBoss)worker).setExperienceYears(Integer.parseInt(aniosExperiencia.getText()));
 						    	}
 						    	else if (diseniador.isSelected()) {
 						    		worker = new Designer();
@@ -673,7 +787,7 @@ public class RegisterWorker extends JDialog {
 	    numero.setText(separator[3]);
 	    if (worker instanceof ProjectBoss) {
 	    	jefeProyecto.setSelected(true);
-	    	contrasenia.setText(((ProjectBoss)worker).getPassword());
+	    	aniosExperiencia.setText(String.valueOf(((ProjectBoss)worker).getExperienceYears()));
 	    }
 	    else if (worker instanceof Planner) {
 	    	planeador.setSelected(true);
@@ -698,7 +812,7 @@ public class RegisterWorker extends JDialog {
 	    	
 	    	tipoProgramador.setEditable(false);
 	    	lenguajeDeProgramacion.setEditable(false);
-	    	contrasenia.setEditable(false);   
+	    	aniosExperiencia.setEditable(false);   
    }
    private void clean() {
 	   cedulaText.setValue(null);
@@ -720,6 +834,6 @@ public class RegisterWorker extends JDialog {
 	   tester.setSelected(false);
 	   tipoProgramador.setText("");
 	   lenguajeDeProgramacion.setText("");
-	   contrasenia.setText("");
+	   aniosExperiencia.setText("");
    }
 }
