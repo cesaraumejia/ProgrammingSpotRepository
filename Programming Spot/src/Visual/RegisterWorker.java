@@ -73,14 +73,14 @@ public class RegisterWorker extends JDialog {
 	private JDateChooser dateChooser;
 	private Worker worker;
 	private JRadioButton jefeProyecto;
-	private JTextField orientacion;
 	private JTextField softwareDisenio;
 	private JTextField testingSoftware;
 	private JLabel softwarePrueba;
 	private JLabel softwareD;
 	private JLabel lblOrientacion;
 	private JLabel lblMetodologia;
-	private JTextField metodologia;
+	private JComboBox<String> metodologia;
+	private JComboBox<String> orientacion;
 
 	/**
 	 * Launch the application.
@@ -89,6 +89,7 @@ public class RegisterWorker extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public RegisterWorker(final boolean registerModify, final Worker worker) {
 		this.worker = worker;
 		setUndecorated(true);
@@ -148,7 +149,7 @@ public class RegisterWorker extends JDialog {
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
-				JLabel lblNewLabel_3 = new JLabel("*C\u00E9dula: ");
+				JLabel lblNewLabel_3 = new JLabel("C\u00E9dula: ");
 				lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 				lblNewLabel_3.setBounds(12, 30, 75, 16);
 				panel.add(lblNewLabel_3);
@@ -177,7 +178,7 @@ public class RegisterWorker extends JDialog {
 			cedulaText.setBounds(106, 28, 207, 22);
 			panel.add(cedulaText);
 			{
-				JLabel lblApellidos = new JLabel("*Apellidos: ");
+				JLabel lblApellidos = new JLabel("Apellidos: ");
 				lblApellidos.setFont(new Font("Tahoma", Font.BOLD, 13));
 				lblApellidos.setBounds(360, 30, 75, 16);
 				panel.add(lblApellidos);
@@ -190,7 +191,7 @@ public class RegisterWorker extends JDialog {
 			panel.add(apellidos);
 			apellidos.setColumns(10);
 			
-			JLabel lblNombres = new JLabel("*Nombres: ");
+			JLabel lblNombres = new JLabel("Nombres: ");
 			lblNombres.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblNombres.setBounds(701, 30, 75, 16);
 			panel.add(lblNombres);
@@ -202,7 +203,7 @@ public class RegisterWorker extends JDialog {
 			panel.add(nombres);
 			nombres.setColumns(10);
 			
-			JLabel lblSexo = new JLabel("*Sexo: ");
+			JLabel lblSexo = new JLabel("Sexo: ");
 			lblSexo.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblSexo.setBounds(12, 70, 75, 14);
 			panel.add(lblSexo);
@@ -213,12 +214,12 @@ public class RegisterWorker extends JDialog {
 			sexo.setBounds(106, 67, 207, 22);
 			panel.add(sexo);
 			
-			JLabel lblNewLabel_4 = new JLabel("*Fecha de nacimiento: ");
+			JLabel lblNewLabel_4 = new JLabel("Fecha de nacimiento: ");
 			lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblNewLabel_4.setBounds(360, 70, 157, 14);
 			panel.add(lblNewLabel_4);
 			
-			JLabel lblNewLabel_5 = new JLabel("*Pago por hora: ");
+			JLabel lblNewLabel_5 = new JLabel("Pago por hora: ");
 			lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblNewLabel_5.setBounds(702, 69, 125, 16);
 			panel.add(lblNewLabel_5);
@@ -230,7 +231,7 @@ public class RegisterWorker extends JDialog {
 			panel.add(salario);
 			salario.setColumns(10);
 			
-			JLabel lblNewLabel_6 = new JLabel("*Horas de trabajo: ");
+			JLabel lblNewLabel_6 = new JLabel("Horas de trabajo: ");
 			lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblNewLabel_6.setBounds(12, 110, 145, 16);
 			panel.add(lblNewLabel_6);
@@ -242,7 +243,7 @@ public class RegisterWorker extends JDialog {
 			panel.add(horasTrabajo);
 			horasTrabajo.setColumns(10);
 			
-			JLabel lblTelfono = new JLabel("*Tel\u00E9fono: ");
+			JLabel lblTelfono = new JLabel("Tel\u00E9fono: ");
 			lblTelfono.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblTelfono.setBounds(360, 111, 86, 14);
 			panel.add(lblTelfono);
@@ -261,9 +262,10 @@ public class RegisterWorker extends JDialog {
 			panel.add(dateChooser);
 		}
 		{
-			JLabel lblNewLabel_2 = new JLabel("* -> Par\u00E1metros Obligatorios");
+			JLabel lblNewLabel_2 = new JLabel("Nota: Todos los campos son obligatorios");
+			lblNewLabel_2.setForeground(new Color(255, 0, 0));
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 13));
-			lblNewLabel_2.setBounds(22, 51, 197, 16);
+			lblNewLabel_2.setBounds(22, 51, 255, 16);
 			contentPanel.add(lblNewLabel_2);
 		}
 		{
@@ -274,12 +276,12 @@ public class RegisterWorker extends JDialog {
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			
-			JLabel lblProvincia = new JLabel("*Provincia: ");
+			JLabel lblProvincia = new JLabel("Provincia: ");
 			lblProvincia.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblProvincia.setBounds(10, 29, 81, 14);
 			panel.add(lblProvincia);
 			
-			JLabel lblLocalidad = new JLabel("*Localidad: ");
+			JLabel lblLocalidad = new JLabel("Localidad: ");
 			lblLocalidad.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblLocalidad.setBounds(10, 80, 81, 14);
 			panel.add(lblLocalidad);
@@ -292,23 +294,23 @@ public class RegisterWorker extends JDialog {
 			
 			JLabel lblCalle = new JLabel("Calle: ");
 			lblCalle.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblCalle.setBounds(360, 56, 57, 14);
+			lblCalle.setBounds(360, 80, 57, 14);
 			panel.add(lblCalle);
 			
 			calle = new JTextField();
 			calle.setBackground(new Color(230,230,250));
-			calle.setBounds(445, 53, 207, 22);
+			calle.setBounds(445, 77, 207, 22);
 			panel.add(calle);
 			calle.setColumns(10);
 			
 			JLabel lblNo = new JLabel("No: ");
 			lblNo.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNo.setBounds(701, 57, 57, 14);
+			lblNo.setBounds(701, 80, 57, 14);
 			panel.add(lblNo);
 			
 			numero = new JTextField();
 			numero.setBackground(new Color(230,230,250));
-			numero.setBounds(802, 54, 191, 22);
+			numero.setBounds(747, 77, 246, 22);
 			panel.add(numero);
 			numero.setColumns(10);
 			
@@ -489,7 +491,7 @@ public class RegisterWorker extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		lblcontrasea = new JLabel("*A\u00F1os de experiencia: ");
+		lblcontrasea = new JLabel("A\u00F1os de experiencia: ");
 		lblcontrasea.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblcontrasea.setBounds(10, 31, 158, 14);
 		panel.add(lblcontrasea);
@@ -500,7 +502,7 @@ public class RegisterWorker extends JDialog {
 		panel.add(aniosExperiencia);
 		aniosExperiencia.setColumns(10);
 		
-		lblTipoDeProgramador = new JLabel("*Tipo de programador: ");
+		lblTipoDeProgramador = new JLabel("Tipo de programador: ");
 		lblTipoDeProgramador.setVisible(false);
 		lblTipoDeProgramador.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTipoDeProgramador.setBounds(10, 31, 169, 16);
@@ -513,7 +515,7 @@ public class RegisterWorker extends JDialog {
 		panel.add(tipoProgramador);
 		tipoProgramador.setColumns(10);
 		
-		lblLenguaje = new JLabel("*Lenguaje de programaci\u00F3n: ");
+		lblLenguaje = new JLabel("Lenguaje de programaci\u00F3n: ");
 		lblLenguaje.setVisible(false);
 		lblLenguaje.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblLenguaje.setBounds(473, 31, 203, 16);
@@ -526,18 +528,12 @@ public class RegisterWorker extends JDialog {
 		panel.add(lenguajeDeProgramacion);
 		lenguajeDeProgramacion.setColumns(10);
 		
-		lblOrientacion = new JLabel("*Orientaci\u00F3n de Dise\u00F1o: ");
+		lblOrientacion = new JLabel("Orientaci\u00F3n de Dise\u00F1o: ");
 		lblOrientacion.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblOrientacion.setBounds(10, 31, 158, 16);
 		panel.add(lblOrientacion);
 		
-		orientacion = new JTextField();
-		orientacion.setBackground(new Color(230, 230, 250));
-		orientacion.setBounds(178, 29, 252, 22);
-		panel.add(orientacion);
-		orientacion.setColumns(10);
-		
-		softwareD = new JLabel("*Software de dise\u00F1o: ");
+		softwareD = new JLabel("Software de dise\u00F1o: ");
 		softwareD.setFont(new Font("Tahoma", Font.BOLD, 13));
 		softwareD.setBounds(473, 31, 203, 16);
 		panel.add(softwareD);
@@ -548,7 +544,7 @@ public class RegisterWorker extends JDialog {
 		panel.add(softwareDisenio);
 		softwareDisenio.setColumns(10);
 		
-		softwarePrueba = new JLabel("*Softwares de prueba: ");
+		softwarePrueba = new JLabel("Softwares de prueba: ");
 		softwarePrueba.setFont(new Font("Tahoma", Font.BOLD, 13));
 		softwarePrueba.setBounds(10, 31, 158, 16);
 		panel.add(softwarePrueba);
@@ -559,23 +555,26 @@ public class RegisterWorker extends JDialog {
 		panel.add(testingSoftware);
 		testingSoftware.setColumns(10);
 		
-		lblMetodologia = new JLabel("*Metodolog\u00EDa: ");
+		lblMetodologia = new JLabel("Metodolog\u00EDa: ");
 		lblMetodologia.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblMetodologia.setBounds(10, 31, 118, 16);
 		panel.add(lblMetodologia);
 		
-		metodologia = new JTextField();
-		metodologia.setBackground(new Color(230, 230, 250));
+		metodologia = new JComboBox();
+		metodologia.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Scrum\t", "Cristal", "XP (Xtreme Programming)"}));
 		metodologia.setBounds(138, 29, 292, 22);
 		panel.add(metodologia);
-		metodologia.setColumns(10);
+		
+		orientacion = new JComboBox();
+		orientacion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Web", "Desktop"}));
+		orientacion.setBounds(178, 29, 252, 22);
+		panel.add(orientacion);
 		super.getToolkit().getScreenSize(); 
 		this.setResizable(false);
 		setLocationRelativeTo(null);
 		setModal(true);
 		
 		  lblOrientacion.setVisible(false);
-		  orientacion.setVisible(false);
 		  softwareD.setVisible(false);
 		  softwareDisenio.setVisible(false);
 		  softwarePrueba.setVisible(false);
@@ -600,7 +599,7 @@ public class RegisterWorker extends JDialog {
 						if (!registerModify) {
 					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
 							JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-					    else if ((jefeProyecto.isSelected()&&aniosExperiencia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
+					    else if ((jefeProyecto.isSelected()&&aniosExperiencia.getText().equals(""))||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals("")))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))) {
 					    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 					    }
 					    else if (!validarFecha(dateChooser))
@@ -614,8 +613,8 @@ public class RegisterWorker extends JDialog {
 					    	}
 					    	else if (diseniador.isSelected()){
 					    		worker = new Designer();
-					    		((Designer)worker).setDesignerField("agregar algo");
-					    		((Designer)worker).setDesigningSoftware(("agregar algo"));
+					    		((Designer)worker).setDesignerField(orientacion.getSelectedItem().toString());
+					    		((Designer)worker).setDesigningSoftware((softwareDisenio.getText()));
 					    	}
 					    	else if (programador.isSelected()) {
 					    		worker = new Programmer();
@@ -624,11 +623,13 @@ public class RegisterWorker extends JDialog {
 					    	}
 					    	else if (tester.isSelected()) {
 					    		worker = new SoftwareTester();
-					    		((SoftwareTester)worker).setTestingSoftware("agregar algo");
+					    		((SoftwareTester)worker).setTestingSoftware(testingSoftware.getText());
+					    		
 					    	}
-					    	else
+					    	else {
 					    		worker = new Planner();
-					    	
+					    	    ((Planner)worker).setMethodology(metodologia.getSelectedItem().toString());
+					    	}
 					    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText()+"/"+calle.getText()+"/"+numero.getText());
 					 
 					    	worker.setWorkedHours(Integer.parseInt(horasTrabajo.getText()));
@@ -650,7 +651,7 @@ public class RegisterWorker extends JDialog {
 							
 							if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
 								JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-						    else if ((jefeProyecto.isSelected()&&aniosExperiencia.getText().equals("")||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals(""))))) {
+							else if ((jefeProyecto.isSelected()&&aniosExperiencia.getText().equals(""))||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals("")))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))){
 						    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 						    }
 						    else if (!validarFecha(dateChooser))
@@ -662,8 +663,10 @@ public class RegisterWorker extends JDialog {
 						    		worker = new ProjectBoss();
 						    		((ProjectBoss)worker).setExperienceYears(Integer.parseInt(aniosExperiencia.getText()));
 						    	}
-						    	else if (diseniador.isSelected()) {
+						    	else if (diseniador.isSelected()){
 						    		worker = new Designer();
+						    		((Designer)worker).setDesignerField(orientacion.getSelectedItem().toString());
+						    		((Designer)worker).setDesigningSoftware((softwareDisenio.getText()));
 						    	}
 						    	else if (programador.isSelected()) {
 						    		worker = new Programmer();
@@ -672,9 +675,12 @@ public class RegisterWorker extends JDialog {
 						    	}
 						    	else if (tester.isSelected()) {
 						    		worker = new SoftwareTester();
+						    		((SoftwareTester)worker).setTestingSoftware(testingSoftware.getText());
+						    		
 						    	}
 						    	else {
 						    		worker = new Planner();
+						    	    ((Planner)worker).setMethodology(metodologia.getSelectedItem().toString());
 						    	}
 						    	
 						    		worker.setAddress(provincia.getSelectedItem()+"/"+localidad.getText()+"/"+calle.getText()+"/"+numero.getText());
