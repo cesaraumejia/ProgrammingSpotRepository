@@ -5,8 +5,8 @@ public class Project {
     
     private ArrayList<Worker> workers = new ArrayList<>();
     private String name;
-    private float totalPrice;
-    private String programmingType;
+    private float totalPrice;			//Este campo deberia solo en contratos
+    private String programmingType;		
     private String state;
     private String programmingLanguage;    
 

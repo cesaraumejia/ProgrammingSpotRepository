@@ -1,11 +1,13 @@
 package Logico;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class Admin {
 	private ArrayList<Client> clients = new ArrayList<>();
 	private ArrayList<Contract> contracts  = new ArrayList<>();
 	private ArrayList<Worker> workers = new ArrayList<>();
+	private ArrayList<Project> projects = new ArrayList<>();
 	public static int IDContractGenerator = 0;
 	private static Admin miAdmin;
 
@@ -13,6 +15,7 @@ public class Admin {
 	    this.clients=new ArrayList<>();
 	    this.contracts=new ArrayList<>();
 	    this.workers=new ArrayList<>();
+	    this.projects = new ArrayList<>();
 	}
 ///////////////////////////Setters And Getters////////////////////////
 	public ArrayList<Client> getClients(){
@@ -33,6 +36,14 @@ public class Admin {
 		if (miAdmin==null)
 			miAdmin = new Admin();
 		return miAdmin;
+	}
+	
+
+	public ArrayList<Project> getProjects() {
+		return projects;
+	}
+	public void setProjects(ArrayList<Project> projects) {
+		this.projects = projects;
 	}
 	
 ///////////////////////////////////////////////////////////////////////////	
@@ -109,6 +120,12 @@ public class Admin {
 		contracts.add(contract);
 	    }
 	}
+	
+	public void addProject(Project project){
+	    if(!projects.contains(project)){
+		projects.add(project);
+	    }
+	}
 
 	
 	//TODO terminar este metodo.
@@ -125,16 +142,16 @@ public class Admin {
 	}
 	
 	private boolean workersAvailable(ProjectBoss boss,Programmer pr1,Programmer pr2){
-	    boolean workersAvailable=false;
+	    boolean workersAvailable = false;
 	    if(workers.get(workers.indexOf(boss)).isAvailable() && workers.get(workers.indexOf(pr1)).isAvailable() && workers.get(workers.indexOf(pr2)).isAvailable()){
-		workersAvailable=true;
+	    	workersAvailable=true;
 	    }
 	    return workersAvailable;
 	}
 	
 	
 	public Project createProject(String name,String programmingType,String programmingLanguage,String state,ProjectBoss boss, Planner planner, Designer designer,SoftwareTester tester, Programmer pr1,Programmer pr2){
-	   Project createdProject=null;
+	   Project createdProject = null;
 	   ArrayList<Worker>projectWorkers=new ArrayList<>();
 	   if(workersAvailable(boss, pr1, pr2)){
 	       projectWorkers.add(boss);
@@ -225,6 +242,82 @@ public class Admin {
 		}
 		workers.get(bestWorkerIndex).setAnualEvaluation("Destacado");
 	}
+	
+	public ProjectBoss bossByName(String name){
+		ProjectBoss boss = null;
+		int i = 0;
+		while(i < workers.size()){
+			if(workers.get(i) instanceof ProjectBoss){
+				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
+				if(completeName.equalsIgnoreCase(completeName)){
+					boss = (ProjectBoss) workers.get(i);
+				}
+			}
+			i++;
+		}
+		return boss;
+	}
+	
+	public Programmer programmerByName(String name){
+		Programmer programmer = null;
+		int i = 0;
+		while(i < workers.size()){
+			if(workers.get(i) instanceof Programmer){
+				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
+				if(completeName.equalsIgnoreCase(completeName)){
+					programmer = (Programmer) workers.get(i);
+				}
+			}
+			i++;
+		}
+		return programmer;
+	}
+	
+	public Planner plannerByName(String name){
+		Planner planner = null;
+		int i = 0;
+		while(i < workers.size()){
+			if(workers.get(i) instanceof Planner){
+				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
+				if(completeName.equalsIgnoreCase(completeName)){
+					planner = (Planner) workers.get(i);
+				}
+			}
+			i++;
+		}
+		return planner;
+	}
+	
+	public Designer designerByName(String name){
+		Designer designer = null;
+		int i = 0;
+		while(i < workers.size()){
+			if(workers.get(i) instanceof Designer){
+				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
+				if(completeName.equalsIgnoreCase(completeName)){
+					designer = (Designer) workers.get(i);
+				}
+			}
+			i++;
+		}
+		return designer;
+	}
+	
+	public SoftwareTester testerByName(String name){
+		SoftwareTester tester = null;
+		int i = 0;
+		while(i < workers.size()){
+			if(workers.get(i) instanceof SoftwareTester){
+				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
+				if(completeName.equalsIgnoreCase(completeName)){
+					tester = (SoftwareTester) workers.get(i);
+				}
+			}
+			i++;
+		}
+		return tester;
+	}
+	
 	
 	
 }

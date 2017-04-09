@@ -32,7 +32,7 @@ public class MainVisual extends JFrame {
 	private JLabel lblIcon2;
 	private JLabel lblIcon3;
 	
-	private int x;
+		private int x;
         private int y;
         
         private static MainVisual frame;
@@ -44,7 +44,6 @@ public class MainVisual extends JFrame {
         private JLabel lblClientMain;
         private JLabel lblContractMain;
         private JLabel lblWorkerMain;
-        private JPanel windowsContentPanel;
         
         private Dimension dim;
         
@@ -60,6 +59,7 @@ public class MainVisual extends JFrame {
         private JLabel lblClientList;
         private JLabel menuIcon;
         
+        ImageIcon image;
         private ImageIcon backTransitionIcon= new ImageIcon("src/icons/backTransition.png");
         private ImageIcon backIcon = new ImageIcon("src/icons/back.png");
         private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
@@ -73,6 +73,18 @@ public class MainVisual extends JFrame {
         private JPanel workersPanel;
         
         private JLabel lblListar;
+        private JPanel contractPanel;
+        private JLabel lblBackContractIcon;
+        private JLabel lblContractsMenu;
+        private JLabel lblContractIcon;
+        private JLabel lblCreateContractIcon;
+        private JLabel lblContractCreate;
+        private JLabel lblAdminIcon;
+        private JLabel lblGananciasYPrdidas;
+        private JLabel lblAjustes;
+        private JLabel lblGananciaIcon;
+        private JLabel lblSettingsIcon;
+        private JLabel lblAdminExtIcon;
 
 
 	/**
@@ -90,7 +102,6 @@ public class MainVisual extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -409,6 +420,8 @@ public class MainVisual extends JFrame {
 					}
 					public void mouseReleased(MouseEvent e) {
 						lblContractMain.setForeground(new Color(0, 0, 0));
+						extendedPanel.setVisible(false);
+						contractPanel.setVisible(true);
 					}
 				});
 				lblContractMain.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
@@ -473,13 +486,146 @@ public class MainVisual extends JFrame {
 		lblNewLabel.setBounds(12, 2, 261, 32);
 		topPanel.add(lblNewLabel);
 		
-		windowsContentPanel = new JPanel();
-		windowsContentPanel.setBounds(233, 34, 1677, 966);
-		windowsContentPanel.setBackground(new Color(153, 153, 153));	
-		contentPane.add(windowsContentPanel);
-		windowsContentPanel.setLayout(null);
-		@SuppressWarnings("unused")
-		ImageIcon image = new ImageIcon("src/icons/code.png");
+		contractPanel = new JPanel();
+		contractPanel.setBounds(0, 34, 233, 966);
+		contentPane.add(contractPanel);
+		contractPanel.setBackground(new Color(128, 128, 128));
+		contractPanel.setLayout(null);
+		
+		lblBackContractIcon = new JLabel("");
+		lblBackContractIcon.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+			lblBackContractIcon.setIcon(backTransitionIcon);
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+			contractPanel.setVisible(false);
+			extendedPanel.setVisible(true);
+			lblBackContractIcon.setIcon(backIcon);
+
+		    }
+		});
+		lblBackContractIcon.setBounds(3, 0, 24, 37);
+		lblBackContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/back.png")));
+		contractPanel.add(lblBackContractIcon);
+		
+		lblContractsMenu = new JLabel("Contratos");
+		lblContractsMenu.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblContractsMenu.setBounds(58, 35, 143, 37);
+		contractPanel.add(lblContractsMenu);
+		
+		lblContractIcon = new JLabel("");
+		lblContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+		lblContractIcon.setBounds(3, 35, 24, 37);
+		contractPanel.add(lblContractIcon);
+		
+		lblCreateContractIcon = new JLabel("");
+		lblCreateContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+		lblCreateContractIcon.setBounds(3, 82, 24, 37);
+		contractPanel.add(lblCreateContractIcon);
+		
+		lblContractCreate = new JLabel("Crear");
+		lblContractCreate.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblContractCreate.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+			lblIcon1.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+			lblIcon2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+			lblIcon3.setVisible(false);
+			menuPanel.setVisible(true);
+			contractPanel.setVisible(false);
+			lblContractCreate.setForeground(new Color(0, 0, 0));
+			CreateProject createProject = new CreateProject();
+			createProject.setVisible(true);
+		    }
+		});
+		lblContractCreate.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblContractCreate.setBounds(58, 80, 143, 37);
+		contractPanel.add(lblContractCreate);
+		
+		lblGananciasYPrdidas = new JLabel("Ganancias y p\u00E9rdidas");
+		lblGananciasYPrdidas.setVisible(false);
+		lblGananciasYPrdidas.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblGananciasYPrdidas.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblGananciasYPrdidas.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblGananciasYPrdidas.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblGananciasYPrdidas.setBounds(1122, 112, 168, 27);
+		contentPane.add(lblGananciasYPrdidas);
+		
+		lblAjustes = new JLabel("Ajustes");
+		lblAjustes.setVisible(false);
+		lblAjustes.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblAjustes.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblAjustes.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblAjustes.setBounds(1220, 159, 70, 27);
+		contentPane.add(lblAjustes);
+		
+		lblSettingsIcon = new JLabel("");
+		lblSettingsIcon.setVisible(false);
+		lblSettingsIcon.setBounds(1310, 159, 24, 32);
+		contentPane.add(lblSettingsIcon);
+		lblSettingsIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/settings.png")));
+		
+		lblGananciaIcon = new JLabel("");
+		lblGananciaIcon.setVisible(false);
+		lblGananciaIcon.setBounds(1310, 102, 36, 46);
+		contentPane.add(lblGananciaIcon);
+		lblGananciaIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png")));
+		
+		lblAdminIcon = new JLabel("");
+		lblAdminIcon.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+			    lblGananciaIcon.setVisible(true);
+			    lblGananciasYPrdidas.setVisible(true);
+			    lblAjustes.setVisible(true);
+			    lblSettingsIcon.setVisible(true);
+			    lblAdminIcon.setVisible(false);
+			    lblAdminExtIcon.setVisible(true);
+
+			}
+		});
+		lblAdminIcon.setBounds(1312, 45, 34, 46);
+		contentPane.add(lblAdminIcon);
+		lblAdminIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin.png")));
+		
+		lblAdminExtIcon = new JLabel("");
+		lblAdminExtIcon.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+			    lblGananciaIcon.setVisible(false);
+			    lblGananciasYPrdidas.setVisible(false);
+			    lblAjustes.setVisible(false);
+			    lblSettingsIcon.setVisible(false);
+			    lblAdminIcon.setVisible(true);
+			    lblAdminExtIcon.setVisible(false);
+
+			}
+		});
+		lblAdminExtIcon.setVisible(false);
+		lblAdminExtIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin1.png")));
+		lblAdminExtIcon.setBounds(1312, 45, 34, 46);
+		contentPane.add(lblAdminExtIcon);
+		contractPanel.setVisible(false);
+		
+		image = new ImageIcon("src/icons/code.png");
 		
 		
 		
@@ -498,6 +644,10 @@ public class MainVisual extends JFrame {
 	public JPanel getClientsPanel() {
 	    return clientsPanel;
 	}
+	
+	public JPanel getContractPanel() {
+	    return contractPanel;
+	}
 
 	public JPanel getExtendedPanel() {
 	    return extendedPanel;
@@ -514,10 +664,7 @@ public class MainVisual extends JFrame {
 	public JLabel getLblIcon3() {
 	    return lblIcon3;
 	}
-
-	public JPanel getWindowsContentPanel() {
-	    return windowsContentPanel;
-	}
+	
 	public JPanel getWorkersPanel() {
 	    return workersPanel;
 	}
