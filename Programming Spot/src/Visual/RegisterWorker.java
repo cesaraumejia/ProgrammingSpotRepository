@@ -710,6 +710,10 @@ public class RegisterWorker extends JDialog {
 			}
 			{
 				JButton salirButton = new JButton("Salir");
+				salirButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
 				salirButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseReleased(MouseEvent e) {
@@ -721,7 +725,7 @@ public class RegisterWorker extends JDialog {
 						dispose();
 					}
 				});
-				salirButton.setBackground(Color.LIGHT_GRAY);
+				salirButton.setBackground(new Color(255, 255, 240));
 				salirButton.setActionCommand("Cancel");
 				buttonPane.add(salirButton);
 				

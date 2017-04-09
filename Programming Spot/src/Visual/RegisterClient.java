@@ -119,7 +119,7 @@ public class RegisterClient extends JDialog {
 			    
 			}
 		});
-		btnRegister.setBackground(Color.LIGHT_GRAY);
+		btnRegister.setBackground(new Color(255, 255, 240));
 		btnRegister.setActionCommand("OK");
 		buttonPane.add(btnRegister);
 		getRootPane().setDefaultButton(btnRegister);
@@ -343,7 +343,7 @@ public class RegisterClient extends JDialog {
 	    
 	    {
 		JButton btnCancel = new JButton("Salir");
-		btnCancel.setBackground(Color.LIGHT_GRAY);
+		btnCancel.setBackground(new Color(255, 255, 240));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    MainVisual.getInstance().getMenuPanel().setVisible(false);

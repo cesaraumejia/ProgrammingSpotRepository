@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -63,10 +62,10 @@ public class ListClient extends JDialog {
  
     public ListClient() {
     	setUndecorated(true);
-	setBounds(100, 100, 1050, 597);
+	setBounds(100, 100, 1003, 500);
 	getContentPane().setLayout(new BorderLayout());
 	contentPanel.setBackground(new Color(220, 220, 220));
-	contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+	contentPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	getContentPane().add(contentPanel, BorderLayout.CENTER);
 	contentPanel.setLayout(null);
 	this.setResizable(false);
@@ -77,7 +76,7 @@ public class ListClient extends JDialog {
 	    	JPanel panel = new JPanel();
 		panel.setBackground(new Color(220, 220, 220));
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(12, 134, 691, 400);
+		panel.setBounds(12, 42, 691, 400);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		{
@@ -127,7 +126,7 @@ public class ListClient extends JDialog {
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(0, 0, 1050, 29);
+		panel_1.setBounds(0, 0, 1003, 29);
 		contentPanel.add(panel_1);
 		
 		JLabel lblListarClientes = new JLabel("Listar Clientes");
@@ -152,14 +151,14 @@ public class ListClient extends JDialog {
 				dispose();
 			}
 		});
-		label_1.setBounds(1025, 3, 26, 26);
+		label_1.setBounds(977, 3, 26, 26);
 		label_1.setIcon(windowsCloseIcon);
 		panel_1.add(label_1);
 		{
 			JPanel panelActiveContracts = new JPanel();
 			panelActiveContracts.setBackground(new Color(220, 220, 220));
 			panelActiveContracts.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-			panelActiveContracts.setBounds(700, 134, 323, 400);
+			panelActiveContracts.setBounds(715, 160, 263, 282);
 			contentPanel.add(panelActiveContracts);
 			panelActiveContracts.setLayout(null);
 			
@@ -167,7 +166,7 @@ public class ListClient extends JDialog {
 			panel_2.setLayout(null);
 			panel_2.setBorder(null);
 			panel_2.setBackground(new Color(220, 220, 220));
-			panel_2.setBounds(12, 24, 299, 363);
+			panel_2.setBounds(12, 13, 229, 243);
 			panelActiveContracts.add(panel_2);
 			
 			
@@ -188,7 +187,7 @@ public class ListClient extends JDialog {
 			
 			scrollPaneContracts = new JScrollPane();    
 			scrollPaneContracts.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPaneContracts.setBounds(0, 0, 299, 363);
+			scrollPaneContracts.setBounds(12, 13, 206, 220);
 			panel_2.add(scrollPaneContracts);
 			
 			
@@ -213,9 +212,9 @@ public class ListClient extends JDialog {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
-		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda de clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2.setBackground(new Color(220, 220, 220));
-		panel_2.setBounds(12, 38, 238, 88);
+		panel_2.setBounds(715, 42, 263, 88);
 		contentPanel.add(panel_2);
 		
 		JLabel label = new JLabel("C\u00E9dula:");
@@ -224,6 +223,7 @@ public class ListClient extends JDialog {
 		panel_2.add(label);
 		
 		tfdIdSearch = new JTextField();
+		tfdIdSearch.setBackground(new Color(230, 230, 250));
 		tfdIdSearch.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -252,12 +252,12 @@ public class ListClient extends JDialog {
 	    		public void actionPerformed(ActionEvent e) {
 	    		}
 	    	});
-	    	btnDetails.setBackground(Color.GRAY);
+	    	btnDetails.setBackground(new Color(255, 255, 240));
 	    	btnDetails.setActionCommand("OK");
 	    }
 	    {
 		JButton btnModify = new JButton("Modificar");
-		btnModify.setBackground(new Color(128, 128, 128));
+		btnModify.setBackground(new Color(255, 255, 240));
 		btnModify.setActionCommand("OK");
 		buttonPane.add(btnModify);
 		getRootPane().setDefaultButton(btnModify);
@@ -274,7 +274,7 @@ public class ListClient extends JDialog {
 				dispose();
 			}
 		});
-		btnCancel.setBackground(new Color(128, 128, 128));
+		btnCancel.setBackground(new Color(255, 255, 240));
 		btnCancel.setActionCommand("Cancel");
 		buttonPane.add(btnCancel);
 	    }
