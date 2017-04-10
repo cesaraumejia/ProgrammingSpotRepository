@@ -91,7 +91,7 @@ public class Project {
 	public float calculateBasePrice() {
 		float aux = 0f;
 		for (Worker i: workers)
-			aux += i.getSalary();
+			aux += i.computeSalary();
 		return aux*1.15f;
 	}
 	

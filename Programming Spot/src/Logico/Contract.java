@@ -7,6 +7,7 @@ public class Contract {
 	private Client client;
 	private Project project;  
 	private double finalPrice;
+	public static int IDnumber=0;
 	
 
 	public Contract() {

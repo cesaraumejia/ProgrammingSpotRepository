@@ -125,7 +125,7 @@ public class ListWorker extends JDialog {
 		scrollPane.setBounds(14, 28, 667, 356);
 		panel_1.add(scrollPane);
 		///////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////////////
-		String[] columnsHeaders = {"Cédula", "Nombre", "Apellido", "Salario","Projectos", "Disponibilidad", "Teléfono", "Tipo"};
+		String[] columnsHeaders = {"Cédula", "Nombre", "Apellido",  "Disponibilidad", "Teléfono"};
 		tableModel = new DefaultTableModel(){
 		    /**
 		     * 
@@ -403,28 +403,13 @@ public class ListWorker extends JDialog {
 	   	table.getColumnModel().getColumn(2).setCellRenderer(tcr);
 	   	table.getColumnModel().getColumn(3).setCellRenderer(tcr);
 	   	table.getColumnModel().getColumn(4).setCellRenderer(tcr);
-	   	table.getColumnModel().getColumn(5).setCellRenderer(tcr);
-	   	table.getColumnModel().getColumn(6).setCellRenderer(tcr);
-	   	table.getColumnModel().getColumn(7).setCellRenderer(tcr);
 	   	row = new Object[tableModel.getColumnCount()];
 	   	for (Worker ct : workers) {
 	   	    row[0]=ct.getIdNumber();
 	   	    row[1]=ct.getFirstName();
 	   	    row[2]=ct.getLastName();
-	   	    row[3]=ct.computeSalary();
-	   	    row[4]=String.valueOf(ct.getContract().size());
-	   	    row[5]=ct.isAvailable();
-	   	    row[6]=ct.getTelefono();
-	   	    if (ct instanceof ProjectBoss)
-	      	    row[7]="Jefe de Projecto";
-	   	    else if (ct instanceof Planner)
-	   	    	row[7]="Planeador";
-	   	  else if (ct instanceof SoftwareTester)
-	   	    	row[7]="Tester";
-	   	  else if (ct instanceof Designer)
-	   	    	row[7]="Diseñador";
-	   	  else 
-	   	    	row[7]="Programador";
+	   	    row[3]=ct.isAvailable();
+	   	    row[4]=ct.getTelefono();
 	   	    tableModel.addRow(row);
 	   	}
 	    }

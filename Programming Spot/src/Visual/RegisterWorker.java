@@ -21,7 +21,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -59,7 +58,7 @@ public class RegisterWorker extends JDialog {
 	private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
 	private JFormattedTextField cedulaText;
 	private JComboBox<String> sexo;
-	private JPasswordField aniosExperiencia;
+	private JTextField aniosExperiencia;
 	private JTextField tipoProgramador;
 	private JTextField lenguajeDeProgramacion;
 	private JRadioButton planeador;
@@ -496,7 +495,7 @@ public class RegisterWorker extends JDialog {
 		lblcontrasea.setBounds(10, 31, 158, 14);
 		panel.add(lblcontrasea);
 		
-		aniosExperiencia = new JPasswordField();
+		aniosExperiencia = new JTextField();
 		aniosExperiencia.setBackground(new Color(230,230,250));
 		aniosExperiencia.setBounds(178, 29, 252, 22);
 		panel.add(aniosExperiencia);
@@ -593,8 +592,11 @@ public class RegisterWorker extends JDialog {
 				 registrarButton = new JButton("Registrar");
 				else
 					 registrarButton = new JButton("Modificar");
+				registrarButton.setBackground(new Color(255,255,240));
 				registrarButton.addActionListener(new ActionListener() {
-					@SuppressWarnings("deprecation")
+					/* (non-Javadoc)
+					 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+					 */
 					public void actionPerformed(ActionEvent e) {
 						if (!registerModify) {
 					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||horasTrabajo.getText().equals("")||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals("")||numero.getText().equals(""))
@@ -640,6 +642,7 @@ public class RegisterWorker extends JDialog {
 					    	worker.setBirthday(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
 					    	worker.setTelefono(telefonoText.getText());
 					    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
+					    	worker.setAvailable(true);
 					    	Admin.getInstance().addWorker(worker);
 							JOptionPane.showMessageDialog(null, "¡El trabajador ha sido agregado!", "Trabajador Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 					        clean();
@@ -703,7 +706,6 @@ public class RegisterWorker extends JDialog {
 					}
 				
 				});
-				registrarButton.setBackground(Color.LIGHT_GRAY);
 				registrarButton.setActionCommand("OK");
 				buttonPane.add(registrarButton);
 				getRootPane().setDefaultButton(registrarButton);
@@ -744,28 +746,28 @@ public class RegisterWorker extends JDialog {
 		String[] introd = introducido.split("/");    
 		String[] actual = hoy.split("/");
 		if (Integer.parseInt(actual[1]) < Integer.parseInt(introd[1])) {
-		   if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2])-1)<21)
+		   if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2])-1)<18)
 			   aux = false;
 		   else 
 			   aux = true;
 		}
 		else if (Integer.parseInt(actual[1]) == Integer.parseInt(introd[1])) {
 			if (Integer.parseInt(actual[0]) < Integer.parseInt(introd[0])) {
-				if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2])-1)<21)
+				if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2])-1)<18)
 					   aux = false;
 				else
 					aux = true;
 				
 			}
 			else {
-				if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2]))<21)
+				if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2]))<18)
 					   aux = false;
 				else
 					aux = true;
 			}
 		}
 		else {
-			if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2]))<21) 
+			if ((Integer.parseInt(actual[2])-Integer.parseInt(introd[2]))<18) 
 			    aux = false;
 			else 
 				aux = true;
@@ -845,5 +847,21 @@ public class RegisterWorker extends JDialog {
 	   tipoProgramador.setText("");
 	   lenguajeDeProgramacion.setText("");
 	   aniosExperiencia.setText("");
+	   
+	   lblcontrasea.setVisible(true);
+	    aniosExperiencia.setVisible(true);
+	    lblTipoDeProgramador.setVisible(false);
+	    tipoProgramador.setVisible(false);
+	    lblLenguaje.setVisible(false);
+	    lenguajeDeProgramacion.setVisible(false);
+	    
+	    lblOrientacion.setVisible(false);
+	    orientacion.setVisible(false);
+	    softwareD.setVisible(false);
+	    softwareDisenio.setVisible(false);
+	    softwarePrueba.setVisible(false);
+	    testingSoftware.setVisible(false);
+	    lblMetodologia.setVisible(false);
+	    metodologia.setVisible(false);
    }
 }

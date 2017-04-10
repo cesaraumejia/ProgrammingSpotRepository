@@ -1,5 +1,6 @@
 package Visual;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -45,6 +46,7 @@ import javax.swing.JCheckBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+@SuppressWarnings("unused")
 public class CreateProject extends JDialog {
 
     /**
@@ -58,7 +60,7 @@ public class CreateProject extends JDialog {
     private JLabel lblNewLabel;
     private JLabel lblClose;
     private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
-    private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
+	private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
     private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
     private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
     private JTextField tfdTitulo;
@@ -104,6 +106,7 @@ public class CreateProject extends JDialog {
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
 		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setBackground(new Color(255,255,240));
 		
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,8 +135,12 @@ public class CreateProject extends JDialog {
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, designer, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
+					
 				}
 				else if(chkPlaneador.isSelected() && !chkDiseador.isSelected() && !chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -142,8 +149,11 @@ public class CreateProject extends JDialog {
 					Planner planner = Admin.getInstance().plannerByName(nombrePlaneador);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, null, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}
 				else if(chkPlaneador.isSelected() && chkDiseador.isSelected() && !chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -153,8 +163,11 @@ public class CreateProject extends JDialog {
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, designer, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}
 				else if(!chkPlaneador.isSelected() && !chkDiseador.isSelected() && chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -163,8 +176,11 @@ public class CreateProject extends JDialog {
 					SoftwareTester tester = Admin.getInstance().testerByName(nombreTester);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, null, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}
 				else if(!chkPlaneador.isSelected() && chkDiseador.isSelected() && chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -174,8 +190,11 @@ public class CreateProject extends JDialog {
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, designer, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}
 				else if(chkPlaneador.isSelected() && !chkDiseador.isSelected() && chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -185,8 +204,11 @@ public class CreateProject extends JDialog {
 					SoftwareTester tester = Admin.getInstance().testerByName(nombreTester);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, null, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}
 				else if(chkPlaneador.isSelected() && chkDiseador.isSelected() && chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -197,8 +219,11 @@ public class CreateProject extends JDialog {
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, designer, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}
 				else{
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
@@ -206,8 +231,11 @@ public class CreateProject extends JDialog {
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, null, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
-					JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
-					clean();
+					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
+					//clean();
+					dispose();
+					CreateContract contract = new CreateContract(newProject);
+					contract.setVisible(true);
 				}  
 			}
 		});
@@ -413,41 +441,41 @@ public class CreateProject extends JDialog {
 		chkTester.setBackground(new Color(220, 220, 220));
 		panel_1.add(chkTester);
 		
-		cbxJefeDeProyecto = new JComboBox();
-		cbxJefeDeProyecto.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxJefeDeProyecto = new JComboBox<String>();
+		cbxJefeDeProyecto.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxJefeDeProyecto.setBackground(new Color(230, 230, 250));
 		cbxJefeDeProyecto.setBounds(144, 33, 168, 23);
 		panel_1.add(cbxJefeDeProyecto);
 		
-		cbxProgramador1 = new JComboBox();
-		cbxProgramador1.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxProgramador1 = new JComboBox<String>();
+		cbxProgramador1.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxProgramador1.setBackground(new Color(230, 230, 250));
 		cbxProgramador1.setBounds(144, 59, 168, 23);
 		panel_1.add(cbxProgramador1);
 		
-		cbxProgramador2 = new JComboBox();
-		cbxProgramador2.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxProgramador2 = new JComboBox<String>();
+		cbxProgramador2.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxProgramador2.setBackground(new Color(230, 230, 250));
 		cbxProgramador2.setBounds(144, 85, 168, 23);
 		panel_1.add(cbxProgramador2);
 		
-		cbxPlaneador = new JComboBox();
+		cbxPlaneador = new JComboBox<String>();
 		cbxPlaneador.setEnabled(false);
-		cbxPlaneador.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxPlaneador.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxPlaneador.setBackground(new Color(230, 230, 250));
 		cbxPlaneador.setBounds(144, 111, 168, 23);
 		panel_1.add(cbxPlaneador);
 		
-		cbxDiseador = new JComboBox();
+		cbxDiseador = new JComboBox<String>();
 		cbxDiseador.setEnabled(false);
-		cbxDiseador.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxDiseador.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxDiseador.setBackground(new Color(230, 230, 250));
 		cbxDiseador.setBounds(144, 137, 168, 23);
 		panel_1.add(cbxDiseador);
 		
-		cbxTester = new JComboBox();
+		cbxTester = new JComboBox<String>();
 		cbxTester.setEnabled(false);
-		cbxTester.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+		cbxTester.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxTester.setBackground(new Color(230, 230, 250));
 		cbxTester.setBounds(144, 163, 168, 23);
 		panel_1.add(cbxTester);
