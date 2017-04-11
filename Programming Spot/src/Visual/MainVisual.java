@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.MouseInfo;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -145,6 +146,7 @@ public class MainVisual extends JFrame {
 		setLocationRelativeTo(null);
 		
 		dim = super.getToolkit().getScreenSize(); 
+		pack();
 		super.setSize((dim.width-10),(dim.height-80));
 		this.setResizable(false);
 		setLocationRelativeTo(null);
