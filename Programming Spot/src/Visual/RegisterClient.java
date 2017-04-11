@@ -89,7 +89,7 @@ public class RegisterClient extends JDialog {
 			    String email= tfdEmailFirst.getText() + "@" + tfdEmailSecond.getText();
 			    String phone=formatedPhone.getText();
 			    String address = cbxProvince.getSelectedItem().toString() + " " + tfdLocation.getText() + " " + tfdStreet.getText() + " " + spnNumber.getValue().toString();
-			   /* if(idNumber.equalsIgnoreCase("___-_______-_")){
+			    if(idNumber.equalsIgnoreCase("___-_______-_")){
 				JOptionPane.showMessageDialog(null, "Asegurese de introducir una cédula", "No se ha encontrado Cédula", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(name.equalsIgnoreCase("")){
 				JOptionPane.showMessageDialog(null, "Recuerde introducir un nombre", "No se ha encontrado un nombre", JOptionPane.WARNING_MESSAGE, null);
@@ -103,7 +103,7 @@ public class RegisterClient extends JDialog {
 				JOptionPane.showMessageDialog(null, "Asegurese de seleccionar una provincia", "Provincia no válida", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(tfdLocation.getText().equalsIgnoreCase("")){
 				JOptionPane.showMessageDialog(null, "Asegurese de introducir una localidad", "No se ha encontrado una localidad", JOptionPane.WARNING_MESSAGE, null);
-			    }else {*/
+			    }else if (!existingID(idNumber)){
 				Admin.getInstance().addClient(new Client(idNumber, name, address, lastName, email,phone));
 				JOptionPane.showMessageDialog(null, "¡El cliente ha sido agregado!", "Cliente Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 				MainVisual.getInstance().getMenuPanel().setVisible(false);
@@ -113,7 +113,10 @@ public class RegisterClient extends JDialog {
 				MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
 				dispose();
 				
-			   // }
+			    }
+			    else {
+					JOptionPane.showMessageDialog(null, "Este cliente ya existe", "Cliente existente", JOptionPane.WARNING_MESSAGE, null);
+			    }
 			   
 			    
 			    
@@ -358,5 +361,13 @@ public class RegisterClient extends JDialog {
 		buttonPane.add(btnCancel);
 	    }
 	}
+    }
+    private boolean existingID(String ID) {
+    	boolean aux = false;
+    	for (Client i: Admin.getInstance().getClients()) {
+    		if (i.getIdNumber().equals(ID))
+    			aux = true;
+    	}
+    	return aux;
     }
 }

@@ -80,11 +80,23 @@ public class CreateContract extends JDialog {
     private JDateChooser fechaInicial;
     private JDateChooser fechaFinal;
     private JLabel priceLabel;
+    private Contract contract;
+    private JLabel lblCliente;
+    private JLabel lblFechaInicial;
+    private JLabel lblFechaFinal;
+    private JLabel lblId;
+    private JLabel IDLabel;
+    private JLabel lblPrecio;
+    private JLabel label;
+    private JLabel lblProyecto;
+    private JLabel lblTipo;
+    private JLabel lblNewLabel_1;
+    private JButton btnCrear;
     
     /**
      * @param project
      */
-    public CreateContract(final Project project) {
+    public CreateContract(final Project project, final boolean postpone, Contract contract, final int index) {
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     	setUndecorated(true);
 	setBounds(100, 100, 577, 368);
@@ -98,6 +110,7 @@ public class CreateContract extends JDialog {
 	setLocationRelativeTo(null);
 	setModal(true);	
 	this.project = project;
+	this.contract = contract;
 ////////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 	{
 	    
@@ -141,7 +154,11 @@ public class CreateContract extends JDialog {
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 		
-		lblNewLabel = new JLabel("Crear Contrato");
+		if (!postpone)
+			lblNewLabel = new JLabel("Crear Contrato");
+		else
+			lblNewLabel = new JLabel("Posponer Contrato");
+		
 		lblNewLabel.setBounds(12, 1, 185, 27);
 		lblNewLabel.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
 		topPanel.add(lblNewLabel);
@@ -182,13 +199,21 @@ public class CreateContract extends JDialog {
 		
 	
 		cliente = new JTextField();
+		if (postpone)
+			cliente.setEditable(false);
 		cliente.setHorizontalAlignment(SwingConstants.LEFT);
 		cliente.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				findClient();
-				if (cliente.getText().length()>11)
+				if (cliente.getText().length()>13)
 					cliente.setBackground(new Color(255,220,220));
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if ((cliente.getText().length()==3 || cliente.getText().length()==11)&&e.getKeyCode()!=8) {
+					cliente.setText(cliente.getText()+"-");
+				}
 			}
 		});
 		cliente.setBounds(104, 62, 396, 22);
@@ -197,7 +222,7 @@ public class CreateContract extends JDialog {
 
 		cliente.setColumns(10);
 		
-		JLabel lblCliente = new JLabel("Cliente:");
+		lblCliente = new JLabel("Cliente:");
 		lblCliente.setBounds(10, 64, 75, 16);
 		panel.add(lblCliente);
 		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -216,17 +241,19 @@ public class CreateContract extends JDialog {
 		lblBuscar.setBounds(510, 62, 24, 29);
 		panel.add(lblBuscar);
 		
-		JLabel lblFechaInicial = new JLabel("Fecha inicial:");
+		lblFechaInicial = new JLabel("Fecha inicial:");
 		lblFechaInicial.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblFechaInicial.setBounds(10, 113, 85, 14);
 		panel.add(lblFechaInicial);
 		
-		JLabel lblFechaFinal = new JLabel("Fecha final:");
+		lblFechaFinal = new JLabel("Fecha final:");
 		lblFechaFinal.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblFechaFinal.setBounds(281, 113, 102, 14);
 		panel.add(lblFechaFinal);
 		
 		fechaInicial = new JDateChooser();
+		if (postpone)
+			fechaInicial.setEnabled(false);
 		fechaInicial.setBackground(new Color(230, 230, 250));
 		fechaInicial.setDateFormatString("dd/MM/yyyy");
 		fechaInicial.setBounds(104, 112, 127, 20);
@@ -250,15 +277,21 @@ public class CreateContract extends JDialog {
 		panel.add(fechaFinal);
 		((JTextField)fechaFinal.getDateEditor().getUiComponent()).setEditable(false);
 		
-		JButton btnCrear = new JButton("Crear");
+		if (!postpone)
+			btnCrear = new JButton("Crear");
+		else
+			btnCrear = new JButton("Posponer");
 		btnCrear.setBackground(new Color(255,255,240));
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!postpone) {
 				if (!cliente.getText().equals("")||((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().equals("")||((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals("")) {
 					if (findClient(cliente.getText())!=null) {
 						if (validate(fechaInicial) && validate(fechaFinal)) {
 							if (validarFecha()) {
-								Admin.getInstance().createContract(fechaInicial.getDateFormatString(), fechaFinal.getDateFormatString(), String.valueOf(Contract.IDnumber-1), findClient(cliente.getText()), project, project.calculateBasePrice()*getDays());
+								String init = ((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText();
+								String finall = ((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText();
+								Admin.getInstance().createContract(init, finall, createID(), findClient(cliente.getText()), project, project.calculateBasePrice()*getDays());
 								JOptionPane.showMessageDialog(null, "El contrato se ha creado exitosamente","Contrato creado", JOptionPane.INFORMATION_MESSAGE, null);
 								   MainVisual.getInstance().getMenuPanel().setVisible(false);
 								   MainVisual.getInstance().getContractPanel().setVisible(true);
@@ -282,6 +315,17 @@ public class CreateContract extends JDialog {
 					JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
 				}
 			}
+				else {
+					if (((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals(""))
+						JOptionPane.showMessageDialog(null, "Rellene todos los cambios para continuar","Campos vacios", JOptionPane.WARNING_MESSAGE, null);
+					else {
+						Admin.getInstance().getContracts().get(index).setFinalDate(((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText());
+						JOptionPane.showMessageDialog(null, "Se ha pospuesto correctamente el proyecto","", JOptionPane.INFORMATION_MESSAGE, null);
+						Admin.getInstance().getContracts().get(index).setPostpone(1);
+						dispose();
+					}
+				}
+			}
 		});
 		
 		
@@ -289,18 +333,18 @@ public class CreateContract extends JDialog {
 		buttonPane.add(btnCrear);
 		getRootPane().setDefaultButton(btnCrear);
 		
-		JLabel lblId = new JLabel("ID:");
+		lblId = new JLabel("ID:");
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblId.setBounds(10, 22, 46, 14);
 		panel.add(lblId);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setText(String.valueOf(Contract.IDnumber++));
-		lblNewLabel_1.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
-		lblNewLabel_1.setBounds(104, 23, 127, 14);
-		panel.add(lblNewLabel_1);
+		IDLabel = new JLabel("New label");
+		IDLabel.setText(String.valueOf(Contract.IDnumber++));
+		IDLabel.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
+		IDLabel.setBounds(104, 23, 279, 14);
+		panel.add(IDLabel);
 		
-		JLabel lblPrecio = new JLabel("Precio: RD$");
+		lblPrecio = new JLabel("Precio: RD$");
 		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblPrecio.setBounds(373, 250, 149, 14);
 		panel.add(lblPrecio);
@@ -310,49 +354,51 @@ public class CreateContract extends JDialog {
 		priceLabel.setBounds(463, 250, 64, 14);
 		panel.add(priceLabel);
 		
-		JLabel label = new JLabel("*Introducir c\u00E9dula con guiones");
+		label = new JLabel("*Introducir c\u00E9dula con guiones");
 		label.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		label.setBounds(104, 87, 150, 14);
 		panel.add(label);
 		
-		JLabel lblProyecto = new JLabel("Proyecto: ");
+		lblProyecto = new JLabel("Proyecto: ");
 		lblProyecto.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblProyecto.setBounds(10, 160, 85, 14);
 		panel.add(lblProyecto);
 		
 		proyecto = new JTextField();
-		proyecto.setBackground(new Color(230, 230, 250));
+		proyecto.setBackground(new Color(220,220,220));
 		proyecto.setEditable(false);
 		proyecto.setBounds(104, 157, 150, 22);
 		panel.add(proyecto);
 		proyecto.setColumns(10);
 		
-		JLabel lblTipo = new JLabel("Tipo:");
+		lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTipo.setBounds(281, 208, 46, 14);
 		panel.add(lblTipo);
 		
 		tipo = new JTextField();
-		tipo.setBackground(new Color(230, 230, 250));
+		tipo.setBackground(new Color(220,220,220));
 		tipo.setEditable(false);
 		tipo.setBounds(337, 205, 163, 22);
 		panel.add(tipo);
 		tipo.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Lenguaje: ");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_3.setBounds(10, 207, 85, 16);
-		panel.add(lblNewLabel_3);
+		lblNewLabel_1 = new JLabel("Lenguaje: ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1.setBounds(10, 207, 85, 16);
+		panel.add(lblNewLabel_1);
 		
 		lenguaje = new JTextField();
-		lenguaje.setBackground(new Color(230, 230, 250));
+		lenguaje.setBackground(new Color(220,220,220));
 		lenguaje.setEditable(false);
 		lenguaje.setBounds(104, 205, 150, 22);
 		panel.add(lenguaje);
 		lenguaje.setColumns(10);
 	    
-		load();
-	    
+		if (!postpone)
+			load();
+	    if (postpone)
+	    	loadPostponeWindow();
 	    {
 		JButton btnCancel = new JButton("Cancelar");
 		btnCancel.setBackground(new Color(255,255,240));
@@ -373,113 +419,28 @@ public class CreateContract extends JDialog {
   }
 	private void findClient() {
 		String textField = cliente.getText();
+		cliente.setBackground(new Color(255, 220, 220));
+		if (textField.length()<14) {
+			for (Client i: Admin.getInstance().getClients()) {
+				String aux = getIDWorker(textField.length(), i);
+				if (textField.equals(aux))
+					cliente.setBackground(new Color(220, 255, 220));
+			}	
+		}
 		if (textField.length()==0) {
 			cliente.setBackground(new Color(220, 255, 220));
 		}
-		else if (textField.length()==1) {
-			cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(1, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-		}
-        else if (textField.length()==2) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(2, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-		}
-        else if (textField.length()==3) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(3, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==4) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(4, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==5) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(5, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==6) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(6, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==7) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(7, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==8) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(8, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==9) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(9, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==10) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(10, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-        else if (textField.length()==11) {
-        	cliente.setBackground(new Color(255, 220, 220));
-			for (Client i: Admin.getInstance().getClients()) {
-				String aux = getIDWorker(11, i);
-				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
-			}
-        }
-	}
-	private String separator(String cedula) {
-		String[] separado = cedula.split("-");
-		cedula = separado[0]+separado[1]+separado[2];
-		return cedula;
 	}
 	private String getIDWorker(int number, Client client) {
 		String aux = null;
-		String aux1 = separator(client.getIdNumber());
+		String aux1 = client.getIdNumber();
 		aux = aux1.substring(0, number);
 		return aux;
 	}
     private void setClientName() {
     	String aux = null;
     	for (Client i: Admin.getInstance().getClients()) {
-    		String ID = separator(i.getIdNumber());
+    		String ID = i.getIdNumber();
     		if (ID.equals(cliente.getText())) {
     			aux = i.getName()+" "+i.getLastName();
     	        cliente.setText(aux);
@@ -577,5 +538,33 @@ public class CreateContract extends JDialog {
 		}
 		return aux;
 	}
+    private void loadPostponeWindow() {
+    	IDLabel.setText(contract.getContractID());
+    	cliente.setText(contract.getClient().getName()+" "+contract.getClient().getLastName());
+    	((JTextField)fechaInicial.getDateEditor().getUiComponent()).setText(contract.getInitialDate());
+    	proyecto.setText(contract.getProject().getName());
+    	tipo.setText(contract.getProject().getProgrammingType());
+    	lenguaje.setText(contract.getProject().getProgrammingLanguage());
+    	priceLabel.setText(String.valueOf(contract.getFinalPrice()));
+    }
+    private String createID() {
+    	String aux = null;
+    	String[] date = ((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().split("/");
+    	String date1 = date[0]+date[1]+date[2];
+    	Client client = findClient(cliente.getText());
+    	String[] separateTelephone = client.getPhone().split("-");
+    	String telephone = separateTelephone[0]+separateTelephone[1]+separateTelephone[2];
+        aux = date1 + telephone;
+        String aux1 = aux.substring(0,  5);
+        String aux2 = aux.substring(5, 10);
+        String aux3 = aux.substring(10,15);
+        String aux4 = aux.substring(15,aux.length());
+        String aux5 = String.valueOf(Contract.IDnumber);
+        if (Contract.IDnumber<10)
+        	aux = aux1+"-"+aux2+"-"+aux3+"-"+aux4+"0"+aux5;
+        else		
+        	aux = aux1+"-"+aux2+"-"+aux3+"-"+aux4+aux5;
+    	return aux;
+    }
 }
 

@@ -8,12 +8,20 @@ import java.awt.MouseInfo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Admin;
 
 
 public class MainVisual extends JFrame {
@@ -85,6 +93,10 @@ public class MainVisual extends JFrame {
         private JLabel lblGananciaIcon;
         private JLabel lblSettingsIcon;
         private JLabel lblAdminExtIcon;
+        private JLabel lblListContract;
+        
+        private static ObjectOutputStream writer;
+        private static ObjectInputStream reader;
 
 
 	/**
@@ -94,9 +106,20 @@ public class MainVisual extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					readAdmin();
 					frame = new MainVisual();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch(IOException e1){
+					try {
+						writeAdmin();
+						frame = new MainVisual();
+						frame.setVisible(true);
+					} catch (IOException e) {
+						frame = new MainVisual();
+						frame.setVisible(true);
+					}	
+				}catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -125,6 +148,90 @@ public class MainVisual extends JFrame {
 		workersPanel.setBackground(new Color(128,128,128));
 		workersPanel.setBounds(0, 34, 233, 966);
 		workersPanel.setVisible(false);
+		
+		contractPanel = new JPanel();
+		contractPanel.setBounds(0, 34, 233, 966);
+		contentPane.add(contractPanel);
+		contractPanel.setBackground(new Color(128, 128, 128));
+		contractPanel.setLayout(null);
+		
+		lblBackContractIcon = new JLabel("");
+		lblBackContractIcon.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+			lblBackContractIcon.setIcon(backTransitionIcon);
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+			contractPanel.setVisible(false);
+			extendedPanel.setVisible(true);
+			lblBackContractIcon.setIcon(backIcon);
+
+		    }
+		});
+		lblBackContractIcon.setBounds(3, 0, 24, 37);
+		lblBackContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/back.png")));
+		contractPanel.add(lblBackContractIcon);
+		
+		lblContractsMenu = new JLabel("Contratos");
+		lblContractsMenu.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblContractsMenu.setBounds(58, 35, 143, 37);
+		contractPanel.add(lblContractsMenu);
+		
+		lblContractIcon = new JLabel("");
+		lblContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+		lblContractIcon.setBounds(3, 35, 24, 37);
+		contractPanel.add(lblContractIcon);
+		
+		lblCreateContractIcon = new JLabel("");
+		lblCreateContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+		lblCreateContractIcon.setBounds(3, 80, 24, 37);
+		contractPanel.add(lblCreateContractIcon);
+		
+		lblContractCreate = new JLabel("Crear");
+		lblContractCreate.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblContractCreate.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+			lblIcon1.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+			lblIcon2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+			lblIcon3.setVisible(false);
+			menuPanel.setVisible(true);
+			contractPanel.setVisible(false);
+			lblContractCreate.setForeground(new Color(0, 0, 0));
+			CreateProject createProject = new CreateProject();
+			createProject.setVisible(true);
+		    }
+		});
+		lblContractCreate.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblContractCreate.setBounds(58, 80, 143, 37);
+		contractPanel.add(lblContractCreate);
+		
+		lblListContract = new JLabel("Listar");
+		lblListContract.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblListContract.setForeground(new Color(240,240,240));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				lblListContract.setForeground(new Color(0,0,0));
+				ListContract list = new ListContract();
+				list.setVisible(true);
+			}
+		});
+		lblListContract.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblListContract.setBounds(58, 125, 143, 37);
+		contractPanel.add(lblListContract);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/listClient.png")));
+		label_1.setBounds(3, 125, 24, 37);
+		contractPanel.add(label_1);
+		contractPanel.setVisible(false);
 		
 		clientsPanel = new JPanel();
 		clientsPanel.setBounds(0, 34, 233, 966);
@@ -474,6 +581,12 @@ public class MainVisual extends JFrame {
 		lblClose = new JLabel("New label");
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
+				try {
+					writeAdmin();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				System.exit(0);
 			}
 		});
@@ -485,67 +598,6 @@ public class MainVisual extends JFrame {
 		lblNewLabel.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
 		lblNewLabel.setBounds(12, 2, 261, 32);
 		topPanel.add(lblNewLabel);
-		
-		contractPanel = new JPanel();
-		contractPanel.setBounds(0, 34, 233, 966);
-		contentPane.add(contractPanel);
-		contractPanel.setBackground(new Color(128, 128, 128));
-		contractPanel.setLayout(null);
-		
-		lblBackContractIcon = new JLabel("");
-		lblBackContractIcon.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-			lblBackContractIcon.setIcon(backTransitionIcon);
-		    }
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-			contractPanel.setVisible(false);
-			extendedPanel.setVisible(true);
-			lblBackContractIcon.setIcon(backIcon);
-
-		    }
-		});
-		lblBackContractIcon.setBounds(3, 0, 24, 37);
-		lblBackContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/back.png")));
-		contractPanel.add(lblBackContractIcon);
-		
-		lblContractsMenu = new JLabel("Contratos");
-		lblContractsMenu.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblContractsMenu.setBounds(58, 35, 143, 37);
-		contractPanel.add(lblContractsMenu);
-		
-		lblContractIcon = new JLabel("");
-		lblContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-		lblContractIcon.setBounds(3, 35, 24, 37);
-		contractPanel.add(lblContractIcon);
-		
-		lblCreateContractIcon = new JLabel("");
-		lblCreateContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
-		lblCreateContractIcon.setBounds(3, 82, 24, 37);
-		contractPanel.add(lblCreateContractIcon);
-		
-		lblContractCreate = new JLabel("Crear");
-		lblContractCreate.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		    	lblContractCreate.setForeground(new Color(240, 240, 240));
-		    }
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-			lblIcon1.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-			lblIcon2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
-			lblIcon3.setVisible(false);
-			menuPanel.setVisible(true);
-			contractPanel.setVisible(false);
-			lblContractCreate.setForeground(new Color(0, 0, 0));
-			CreateProject createProject = new CreateProject();
-			createProject.setVisible(true);
-		    }
-		});
-		lblContractCreate.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblContractCreate.setBounds(58, 80, 143, 37);
-		contractPanel.add(lblContractCreate);
 		
 		lblGananciasYPrdidas = new JLabel("Ganancias y p\u00E9rdidas");
 		lblGananciasYPrdidas.setVisible(false);
@@ -560,7 +612,7 @@ public class MainVisual extends JFrame {
 		    }
 		});
 		lblGananciasYPrdidas.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblGananciasYPrdidas.setBounds(1122, 112, 168, 27);
+		lblGananciasYPrdidas.setBounds(1102, 102, 168, 27);
 		contentPane.add(lblGananciasYPrdidas);
 		
 		lblAjustes = new JLabel("Ajustes");
@@ -576,7 +628,7 @@ public class MainVisual extends JFrame {
 		    }
 		});
 		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblAjustes.setBounds(1220, 159, 70, 27);
+		lblAjustes.setBounds(1200, 159, 70, 27);
 		contentPane.add(lblAjustes);
 		
 		lblSettingsIcon = new JLabel("");
@@ -623,7 +675,6 @@ public class MainVisual extends JFrame {
 		lblAdminExtIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin1.png")));
 		lblAdminExtIcon.setBounds(1312, 45, 34, 46);
 		contentPane.add(lblAdminExtIcon);
-		contractPanel.setVisible(false);
 		
 		image = new ImageIcon("src/icons/code.png");
 		
@@ -668,5 +719,15 @@ public class MainVisual extends JFrame {
 	public JPanel getWorkersPanel() {
 	    return workersPanel;
 	}
-
+	//////////////Ficheros (me harte de esta pendejada con la probadera)/////////////////////////////
+	public static void writeAdmin() throws FileNotFoundException, IOException {
+		writer = new ObjectOutputStream(new FileOutputStream("files.dat"));
+		writer.writeObject(Admin.getInstance());
+		writer.close();
+	}
+	public static void readAdmin() throws FileNotFoundException, IOException, ClassNotFoundException {
+		reader = new ObjectInputStream(new FileInputStream("files.dat"));
+		Admin.setMiAdmin((Admin)reader.readObject());
+		reader.close();
+	}
 }

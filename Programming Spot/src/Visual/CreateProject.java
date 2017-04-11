@@ -138,7 +138,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 					
 				}
@@ -152,7 +152,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}
 				else if(chkPlaneador.isSelected() && chkDiseador.isSelected() && !chkTester.isSelected()){
@@ -166,7 +166,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}
 				else if(!chkPlaneador.isSelected() && !chkDiseador.isSelected() && chkTester.isSelected()){
@@ -179,7 +179,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}
 				else if(!chkPlaneador.isSelected() && chkDiseador.isSelected() && chkTester.isSelected()){
@@ -193,7 +193,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}
 				else if(chkPlaneador.isSelected() && !chkDiseador.isSelected() && chkTester.isSelected()){
@@ -207,7 +207,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}
 				else if(chkPlaneador.isSelected() && chkDiseador.isSelected() && chkTester.isSelected()){
@@ -222,7 +222,7 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}
 				else{
@@ -234,12 +234,11 @@ public class CreateProject extends JDialog {
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
 					//clean();
 					dispose();
-					CreateContract contract = new CreateContract(newProject);
+					CreateContract contract = new CreateContract(newProject, false, null, -1);
 					contract.setVisible(true);
 				}  
 			}
 		});
-		btnSiguiente.setBackground(Color.LIGHT_GRAY);
 		btnSiguiente.setActionCommand("OK");
 		buttonPane.add(btnSiguiente);
 		getRootPane().setDefaultButton(btnSiguiente);
@@ -448,12 +447,38 @@ public class CreateProject extends JDialog {
 		panel_1.add(cbxJefeDeProyecto);
 		
 		cbxProgramador1 = new JComboBox<String>();
+		cbxProgramador1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if ( cbxProgramador1.getSelectedIndex()>0 && cbxProgramador2.getSelectedIndex()==0) {
+				String aux = cbxProgramador1.getSelectedItem().toString();
+				cbxProgramador2.removeAllItems();
+				for (int i =0;i<cbxProgramador1.getItemCount();i++) {
+					if (!cbxProgramador1.getItemAt(i).equals(aux)) {
+						cbxProgramador2.addItem(cbxProgramador1.getItemAt(i));
+					}
+				}
+			  }
+			}
+		});
 		cbxProgramador1.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxProgramador1.setBackground(new Color(230, 230, 250));
 		cbxProgramador1.setBounds(144, 59, 168, 23);
 		panel_1.add(cbxProgramador1);
 		
 		cbxProgramador2 = new JComboBox<String>();
+		cbxProgramador2.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if ( cbxProgramador2.getSelectedIndex()>0 && cbxProgramador1.getSelectedIndex()==0) {
+				String aux = cbxProgramador2.getSelectedItem().toString();
+				cbxProgramador1.removeAllItems();
+				for (int i =0;i<cbxProgramador2.getItemCount();i++) {
+					if (!cbxProgramador2.getItemAt(i).equals(aux)) {
+						cbxProgramador1.addItem(cbxProgramador2.getItemAt(i));
+					}
+				}
+			  }
+			}
+		});
 		cbxProgramador2.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxProgramador2.setBackground(new Color(230, 230, 250));
 		cbxProgramador2.setBounds(144, 85, 168, 23);
@@ -495,7 +520,7 @@ public class CreateProject extends JDialog {
 	    
 	    {
 		JButton btnCancel = new JButton("Cancelar");
-		btnCancel.setBackground(Color.LIGHT_GRAY);
+		btnCancel.setBackground(new Color(255,255,240));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    MainVisual.getInstance().getMenuPanel().setVisible(false);

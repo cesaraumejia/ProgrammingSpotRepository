@@ -1,8 +1,13 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProjectBoss extends Worker {
+public class ProjectBoss extends Worker implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8233613402460131023L;
 	private int experienceYears;
 	
 	public ProjectBoss() {

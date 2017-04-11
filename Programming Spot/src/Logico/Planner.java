@@ -1,9 +1,14 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Planner extends Worker {
+public class Planner extends Worker implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7023438697160862576L;
 	private String methodology;
 	
 	public Planner() {

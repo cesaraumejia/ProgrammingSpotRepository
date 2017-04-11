@@ -606,7 +606,7 @@ public class RegisterWorker extends JDialog {
 					    }
 					    else if (!validarFecha(dateChooser))
 					    	JOptionPane.showMessageDialog(null, "La trabajador no puede ser tan joven","Fecha inválida", JOptionPane.WARNING_MESSAGE, null);
-					    else
+					    else if (!existingID(cedulaText.getText()))
 					    {
 					    	Worker worker = null;
 					    	if (jefeProyecto.isSelected()) {
@@ -647,6 +647,9 @@ public class RegisterWorker extends JDialog {
 							JOptionPane.showMessageDialog(null, "¡El trabajador ha sido agregado!", "Trabajador Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 					        clean();
 					    }
+					    else {
+							JOptionPane.showMessageDialog(null, "Este trabajador ya existe", "Trabajador existente", JOptionPane.WARNING_MESSAGE, clientIcon);
+					    }
 					}
 						else {
 							
@@ -659,7 +662,7 @@ public class RegisterWorker extends JDialog {
 						    }
 						    else if (!validarFecha(dateChooser))
 						    	JOptionPane.showMessageDialog(null, "La trabajador no puede ser tan joven","Fecha inválida", JOptionPane.WARNING_MESSAGE, null);
-						    else
+						    else if (!existingID(cedulaText.getText()))
 						    {
 						    	Worker worker = null;
 						    	if (jefeProyecto.isSelected()) {
@@ -700,6 +703,9 @@ public class RegisterWorker extends JDialog {
 						    	Admin.getInstance().getWorkers().add(worker);
 								JOptionPane.showMessageDialog(null, "¡El trabajador ha sido modificado!", "Trabajador modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 						        dispose();
+						    }
+						    else {
+								JOptionPane.showMessageDialog(null, "Este trabajador ya existe", "Trabajador existente", JOptionPane.WARNING_MESSAGE, clientIcon);
 						    }
 							
 						}
@@ -863,5 +869,13 @@ public class RegisterWorker extends JDialog {
 	    testingSoftware.setVisible(false);
 	    lblMetodologia.setVisible(false);
 	    metodologia.setVisible(false);
+   }
+   private boolean existingID(String ID) {
+	   boolean aux = false;
+	   for (Worker i: Admin.getInstance().getWorkers()) {
+		   if (i.getIdNumber().equals(ID))
+			   aux = true;
+	   }
+	   return aux;
    }
 }

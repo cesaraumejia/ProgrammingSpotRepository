@@ -1,9 +1,14 @@
 package Logico;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class Admin {
+public class Admin implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3625912224765621615L;
 	private ArrayList<Client> clients = new ArrayList<>();
 	private ArrayList<Contract> contracts  = new ArrayList<>();
 	private ArrayList<Worker> workers = new ArrayList<>();
@@ -134,9 +139,15 @@ public class Admin {
 	    boolean contractCreated=false;
 	    Contract myNewContract=new Contract(initialDate, finalDate, contractID, client, project, finalPrice);
 	    if(!client.getContracts().contains(myNewContract) && client.getActiveProjects()<5){
-		contracts.add(myNewContract);	  
-		this.clients.get(this.clients.indexOf(client)).getContracts().add(myNewContract);
-		contractCreated=true;
+	    	contracts.add(myNewContract);	  
+	    	this.clients.get(this.clients.indexOf(client)).getContracts().add(myNewContract);
+	    	contractCreated=true;
+	    }
+	    if (contractCreated) {
+			for (Worker i: project.getWorkers()) {
+				int index = Admin.getInstance().getWorkers().indexOf(i);
+				Admin.getInstance().getWorkers().get(index).getContract().add(myNewContract);
+			}
 	    }
 	    return contractCreated;
 	}
@@ -166,7 +177,8 @@ public class Admin {
 		   if(tester!=null){
 		       projectWorkers.add(tester);
 		   }
-		   createdProject=new Project(projectWorkers, name, programmingType,programmingLanguage, state);
+		   createdProject=new Project(projectWorkers, name, programmingType,state, programmingLanguage);
+		   
 	    }
 	
 	    return createdProject;
@@ -249,7 +261,7 @@ public class Admin {
 		while(i < workers.size()){
 			if(workers.get(i) instanceof ProjectBoss){
 				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
-				if(completeName.equalsIgnoreCase(completeName)){
+				if(completeName.equalsIgnoreCase(name)){
 					boss = (ProjectBoss) workers.get(i);
 				}
 			}
@@ -264,7 +276,7 @@ public class Admin {
 		while(i < workers.size()){
 			if(workers.get(i) instanceof Programmer){
 				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
-				if(completeName.equalsIgnoreCase(completeName)){
+				if(completeName.equalsIgnoreCase(name)){
 					programmer = (Programmer) workers.get(i);
 				}
 			}
@@ -279,7 +291,7 @@ public class Admin {
 		while(i < workers.size()){
 			if(workers.get(i) instanceof Planner){
 				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
-				if(completeName.equalsIgnoreCase(completeName)){
+				if(completeName.equals(name)){
 					planner = (Planner) workers.get(i);
 				}
 			}
@@ -294,7 +306,7 @@ public class Admin {
 		while(i < workers.size()){
 			if(workers.get(i) instanceof Designer){
 				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
-				if(completeName.equalsIgnoreCase(completeName)){
+				if(completeName.equalsIgnoreCase(name)){
 					designer = (Designer) workers.get(i);
 				}
 			}
@@ -309,7 +321,7 @@ public class Admin {
 		while(i < workers.size()){
 			if(workers.get(i) instanceof SoftwareTester){
 				String completeName = workers.get(i).getFirstName() + " " +  workers.get(i).getLastName();
-				if(completeName.equalsIgnoreCase(completeName)){
+				if(completeName.equalsIgnoreCase(name)){
 					tester = (SoftwareTester) workers.get(i);
 				}
 			}
@@ -317,8 +329,13 @@ public class Admin {
 		}
 		return tester;
 	}
-	
-	
+	public static Admin getMiAdmin() {
+		return miAdmin;
+	}
+	public static void setMiAdmin(Admin miAdmin) {
+		Admin.miAdmin = miAdmin;
+	}
+
 	
 }
 

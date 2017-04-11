@@ -1,8 +1,13 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Worker {
+public abstract class Worker implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -834083883249096094L;
 	protected String idNumber;
 	protected String firstName;
 	protected String lastName;

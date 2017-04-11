@@ -228,9 +228,16 @@ public class ListClient extends JDialog {
 			@Override
 			public void keyReleased(KeyEvent e) {
 			    loadClients(findClients());
+			}	
+			@Override
+			public void keyPressed(KeyEvent e) {
+			    if ((tfdIdSearch.getText().length()==3) && e.getKeyCode()!=8) {
+			    	tfdIdSearch.setText(tfdIdSearch.getText()+"-");
+			    }
+			    else if (tfdIdSearch.getText().length()==11 && e.getKeyCode()!=8) {
+			    	tfdIdSearch.setText(tfdIdSearch.getText()+"-");
+			    }
 			}
-
-			
 		});
 		tfdIdSearch.setColumns(10);
 		tfdIdSearch.setBounds(66, 33, 162, 22);

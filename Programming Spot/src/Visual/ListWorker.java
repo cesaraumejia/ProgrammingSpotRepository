@@ -325,12 +325,18 @@ public class ListWorker extends JDialog {
 			public void keyReleased(KeyEvent e) {
 				findWorker();
 			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if ((busquedaCedula.getText().length()==3 || busquedaCedula.getText().length()==11)&& e.getKeyCode()!=8) {
+					busquedaCedula.setText(busquedaCedula.getText()+"-");
+				}
+			}
 		});
 		busquedaCedula.setBounds(66, 35, 162, 22);
 		panel_5.add(busquedaCedula);
 		busquedaCedula.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("*Introducir c\u00E9dula sin guiones");
+		JLabel lblNewLabel_2 = new JLabel("*Introducir c\u00E9dula con guiones");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		lblNewLabel_2.setBounds(10, 63, 150, 14);
 		panel_5.add(lblNewLabel_2);
@@ -417,86 +423,13 @@ public class ListWorker extends JDialog {
 		String textField = busquedaCedula.getText();
 		ArrayList<Worker> workers = notDeleted();
 		ArrayList<Worker> selected = new ArrayList<>();
-		if (textField.length()==0) {
-			selected = workers;
+		if (textField.length()<14) {
+		for (Worker i: workers) {
+			String aux = getIDWorker(textField.length(), i);
+			if (textField.equals(aux))
+				selected.add(i);
+		   } 
 		}
-		else if (textField.length()==1) {
-			for (Worker i: workers) {
-				String aux = getIDWorker(1, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-		}
-        else if (textField.length()==2) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(2, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-		}
-        else if (textField.length()==3) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(3, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==4) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(4, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==5) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(5, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==6) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(6, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==7) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(7, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==8) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(8, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==9) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(9, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==10) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(10, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
-        else if (textField.length()==11) {
-        	for (Worker i: workers) {
-				String aux = getIDWorker(11, i);
-				if (textField.equals(aux))
-					selected.add(i);
-			}
-        }
 		loadWorkers(selected);
 	}
 	private ArrayList<Worker> notDeleted(){
@@ -507,14 +440,10 @@ public class ListWorker extends JDialog {
 		}
 		return workersNotDeleted;
 	}
-	private String separator(String cedula) {
-		String[] separado = cedula.split("-");
-		cedula = separado[0]+separado[1]+separado[2];
-		return cedula;
-	}
+
 	private String getIDWorker(int number, Worker worker) {
 		String aux = null;
-		String aux1 = separator(worker.getIdNumber());
+		String aux1 = worker.getIdNumber();
 		aux = aux1.substring(0, number);
 		return aux;
 	}
@@ -556,11 +485,13 @@ public class ListWorker extends JDialog {
 	   	projectsTable.getColumnModel().getColumn(0).setCellRenderer(tcr);
 	   	projectsTable.getColumnModel().getColumn(1).setCellRenderer(tcr);
 	   	projectsTable.getColumnModel().getColumn(2).setCellRenderer(tcr);
-	   	row1 = new Object[tableModel.getColumnCount()];
+	   	row1 = new Object[tableModel1.getColumnCount()];
 	   	for (Contract pr : contracts) {
 	   	    row1[0]=pr.getProject().getName();
 	   	    row1[1]=pr.getProject().getProgrammingType();
 	   	    row1[2]=pr.getProject().getProgrammingLanguage();
+	   	    tableModel1.addRow(row1);
 	   	}
     }
+    
 }

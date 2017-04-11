@@ -1,8 +1,13 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SoftwareTester extends Worker {
+public class SoftwareTester extends Worker implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1078814206006148061L;
 	private String testingSoftware;
 
 	public SoftwareTester() {  

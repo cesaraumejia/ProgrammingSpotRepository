@@ -1,9 +1,14 @@
 package Logico;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project {
+public class Project implements Serializable{
     
-    private ArrayList<Worker> workers = new ArrayList<>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 579647685082711620L;
+	private ArrayList<Worker> workers = new ArrayList<>();
     private String name;
     private float totalPrice;			//Este campo deberia solo en contratos
     private String programmingType;		

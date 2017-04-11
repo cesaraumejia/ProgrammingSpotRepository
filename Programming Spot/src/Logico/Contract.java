@@ -1,13 +1,21 @@
 package Logico;
 
-public class Contract {
+import java.io.Serializable;
+
+public class Contract implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5256167385752873110L;
 	private String initialDate;
 	private String finalDate;
 	private String contractID;
 	private Client client;
 	private Project project;  
 	private double finalPrice;
+	private double lostMoney;
 	public static int IDnumber=0;
+	private int postpone=0;
 	
 
 	public Contract() {
@@ -94,6 +102,26 @@ public class Contract {
 
 	public void setFinalPrice(double finalPrice) {
 	    this.finalPrice = finalPrice;
+	}
+
+	public double getLostMoney() {
+		return lostMoney;
+	}
+
+	public void setLostMoney(double lostMoney) {
+		this.lostMoney = lostMoney;
+	}
+
+
+
+	public int getPostpone() {
+		return postpone;
+	}
+
+
+
+	public void setPostpone(int postpone) {
+		this.postpone = postpone;
 	}
 	
 

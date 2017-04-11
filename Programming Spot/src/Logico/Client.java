@@ -1,7 +1,12 @@
 package Logico;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Client {
+public class Client implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6774095944917232907L;
 	private String idNumber;
 	private String name;
 	private String lastName;
