@@ -606,13 +606,18 @@ public class MainVisual extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(153, 153, 153));
-		panel.setBounds(232, 34, 1124, 664);
+		panel.setBounds(232, 34, (int)dim.getWidth()-243, (int)dim.getHeight()-115);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
+		JPanel rightPanel = new JPanel();
+		rightPanel.setBounds(panel.getWidth()-280, 13, 255, 377);
+		panel.add(rightPanel);
+		rightPanel.setLayout(null);
+		
 		lblGananciasYPrdidas = new JLabel("Ganancias y p\u00E9rdidas");
-		lblGananciasYPrdidas.setBounds(931, 40, 149, 19);
-		panel.add(lblGananciasYPrdidas);
+		lblGananciasYPrdidas.setBounds(60, 48, 149, 19);
+		rightPanel.add(lblGananciasYPrdidas);
 		lblGananciasYPrdidas.setVisible(false);
 		lblGananciasYPrdidas.addMouseListener(new MouseAdapter() {
 		    @Override
@@ -628,37 +633,9 @@ public class MainVisual extends JFrame {
 		});
 		lblGananciasYPrdidas.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
-		lblAjustes = new JLabel("Ajustes");
-		lblAjustes.setBounds(1030, 135, 50, 19);
-		panel.add(lblAjustes);
-		lblAjustes.setVisible(false);
-		lblAjustes.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		    	lblAjustes.setForeground(new Color(240, 240, 240));
-		    }
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-		    	lblAjustes.setForeground(new Color(0, 0, 0));
-		    }
-		});
-		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		
-		lblSettingsIcon = new JLabel("");
-		lblSettingsIcon.setBounds(1090, 135, 24, 24);
-		panel.add(lblSettingsIcon);
-		lblSettingsIcon.setVisible(false);
-		lblSettingsIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/settings.png")));
-		
-		lblGananciaIcon = new JLabel("");
-		lblGananciaIcon.setBounds(1090, 35, 24, 24);
-		panel.add(lblGananciaIcon);
-		lblGananciaIcon.setVisible(false);
-		lblGananciaIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png")));
-		
 		lblAdminIcon = new JLabel("");
-		lblAdminIcon.setBounds(1090, 5, 24, 24);
-		panel.add(lblAdminIcon);
+		lblAdminIcon.setBounds(219, 13, 24, 24);
+		rightPanel.add(lblAdminIcon);
 		lblAdminIcon.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 			    lblGananciaIcon.setVisible(true);
@@ -676,9 +653,81 @@ public class MainVisual extends JFrame {
 		});
 		lblAdminIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin.png")));
 		
+		lblGananciaIcon = new JLabel("");
+		lblGananciaIcon.setBounds(219, 43, 24, 24);
+		rightPanel.add(lblGananciaIcon);
+		lblGananciaIcon.setVisible(false);
+		lblGananciaIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png")));
+		
+		lblWorkersIcon = new JLabel("");
+		lblWorkersIcon.setBounds(219, 78, 24, 24);
+		rightPanel.add(lblWorkersIcon);
+		lblWorkersIcon.setVisible(false);
+		lblWorkersIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/workers.png")));
+		
+		lblWorkers = new JLabel("Trabajadores");
+		lblWorkers.setBounds(116, 78, 93, 24);
+		rightPanel.add(lblWorkers);
+		lblWorkers.setVisible(false);
+		lblWorkers.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblWorkers.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblWorkers.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblWorkers.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		
+		lblSoftware = new JLabel("Software");
+		lblSoftware.setBounds(144, 118, 65, 14);
+		rightPanel.add(lblSoftware);
+		lblSoftware.setVisible(false);
+		lblSoftware.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblSoftware.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblSoftware.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblSoftware.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		
+		lblSoftwareIcon = new JLabel("");
+		lblSoftwareIcon.setBounds(219, 113, 24, 24);
+		rightPanel.add(lblSoftwareIcon);
+		lblSoftwareIcon.setVisible(false);
+		lblSoftwareIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/software.png")));
+		
+		lblSettingsIcon = new JLabel("");
+		lblSettingsIcon.setBounds(219, 143, 24, 24);
+		rightPanel.add(lblSettingsIcon);
+		lblSettingsIcon.setVisible(false);
+		lblSettingsIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/settings.png")));
+		
+		lblAjustes = new JLabel("Ajustes");
+		lblAjustes.setBounds(159, 143, 50, 19);
+		rightPanel.add(lblAjustes);
+		lblAjustes.setVisible(false);
+		lblAjustes.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblAjustes.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblAjustes.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		
 		lblAdminExtIcon = new JLabel("");
-		lblAdminExtIcon.setBounds(1090, 5, 24, 24);
-		panel.add(lblAdminExtIcon);
+		lblAdminExtIcon.setBounds(219, 13, 24, 24);
+		rightPanel.add(lblAdminExtIcon);
 		lblAdminExtIcon.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 			    lblGananciaIcon.setVisible(false);
@@ -696,50 +745,6 @@ public class MainVisual extends JFrame {
 		});
 		lblAdminExtIcon.setVisible(false);
 		lblAdminExtIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin1.png")));
-		
-		lblWorkers = new JLabel("Trabajadores");
-		lblWorkers.setVisible(false);
-		lblWorkers.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		    	lblWorkers.setForeground(new Color(240, 240, 240));
-		    }
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-		    	lblWorkers.setForeground(new Color(0, 0, 0));
-		    }
-		});
-		lblWorkers.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblWorkers.setBounds(987, 70, 93, 24);
-		panel.add(lblWorkers);
-		
-		lblWorkersIcon = new JLabel("");
-		lblWorkersIcon.setVisible(false);
-		lblWorkersIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/workers.png")));
-		lblWorkersIcon.setBounds(1090, 70, 24, 24);
-		panel.add(lblWorkersIcon);
-		
-		lblSoftwareIcon = new JLabel("");
-		lblSoftwareIcon.setVisible(false);
-		lblSoftwareIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/software.png")));
-		lblSoftwareIcon.setBounds(1090, 105, 24, 24);
-		panel.add(lblSoftwareIcon);
-		
-		lblSoftware = new JLabel("Software");
-		lblSoftware.setVisible(false);
-		lblSoftware.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		    	lblSoftware.setForeground(new Color(240, 240, 240));
-		    }
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-		    	lblSoftware.setForeground(new Color(0, 0, 0));
-		    }
-		});
-		lblSoftware.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblSoftware.setBounds(1015, 110, 65, 14);
-		panel.add(lblSoftware);
 		
 		image = new ImageIcon("src/icons/code.png");
 		
