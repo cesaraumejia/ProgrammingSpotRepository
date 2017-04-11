@@ -34,6 +34,7 @@ public class MainVisual extends JFrame {
 	private JPanel menuPanel;
 	private JPanel extendedPanel;
 	private JPanel topPanel;
+	private JPanel panel;
 	
 	private JLabel lblNewLabel;
 	private JLabel lblIcon1;
@@ -52,6 +53,10 @@ public class MainVisual extends JFrame {
         private JLabel lblClientMain;
         private JLabel lblContractMain;
         private JLabel lblWorkerMain;
+        private JLabel lblWorkers;
+        private JLabel lblSoftware;
+        private JLabel lblWorkersIcon;
+        private JLabel lblSoftwareIcon;
         
         private Dimension dim;
         
@@ -599,7 +604,15 @@ public class MainVisual extends JFrame {
 		lblNewLabel.setBounds(12, 2, 261, 32);
 		topPanel.add(lblNewLabel);
 		
+		panel = new JPanel();
+		panel.setBackground(new Color(153, 153, 153));
+		panel.setBounds(232, 34, 1124, 664);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
 		lblGananciasYPrdidas = new JLabel("Ganancias y p\u00E9rdidas");
+		lblGananciasYPrdidas.setBounds(931, 40, 149, 19);
+		panel.add(lblGananciasYPrdidas);
 		lblGananciasYPrdidas.setVisible(false);
 		lblGananciasYPrdidas.addMouseListener(new MouseAdapter() {
 		    @Override
@@ -609,13 +622,15 @@ public class MainVisual extends JFrame {
 		    @Override
 		    public void mouseReleased(MouseEvent e) {
 		    	lblGananciasYPrdidas.setForeground(new Color(0, 0, 0));
+		    	EarningGraphics earns = new EarningGraphics();
+		    	earns.setVisible(true);
 		    }
 		});
 		lblGananciasYPrdidas.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblGananciasYPrdidas.setBounds(1102, 102, 168, 27);
-		contentPane.add(lblGananciasYPrdidas);
 		
 		lblAjustes = new JLabel("Ajustes");
+		lblAjustes.setBounds(1030, 135, 50, 19);
+		panel.add(lblAjustes);
 		lblAjustes.setVisible(false);
 		lblAjustes.addMouseListener(new MouseAdapter() {
 		    @Override
@@ -628,44 +643,52 @@ public class MainVisual extends JFrame {
 		    }
 		});
 		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		lblAjustes.setBounds(1200, 159, 70, 27);
-		contentPane.add(lblAjustes);
 		
 		lblSettingsIcon = new JLabel("");
+		lblSettingsIcon.setBounds(1090, 135, 24, 24);
+		panel.add(lblSettingsIcon);
 		lblSettingsIcon.setVisible(false);
-		lblSettingsIcon.setBounds(1310, 159, 24, 32);
-		contentPane.add(lblSettingsIcon);
 		lblSettingsIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/settings.png")));
 		
 		lblGananciaIcon = new JLabel("");
+		lblGananciaIcon.setBounds(1090, 35, 24, 24);
+		panel.add(lblGananciaIcon);
 		lblGananciaIcon.setVisible(false);
-		lblGananciaIcon.setBounds(1310, 102, 36, 46);
-		contentPane.add(lblGananciaIcon);
 		lblGananciaIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png")));
 		
 		lblAdminIcon = new JLabel("");
+		lblAdminIcon.setBounds(1090, 5, 24, 24);
+		panel.add(lblAdminIcon);
 		lblAdminIcon.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 			    lblGananciaIcon.setVisible(true);
 			    lblGananciasYPrdidas.setVisible(true);
 			    lblAjustes.setVisible(true);
 			    lblSettingsIcon.setVisible(true);
+			    lblWorkers.setVisible(true);
+			    lblSoftware.setVisible(true);
+			    lblWorkersIcon.setVisible(true);
+			    lblSoftwareIcon.setVisible(true);
 			    lblAdminIcon.setVisible(false);
 			    lblAdminExtIcon.setVisible(true);
 
 			}
 		});
-		lblAdminIcon.setBounds(1312, 45, 34, 46);
-		contentPane.add(lblAdminIcon);
 		lblAdminIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin.png")));
 		
 		lblAdminExtIcon = new JLabel("");
+		lblAdminExtIcon.setBounds(1090, 5, 24, 24);
+		panel.add(lblAdminExtIcon);
 		lblAdminExtIcon.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 			    lblGananciaIcon.setVisible(false);
 			    lblGananciasYPrdidas.setVisible(false);
 			    lblAjustes.setVisible(false);
 			    lblSettingsIcon.setVisible(false);
+			    lblWorkers.setVisible(false);
+			    lblSoftware.setVisible(false);
+			    lblWorkersIcon.setVisible(false);
+			    lblSoftwareIcon.setVisible(false);
 			    lblAdminIcon.setVisible(true);
 			    lblAdminExtIcon.setVisible(false);
 
@@ -673,8 +696,50 @@ public class MainVisual extends JFrame {
 		});
 		lblAdminExtIcon.setVisible(false);
 		lblAdminExtIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin1.png")));
-		lblAdminExtIcon.setBounds(1312, 45, 34, 46);
-		contentPane.add(lblAdminExtIcon);
+		
+		lblWorkers = new JLabel("Trabajadores");
+		lblWorkers.setVisible(false);
+		lblWorkers.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblWorkers.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblWorkers.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblWorkers.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblWorkers.setBounds(987, 70, 93, 24);
+		panel.add(lblWorkers);
+		
+		lblWorkersIcon = new JLabel("");
+		lblWorkersIcon.setVisible(false);
+		lblWorkersIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/workers.png")));
+		lblWorkersIcon.setBounds(1090, 70, 24, 24);
+		panel.add(lblWorkersIcon);
+		
+		lblSoftwareIcon = new JLabel("");
+		lblSoftwareIcon.setVisible(false);
+		lblSoftwareIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/software.png")));
+		lblSoftwareIcon.setBounds(1090, 105, 24, 24);
+		panel.add(lblSoftwareIcon);
+		
+		lblSoftware = new JLabel("Software");
+		lblSoftware.setVisible(false);
+		lblSoftware.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mousePressed(MouseEvent e) {
+		    	lblSoftware.setForeground(new Color(240, 240, 240));
+		    }
+		    @Override
+		    public void mouseReleased(MouseEvent e) {
+		    	lblSoftware.setForeground(new Color(0, 0, 0));
+		    }
+		});
+		lblSoftware.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblSoftware.setBounds(1015, 110, 65, 14);
+		panel.add(lblSoftware);
 		
 		image = new ImageIcon("src/icons/code.png");
 		
