@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -394,8 +395,15 @@ public class MainVisual extends JFrame {
 				    menuPanel.setVisible(true);
 				    workersPanel.setVisible(false);
 				lblRegistrar.setForeground(new Color(0,0,0));
-				RegisterWorker workersWindow = new RegisterWorker(false, null);
-				workersWindow.setVisible(true);
+				RegisterWorker workersWindow;
+				try {
+					workersWindow = new RegisterWorker(false, null);
+					workersWindow.setVisible(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		lblRegistrar.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
@@ -416,8 +424,15 @@ public class MainVisual extends JFrame {
 				lblIcon3.setIcon(listClientIcon);
 				menuPanel.setVisible(true);
 				workersPanel.setVisible(false);
-				ListWorker list = new ListWorker();
-				list.setVisible(true);
+				ListWorker list;
+				try {
+					list = new ListWorker();
+					list.setVisible(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		lblListar.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));

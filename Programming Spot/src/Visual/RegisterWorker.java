@@ -87,9 +87,10 @@ public class RegisterWorker extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws ParseException 
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public RegisterWorker(final boolean registerModify, final Worker worker) {
+	public RegisterWorker(final boolean registerModify, final Worker worker) throws ParseException {
 		this.worker = worker;
 		setUndecorated(true);
 		setBounds(100, 100, 1050, 597);
@@ -258,6 +259,7 @@ public class RegisterWorker extends JDialog {
 			dateChooser.setDateFormatString("dd/MM/yyyy");
 			dateChooser.getDateEditor().setEnabled(false);
 			dateChooser.setBounds(527, 68, 125, 22);
+			dateChooser.getJCalendar().setSelectableDateRange(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1970"), new Date());
 			panel.add(dateChooser);
 		}
 		{

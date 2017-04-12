@@ -10,24 +10,26 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
 import Logico.Contract;
@@ -63,7 +65,7 @@ public class ListWorker extends JDialog {
     private JRadioButton diseniador;
     private JRadioButton programador;
     private JRadioButton todos;
-    private JTextField busquedaCedula;
+    private JFormattedTextField busquedaCedula;
     private ArrayList<Worker> deleted = new ArrayList<>();
     private JButton modificar;
 	/**
@@ -73,8 +75,9 @@ public class ListWorker extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws ParseException 
 	 */
-	public ListWorker() {
+	public ListWorker() throws ParseException  {
 		setUndecorated(true);
 		setBounds(100, 100, 1050, 597);
 		getContentPane().setLayout(new BorderLayout());
@@ -319,7 +322,9 @@ public class ListWorker extends JDialog {
 		lblCedula.setBounds(10, 38, 46, 14);
 		panel_5.add(lblCedula);
 		
-		busquedaCedula = new JTextField();
+		MaskFormatter mask = new MaskFormatter("###-#######-#");
+		
+		busquedaCedula = new JFormattedTextField(mask);
 		busquedaCedula.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -327,9 +332,9 @@ public class ListWorker extends JDialog {
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if ((busquedaCedula.getText().length()==3 || busquedaCedula.getText().length()==11)&& e.getKeyCode()!=8) {
-					busquedaCedula.setText(busquedaCedula.getText()+"-");
-				}
+				//if ((busquedaCedula.getText().length()==3 || busquedaCedula.getText().length()==11)&& e.getKeyCode()!=8) {
+				//	busquedaCedula.setText(busquedaCedula.getText()+"-");
+				//}
 			}
 		});
 		busquedaCedula.setBounds(66, 35, 162, 22);
@@ -372,8 +377,15 @@ public class ListWorker extends JDialog {
 						if (table.getSelectedRow()>=0) {
 						int index = table.getSelectedRow();
 						Worker work = notDeleted().get(index);
-						RegisterWorker modify = new RegisterWorker(true, work);
-						modify.setVisible(true);
+						RegisterWorker modify;
+						try {
+							modify = new RegisterWorker(true, work);
+							modify.setVisible(true);
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 						}
 					}
 				});
@@ -420,16 +432,16 @@ public class ListWorker extends JDialog {
 	   	}
 	    }
 	private void findWorker() {
-		String textField = busquedaCedula.getText();
+		String textField = busquedaCedula.getText().substring(0, busquedaCedula.getCaretPosition());
 		ArrayList<Worker> workers = notDeleted();
 		ArrayList<Worker> selected = new ArrayList<>();
-		if (textField.length()<14) {
+		//if (textField.length()<14) {
 		for (Worker i: workers) {
-			String aux = getIDWorker(textField.length(), i);
+			String aux = getIDWorker(busquedaCedula.getCaretPosition(), i);
 			if (textField.equals(aux))
 				selected.add(i);
 		   } 
-		}
+		//}
 		loadWorkers(selected);
 	}
 	private ArrayList<Worker> notDeleted(){
