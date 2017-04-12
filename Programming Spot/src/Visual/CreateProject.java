@@ -445,6 +445,11 @@ public class CreateProject extends JDialog {
 				if ( cbxProgramador1.getSelectedIndex()>0) {
 					String aux = cbxProgramador1.getSelectedItem().toString();
 					cbxProgramador2.removeItem(aux);
+					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
+						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
+						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador2))
+							cbxProgramador2.addItem(aux1);
+					}
 			  }
 				else {
 					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
@@ -471,6 +476,11 @@ public class CreateProject extends JDialog {
 				if ( cbxProgramador2.getSelectedIndex()>0) {
 					String aux = cbxProgramador2.getSelectedItem().toString();
 					cbxProgramador1.removeItem(aux);
+					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
+						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
+						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador1))
+							cbxProgramador1.addItem(aux1);
+					}
 			  }
 				else {
 					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
