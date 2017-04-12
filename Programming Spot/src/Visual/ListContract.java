@@ -3,38 +3,36 @@ package Visual;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Admin;
 import Logico.Contract;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class ListContract extends JDialog {
 
@@ -51,6 +49,7 @@ public class ListContract extends JDialog {
     private static DefaultTableModel tableModel1;
     private static Object[] row1;
     private JTextField busqueda;
+    private static ListContract listInstance;
 	/**
 	 * Launch the application.
 	 */
@@ -67,7 +66,6 @@ public class ListContract extends JDialog {
 		contentPane.setBackground(new Color(220, 220, 220));
 		getContentPane().add(contentPane, BorderLayout.CENTER);
 		contentPane.setLayout(null);
-		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panel_1.setBackground(new Color(220,220,220));
@@ -159,6 +157,7 @@ public class ListContract extends JDialog {
 		scrollPane.setViewportView(table);
 		////////////////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////
 		loadContracts(Admin.getInstance().getContracts());
+		
 		JPanel finishedContracts = new JPanel();
 		finishedContracts.setBackground(new Color(220,220,220));
 		finishedContracts.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), " Contratos Finalizados", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -272,8 +271,9 @@ public class ListContract extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		listInstance=this;
 	}
-	private void loadContracts(ArrayList<Contract> contracts) {
+	public void loadContracts(ArrayList<Contract> contracts) {
 	   	tableModel.setRowCount(0);
 	   	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 	   	tcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -372,6 +372,14 @@ public class ListContract extends JDialog {
 		}
 		return aux;
 	}
+    
+    public static ListContract getInstance(){
+	if(listInstance==null){
+	    return new ListContract();
+	}else{
+	    return listInstance;
+	}
+    }
     private String giveMonth(int number) {
     	String aux = null;
     	if (number==1)

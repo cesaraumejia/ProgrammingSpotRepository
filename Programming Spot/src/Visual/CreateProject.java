@@ -8,30 +8,27 @@ import java.awt.Font;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
-import Logico.Client;
 import Logico.Designer;
 import Logico.Planner;
 import Logico.Programmer;
@@ -39,12 +36,6 @@ import Logico.Project;
 import Logico.ProjectBoss;
 import Logico.SoftwareTester;
 import Logico.Worker;
-
-import javax.swing.UIManager;
-import javax.swing.JCheckBox;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 @SuppressWarnings("unused")
 public class CreateProject extends JDialog {
@@ -350,12 +341,13 @@ public class CreateProject extends JDialog {
 		cbxTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Escritorio", "M\u00F3vil", "Web"}));
 		cbxTipo.setBackground(new Color(230, 230, 250));
 		cbxTipo.setBounds(87, 85, 236, 22);
+		((JLabel)cbxTipo.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);	
 		panel.add(cbxTipo);
-		
 		cbxLenguaje = new JComboBox<String>();
 		cbxLenguaje.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione un tipo>"}));
 		cbxLenguaje.setBackground(new Color(230, 230, 250));
 		cbxLenguaje.setBounds(87, 129, 236, 22);
+		((JLabel)cbxLenguaje.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(cbxLenguaje);
 		
 		JPanel panel_1 = new JPanel();
@@ -444,6 +436,7 @@ public class CreateProject extends JDialog {
 		cbxJefeDeProyecto.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxJefeDeProyecto.setBackground(new Color(230, 230, 250));
 		cbxJefeDeProyecto.setBounds(144, 33, 168, 23);
+		((JLabel)cbxJefeDeProyecto.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(cbxJefeDeProyecto);
 		
 		cbxProgramador1 = new JComboBox<String>();
@@ -463,6 +456,7 @@ public class CreateProject extends JDialog {
 		cbxProgramador1.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxProgramador1.setBackground(new Color(230, 230, 250));
 		cbxProgramador1.setBounds(144, 59, 168, 23);
+		((JLabel)cbxProgramador1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(cbxProgramador1);
 		
 		cbxProgramador2 = new JComboBox<String>();
@@ -482,6 +476,7 @@ public class CreateProject extends JDialog {
 		cbxProgramador2.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxProgramador2.setBackground(new Color(230, 230, 250));
 		cbxProgramador2.setBounds(144, 85, 168, 23);
+		((JLabel)cbxProgramador2.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(cbxProgramador2);
 		
 		cbxPlaneador = new JComboBox<String>();
@@ -489,6 +484,7 @@ public class CreateProject extends JDialog {
 		cbxPlaneador.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxPlaneador.setBackground(new Color(230, 230, 250));
 		cbxPlaneador.setBounds(144, 111, 168, 23);
+		((JLabel)cbxPlaneador.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(cbxPlaneador);
 		
 		cbxDiseador = new JComboBox<String>();
@@ -496,6 +492,7 @@ public class CreateProject extends JDialog {
 		cbxDiseador.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxDiseador.setBackground(new Color(230, 230, 250));
 		cbxDiseador.setBounds(144, 137, 168, 23);
+		((JLabel)cbxDiseador.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(cbxDiseador);
 		
 		cbxTester = new JComboBox<String>();
@@ -503,6 +500,7 @@ public class CreateProject extends JDialog {
 		cbxTester.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
 		cbxTester.setBackground(new Color(230, 230, 250));
 		cbxTester.setBounds(144, 163, 168, 23);
+		((JLabel)cbxTester.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(cbxTester);
 		
 		lblNewLabel_1 = new JLabel("");
