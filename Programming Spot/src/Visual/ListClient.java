@@ -10,16 +10,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -27,6 +28,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
 import Logico.Client;
@@ -54,10 +56,11 @@ public class ListClient extends JDialog {
     private JScrollPane scrollPaneContracts;
     private String clientID;
     private Client foundClient;
-    private JTextField tfdIdSearch;
+    private JFormattedTextField formattedID;
 
     /**
      * Launch the application.
+     *
      */
  
     public ListClient() {
@@ -71,6 +74,7 @@ public class ListClient extends JDialog {
 	this.setResizable(false);
 	setLocationRelativeTo(null);
 	setModal(true);
+
 	{
 
 	    	JPanel panel = new JPanel();
@@ -222,31 +226,35 @@ public class ListClient extends JDialog {
 		label.setBounds(10, 37, 46, 14);
 		panel_2.add(label);
 		
-		tfdIdSearch = new JTextField();
-		tfdIdSearch.setBackground(new Color(230, 230, 250));
-		tfdIdSearch.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-			    loadClients(findClients());
-			}	
-			@Override
-			public void keyPressed(KeyEvent e) {
-			    if ((tfdIdSearch.getText().length()==3) && e.getKeyCode()!=8) {
-			    	tfdIdSearch.setText(tfdIdSearch.getText()+"-");
-			    }
-			    else if (tfdIdSearch.getText().length()==11 && e.getKeyCode()!=8) {
-			    	tfdIdSearch.setText(tfdIdSearch.getText()+"-");
-			    }
-			}
-		});
-		tfdIdSearch.setColumns(10);
-		tfdIdSearch.setBounds(66, 33, 162, 22);
-		panel_2.add(tfdIdSearch);
-		
 		JLabel lblintroducirCdulaConguiones = new JLabel("*Introducir c\u00E9dula con guiones");
 		lblintroducirCdulaConguiones.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		lblintroducirCdulaConguiones.setBounds(10, 63, 150, 14);
 		panel_2.add(lblintroducirCdulaConguiones);
+		MaskFormatter idFormatter = null;
+		
+		try {
+		    idFormatter = new MaskFormatter("###-#######-#");
+		    idFormatter.setPlaceholderCharacter('_');
+		    //idFormatter.setValueContainsLiteralCharacters(false);
+		    //idFormatter.setOverwriteMode(true);
+		} catch (ParseException e1) {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+		}
+		
+		formattedID = new JFormattedTextField(idFormatter);
+		formattedID.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+		
+				loadClients(findClients());
+				
+			}
+		});
+		formattedID.setHorizontalAlignment(SwingConstants.CENTER);
+		formattedID.setBackground(new Color(230, 230, 250));
+		formattedID.setBounds(64, 32, 187, 22);
+		panel_2.add(formattedID);
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
 	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -289,6 +297,7 @@ public class ListClient extends JDialog {
     }
     
     private void loadClients( ArrayList<Client> filteredClients) {
+	System.out.println();
    	tableModel.setRowCount(0);
    	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
    	tcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -299,7 +308,7 @@ public class ListClient extends JDialog {
    	table.getColumnModel().getColumn(4).setCellRenderer(tcr);
    	row = new Object[tableModel.getColumnCount()];
    	ArrayList<Client> clientsList = Admin.getInstance().getClients();
-   	if(filteredClients!=null){
+   	if(filteredClients!=null && !formattedID.getText().equals("  ")){
    	    clientsList=filteredClients;
    	}
    	
@@ -331,10 +340,14 @@ public class ListClient extends JDialog {
     
     private ArrayList<Client> findClients() {
 	    ArrayList<Client> filteredClients=new ArrayList<>();
-	    String filter = tfdIdSearch.getText();
+	    String filter = formattedID.getText().substring(0,formattedID.getCaretPosition());
 	    for (Client ct : Admin.getInstance().getClients()) {
-		if(ct.getIdNumber().subSequence(0, filter.length()).equals(filter)){
-		    filteredClients.add(ct);
+		try {
+		    if(ct.getIdNumber().subSequence(0, filter.length()).equals(filter)){
+			    filteredClients.add(ct);
+			}
+		} catch (StringIndexOutOfBoundsException e) {
+		    
 		}
 	    }
 	    return filteredClients;

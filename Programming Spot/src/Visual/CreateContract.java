@@ -1,31 +1,30 @@
 package Visual;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -35,24 +34,9 @@ import javax.swing.text.MaskFormatter;
 import Logico.Admin;
 import Logico.Client;
 import Logico.Contract;
-import Logico.Designer;
-import Logico.Planner;
-import Logico.Programmer;
 import Logico.Project;
-import Logico.ProjectBoss;
-import Logico.SoftwareTester;
-import Logico.Worker;
 
-import javax.swing.UIManager;
-import javax.swing.JCheckBox;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import com.toedter.calendar.JDateChooser;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 
 @SuppressWarnings("unused")
 public class CreateContract extends JDialog {
@@ -72,7 +56,7 @@ public class CreateContract extends JDialog {
     //private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
     //private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
     //private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
-    private JTextField cliente;
+    private JTextField tfdSearchClient;
     private JTextField proyecto;
     private JTextField tipo;
     private JTextField lenguaje;
@@ -92,6 +76,7 @@ public class CreateContract extends JDialog {
     private JLabel lblTipo;
     private JLabel lblNewLabel_1;
     private JButton btnCrear;
+    private JFormattedTextField formatedClient;
     
     /**
      * @param project
@@ -198,29 +183,29 @@ public class CreateContract extends JDialog {
 		
 		
 	
-		cliente = new JTextField();
+		tfdSearchClient = new JTextField();
 		if (postpone)
-			cliente.setEditable(false);
-		cliente.setHorizontalAlignment(SwingConstants.LEFT);
-		cliente.addKeyListener(new KeyAdapter() {
+			tfdSearchClient.setEditable(false);
+		tfdSearchClient.setHorizontalAlignment(SwingConstants.LEFT);
+		tfdSearchClient.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				findClient();
-				if (cliente.getText().length()>13)
-					cliente.setBackground(new Color(255,220,220));
+				if (tfdSearchClient.getText().length()>13)
+					tfdSearchClient.setBackground(new Color(255,220,220));
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if ((cliente.getText().length()==3 || cliente.getText().length()==11)&&e.getKeyCode()!=8) {
-					cliente.setText(cliente.getText()+"-");
+				if ((tfdSearchClient.getText().length()==3 || tfdSearchClient.getText().length()==11)&&e.getKeyCode()!=8) {
+					tfdSearchClient.setText(tfdSearchClient.getText()+"-");
 				}
 			}
 		});
-		cliente.setBounds(104, 62, 396, 22);
-		panel.add(cliente);
-		cliente.setBackground(new Color(220, 255, 220));
+		tfdSearchClient.setBounds(104, 62, 24, 22);
+		panel.add(tfdSearchClient);
+		tfdSearchClient.setBackground(new Color(220, 255, 220));
 
-		cliente.setColumns(10);
+		tfdSearchClient.setColumns(10);
 		
 		lblCliente = new JLabel("Cliente:");
 		lblCliente.setBounds(10, 64, 75, 16);
@@ -234,7 +219,6 @@ public class CreateContract extends JDialog {
 			}
 			public void mouseReleased(MouseEvent e) {
 				lblBuscar.setIcon(new ImageIcon(CreateContract.class.getResource("/icons/search.png")));
-				setClientName();
 			}
 		});
 		lblBuscar.setIcon(new ImageIcon(CreateContract.class.getResource("/icons/search.png")));
@@ -256,6 +240,7 @@ public class CreateContract extends JDialog {
 			fechaInicial.setEnabled(false);
 		fechaInicial.setBackground(new Color(230, 230, 250));
 		fechaInicial.setDateFormatString("dd/MM/yyyy");
+		fechaInicial.setMinSelectableDate(new Date());
 		fechaInicial.setBounds(104, 112, 127, 20);
 		panel.add(fechaInicial);
 		((JTextField)fechaInicial.getDateEditor().getUiComponent()).setEditable(false);
@@ -273,6 +258,7 @@ public class CreateContract extends JDialog {
 			}
 		});
 		fechaFinal.setDateFormatString("dd/MM/yyyy");
+		fechaFinal.setMinSelectableDate(new Date());
 		fechaFinal.setBounds(373, 112, 127, 20);
 		panel.add(fechaFinal);
 		((JTextField)fechaFinal.getDateEditor().getUiComponent()).setEditable(false);
@@ -285,13 +271,13 @@ public class CreateContract extends JDialog {
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!postpone) {
-				if (!cliente.getText().equals("")||((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().equals("")||((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals("")) {
-					if (findClient(cliente.getText())!=null) {
+				if (!tfdSearchClient.getText().equals("")||((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().equals("")||((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals("")) {
+					if (findClient(tfdSearchClient.getText())!=null) {
 						if (validate(fechaInicial) && validate(fechaFinal)) {
 							if (validarFecha()) {
 								String init = ((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText();
 								String finall = ((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText();
-								Admin.getInstance().createContract(init, finall, createID(), findClient(cliente.getText()), project, project.calculateBasePrice()*getDays());
+								Admin.getInstance().createContract(init, finall, createID(), findClient(tfdSearchClient.getText()), project, project.calculateBasePrice()*getDays());
 								JOptionPane.showMessageDialog(null, "El contrato se ha creado exitosamente","Contrato creado", JOptionPane.INFORMATION_MESSAGE, null);
 								   MainVisual.getInstance().getMenuPanel().setVisible(false);
 								   MainVisual.getInstance().getContractPanel().setVisible(true);
@@ -394,6 +380,24 @@ public class CreateContract extends JDialog {
 		lenguaje.setBounds(104, 205, 150, 22);
 		panel.add(lenguaje);
 		lenguaje.setColumns(10);
+		
+		MaskFormatter idFormatter = null;
+		
+		try {
+		    idFormatter = new MaskFormatter("###-#######-#");
+		    idFormatter.setPlaceholderCharacter('_');
+		    //idFormatter.setValueContainsLiteralCharacters(false);
+		    //idFormatter.setOverwriteMode(true);
+		} catch (ParseException e1) {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+		}
+		
+		formatedClient = new JFormattedTextField(idFormatter);
+		formatedClient.setHorizontalAlignment(SwingConstants.CENTER);
+		formatedClient.setBackground(new Color(230, 230, 250));
+		formatedClient.setBounds(163, 62, 335, 22);
+		panel.add(formatedClient);
 	    
 		if (!postpone)
 			load();
@@ -417,18 +421,20 @@ public class CreateContract extends JDialog {
 	}
 	
   }
+    
+    
 	private void findClient() {
-		String textField = cliente.getText();
-		cliente.setBackground(new Color(255, 220, 220));
+		String textField = tfdSearchClient.getText();
+		tfdSearchClient.setBackground(new Color(255, 220, 220));
 		if (textField.length()<14) {
 			for (Client i: Admin.getInstance().getClients()) {
 				String aux = getIDWorker(textField.length(), i);
 				if (textField.equals(aux))
-					cliente.setBackground(new Color(220, 255, 220));
+					tfdSearchClient.setBackground(new Color(220, 255, 220));
 			}	
 		}
 		if (textField.length()==0) {
-			cliente.setBackground(new Color(220, 255, 220));
+			tfdSearchClient.setBackground(new Color(220, 255, 220));
 		}
 	}
 	private String getIDWorker(int number, Client client) {
@@ -441,13 +447,13 @@ public class CreateContract extends JDialog {
     	String aux = null;
     	for (Client i: Admin.getInstance().getClients()) {
     		String ID = i.getIdNumber();
-    		if (ID.equals(cliente.getText())) {
+    		if (ID.equals(tfdSearchClient.getText())) {
     			aux = i.getName()+" "+i.getLastName();
-    	        cliente.setText(aux);
+    	        tfdSearchClient.setText(aux);
     		}
     		else {
     			aux = "No encontrado";
-	        	cliente.setText(aux);
+	        	tfdSearchClient.setText(aux);
     		}
     	}		
     }
@@ -540,7 +546,7 @@ public class CreateContract extends JDialog {
 	}
     private void loadPostponeWindow() {
     	IDLabel.setText(contract.getContractID());
-    	cliente.setText(contract.getClient().getName()+" "+contract.getClient().getLastName());
+    	tfdSearchClient.setText(contract.getClient().getName()+" "+contract.getClient().getLastName());
     	((JTextField)fechaInicial.getDateEditor().getUiComponent()).setText(contract.getInitialDate());
     	proyecto.setText(contract.getProject().getName());
     	tipo.setText(contract.getProject().getProgrammingType());
@@ -551,7 +557,7 @@ public class CreateContract extends JDialog {
     	String aux = null;
     	String[] date = ((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().split("/");
     	String date1 = date[0]+date[1]+date[2];
-    	Client client = findClient(cliente.getText());
+    	Client client = findClient(tfdSearchClient.getText());
     	String[] separateTelephone = client.getPhone().split("-");
     	String telephone = separateTelephone[0]+separateTelephone[1]+separateTelephone[2];
         aux = date1 + telephone;
