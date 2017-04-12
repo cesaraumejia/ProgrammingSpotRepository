@@ -442,15 +442,21 @@ public class CreateProject extends JDialog {
 		cbxProgramador1 = new JComboBox<String>();
 		cbxProgramador1.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				if ( cbxProgramador1.getSelectedIndex()>0 && cbxProgramador2.getSelectedIndex()==0) {
-				String aux = cbxProgramador1.getSelectedItem().toString();
-				cbxProgramador2.removeAllItems();
-				for (int i =0;i<cbxProgramador1.getItemCount();i++) {
-					if (!cbxProgramador1.getItemAt(i).equals(aux)) {
-						cbxProgramador2.addItem(cbxProgramador1.getItemAt(i));
+				if ( cbxProgramador1.getSelectedIndex()>0) {
+					String aux = cbxProgramador1.getSelectedItem().toString();
+					cbxProgramador2.removeItem(aux);
+			  }
+				else {
+					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
+						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)) {
+						cbxProgramador2.addItem(aux1);
+						}
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)) {
+						cbxProgramador1.addItem(aux1);
+						}
 					}
 				}
-			  }
 			}
 		});
 		cbxProgramador1.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
@@ -462,15 +468,21 @@ public class CreateProject extends JDialog {
 		cbxProgramador2 = new JComboBox<String>();
 		cbxProgramador2.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				if ( cbxProgramador2.getSelectedIndex()>0 && cbxProgramador1.getSelectedIndex()==0) {
-				String aux = cbxProgramador2.getSelectedItem().toString();
-				cbxProgramador1.removeAllItems();
-				for (int i =0;i<cbxProgramador2.getItemCount();i++) {
-					if (!cbxProgramador2.getItemAt(i).equals(aux)) {
-						cbxProgramador1.addItem(cbxProgramador2.getItemAt(i));
+				if ( cbxProgramador2.getSelectedIndex()>0) {
+					String aux = cbxProgramador2.getSelectedItem().toString();
+					cbxProgramador1.removeItem(aux);
+			  }
+				else {
+					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
+						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)) {
+						cbxProgramador1.addItem(aux1);
+						}
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)) {
+						cbxProgramador2.addItem(aux1);
+						}
 					}
 				}
-			  }
 			}
 		});
 		cbxProgramador2.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
@@ -660,6 +672,14 @@ public class CreateProject extends JDialog {
 		   chkPlaneador.setSelected(false);
 		   chkDiseador.setSelected(false);
 		   chkTester.setSelected(false);
+	   }
+	   private boolean contains(String item, JComboBox<String> cbx) {
+		   boolean aux = false;
+		   for (int i =0;i<cbx.getItemCount();i++) {
+			   if (cbx.getItemAt(i).equals(item))
+				   aux = true;
+		   }
+		   return aux;
 	   }
 	
 }
