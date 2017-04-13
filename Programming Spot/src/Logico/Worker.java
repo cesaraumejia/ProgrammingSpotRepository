@@ -21,6 +21,7 @@ public abstract class Worker implements Serializable{
 	protected boolean available;
 	protected String telefono;
 	protected ArrayList<Contract> contract = new ArrayList<>();
+	protected long daysLeft; 
 
 	public Worker() {
 		// TODO Auto-generated constructor stub
@@ -147,6 +148,14 @@ public abstract class Worker implements Serializable{
 
 	public void setContract(ArrayList<Contract> contract) {
 		this.contract = contract;
+	}
+
+	public long getDaysLeft() {
+		return daysLeft;
+	}
+
+	public void setDaysLeft(long daysLeft) {
+		this.daysLeft = daysLeft;
 	}
 	
 	

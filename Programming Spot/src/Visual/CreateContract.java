@@ -78,6 +78,7 @@ public class CreateContract extends JDialog {
     private JButton btnCrear;
     private JFormattedTextField formatedClient;
     private boolean foundClient = false;
+    private JLabel lblRegistrarContrato;
     /**
      * @param project
      */
@@ -162,6 +163,11 @@ public class CreateContract extends JDialog {
 			}
 		});
 		lblClose.setIcon(windowsCloseIcon);
+		
+		lblRegistrarContrato = new JLabel("Registrar Contrato");
+		lblRegistrarContrato.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
+		lblRegistrarContrato.setBounds(10, 0, 185, 27);
+		topPanel.add(lblRegistrarContrato);
 		
 		JPanel panel = new JPanel();
 		panel.addMouseMotionListener(new MouseMotionAdapter() {

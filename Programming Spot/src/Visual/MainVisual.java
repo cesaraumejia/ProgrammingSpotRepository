@@ -628,7 +628,7 @@ public class MainVisual extends JFrame {
 		
 		JPanel rightPanel = new JPanel();
 		rightPanel.setBounds(panel.getWidth()-280, 13, 255, 377);
-		rightPanel.setBackground(new Color(153,153,153,153));
+		rightPanel.setBackground(new Color(153,153,153));
 		panel.add(rightPanel);
 		rightPanel.setLayout(null);
 		

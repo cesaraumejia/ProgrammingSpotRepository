@@ -380,7 +380,7 @@ public class ListContract extends JDialog {
 	    return listInstance;
 	}
     }
-    private String giveMonth(int number) {
+    public static String giveMonth(int number) {
     	String aux = null;
     	if (number==1)
     		aux = "Jan";
