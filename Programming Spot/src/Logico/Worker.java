@@ -22,6 +22,7 @@ public abstract class Worker implements Serializable{
 	protected String telefono;
 	protected ArrayList<Contract> contract = new ArrayList<>();
 	protected long daysLeft; 
+	protected float eficiency;
 
 	public Worker() {
 		// TODO Auto-generated constructor stub
@@ -156,6 +157,14 @@ public abstract class Worker implements Serializable{
 
 	public void setDaysLeft(long daysLeft) {
 		this.daysLeft = daysLeft;
+	}
+
+	public float getEficiency() {
+		return eficiency;
+	}
+
+	public void setEficiency(float eficiency) {
+		this.eficiency = eficiency;
 	}
 	
 	

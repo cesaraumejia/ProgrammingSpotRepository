@@ -82,7 +82,7 @@ public class CreateContract extends JDialog {
     /**
      * @param project
      */
-    public CreateContract(final Project project, final boolean postpone, Contract contract, final int index) {
+    public CreateContract(final Project project, final boolean postpone, final Contract contract, final int index) {
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     	setUndecorated(true);
 	setBounds(100, 100, 577, 368);
@@ -175,9 +175,15 @@ public class CreateContract extends JDialog {
 			public void mouseMoved(MouseEvent e) {
 				if (!((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().equals("") && !((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals("")) {
 				if (validate(fechaInicial) && validate(fechaFinal) && validarFecha()) {
-    				double price = project.calculateBasePrice()*getDays();
-    				priceLabel.setText(String.valueOf(price));
-    			}
+					if (!postpone) {
+						double price = project.calculateBasePrice()*getDays();
+						priceLabel.setText(String.valueOf(price));
+					}
+					else {
+						double price = contract.getProject().calculateBasePrice()*getDays();
+						priceLabel.setText(String.valueOf(price));
+					}
+				}
 			  }
 			}
 		});
@@ -295,6 +301,7 @@ public class CreateContract extends JDialog {
 						JOptionPane.showMessageDialog(null, "Rellene todos los cambios para continuar","Campos vacios", JOptionPane.WARNING_MESSAGE, null);
 					else {
 						Admin.getInstance().getContracts().get(index).setFinalDate(((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText());
+						Admin.getInstance().getContracts().get(index).setFinalPrice(Double.parseDouble(priceLabel.getText()));
 						JOptionPane.showMessageDialog(null, "Se ha pospuesto correctamente el proyecto","", JOptionPane.INFORMATION_MESSAGE, null);
 						Admin.getInstance().getContracts().get(index).setPostpone(1);
 						dispose();
@@ -483,6 +490,7 @@ public class CreateContract extends JDialog {
     	aux = finalDate.getTime() - initialDate.getTime();
         return TimeUnit.DAYS.convert(aux, TimeUnit.MILLISECONDS);
     }
+
     private boolean validarFecha() throws NullPointerException {
 		boolean aux = false;
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");

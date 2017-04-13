@@ -50,6 +50,8 @@ public class ListContract extends JDialog {
     private static Object[] row1;
     private JTextField busqueda;
     private static ListContract listInstance;
+    private ArrayList<Contract> active = new ArrayList<>();
+    private ArrayList<Contract> finished = new ArrayList<>();
 	/**
 	 * Launch the application.
 	 */
@@ -58,6 +60,7 @@ public class ListContract extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListContract() {
+		load();
 ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 		setUndecorated(true);
 		setBounds(100, 100, 806, 455);
@@ -107,6 +110,7 @@ public class ListContract extends JDialog {
 				MainVisual.getInstance().getContractPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
 				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+				refreshAdmin();
 				dispose();
 			}
 		});
@@ -156,7 +160,7 @@ public class ListContract extends JDialog {
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
 		////////////////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////
-		loadContracts(Admin.getInstance().getContracts());
+		loadContracts(active);
 		
 		JPanel finishedContracts = new JPanel();
 		finishedContracts.setBackground(new Color(220,220,220));
@@ -202,7 +206,7 @@ public class ListContract extends JDialog {
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_1.setModel(tableModel1);
 		scrollPane_1.setViewportView(table_1);
-		loadFinishedContracts(Admin.getInstance().getContracts());
+		loadFinishedContracts(finished);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -263,6 +267,7 @@ public class ListContract extends JDialog {
 						  MainVisual.getInstance().getContractPanel().setVisible(true);
 						  MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
 						  MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+						  refreshAdmin();
 						  dispose();
 					}
 				});
@@ -329,15 +334,19 @@ public class ListContract extends JDialog {
 	private boolean finishContract(int index) {
     	Date today = new Date();
     	boolean aux = false;
-    	Contract contract = Admin.getInstance().getContracts().get(index);
-     	if (validarFecha(Admin.getInstance().getContracts().get(index).getFinalDate(),today)) {
-    		String[] separate = contract.getFinalDate().split("/");
-    		long finalTime = Date.parse(giveMonth(Integer.parseInt(separate[1]))+" "+separate[0]+", "+separate[2]);  // Chequear esto, puede que de errores
-			long time = today.getTime() - finalTime;
-    		long days = TimeUnit.DAYS.convert(time, TimeUnit.MILLISECONDS);
-    		Admin.getInstance().getContracts().get(index).setLostMoney(contract.getFinalPrice()*days*0.01);
-    		Admin.getInstance().getContracts().get(index).setFinalPrice(contract.getFinalPrice() - contract.getLostMoney());
-    		Admin.getInstance().getContracts().get(index).getProject().setState("Finalizado");
+    	Contract contract = active.get(index);
+     	if (validarFecha(active.get(index).getFinalDate(),today)) {
+     		String[] separate = contract.getFinalDate().split("/");
+    		long finalTime = Date.parse(separate[1]+"/"+separate[0]+"/"+separate[2]);  // Chequear esto, puede que de errores
+			long time = finalTime - today.getTime();
+    		long days = (TimeUnit.DAYS.convert(time, TimeUnit.MILLISECONDS))/30;
+    		active.get(index).setLostMoney(contract.getFinalPrice()*days*0.01);
+    		active.get(index).setFinalPrice(contract.getFinalPrice() - contract.getLostMoney());
+    		active.get(index).getProject().setState("Finalizado");
+    		loadContracts(active);
+    		finished.add(active.get(index));
+    		active.remove(index);
+    		loadFinishedContracts(finished);
     		aux = true;
     	}
     	return aux;
@@ -408,5 +417,22 @@ public class ListContract extends JDialog {
     		aux = "Dec";
     	
     	return aux;
+    }
+    private void load() {
+    	for (Contract i: Admin.getInstance().getContracts()) {
+    		if (i.getProject().getState().equals("En progreso"))
+    			active.add(i);
+    		else
+    			finished.add(i);
+    	}
+    }
+    private void refreshAdmin() {
+    	Admin.getInstance().getContracts().removeAll(Admin.getInstance().getContracts());
+    	for (Contract i: active) {
+    		Admin.getInstance().getContracts().add(i);
+    	}
+    	for (Contract j: finished) {
+    		Admin.getInstance().getContracts().add(j);
+    	}
     }
 }

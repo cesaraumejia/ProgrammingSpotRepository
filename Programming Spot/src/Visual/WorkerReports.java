@@ -8,9 +8,14 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import Logico.Admin;
+import Logico.Designer;
+import Logico.Planner;
+import Logico.ProjectBoss;
+import Logico.SoftwareTester;
 import Logico.Worker;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,6 +33,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import javax.swing.UIManager;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class WorkerReports extends JDialog {
@@ -64,7 +80,19 @@ public class WorkerReports extends JDialog {
 	private JTable table;
 	private static DefaultTableModel tableModel;
     private static Object[] row;
-	private JPanel panel_3;
+    private ChartPanel chartPanel;
+    private DefaultCategoryDataset data = new DefaultCategoryDataset();
+    private JLabel lblBack2;
+    private JPanel panel_3;
+    private JLabel lblTitle;
+    private JLabel lblNewLabel_2;
+    private JLabel lblBack3;
+    private JLabel bestWorkerName;
+    private JLabel bestWorkerEficiency;
+    private JLabel bestWorkerType;
+    private JLabel lblNewLabel_5;
+    private JLabel lblNombre;
+    private JLabel lblTipo;
 
 	/**
 	 * Launch the application.
@@ -78,8 +106,8 @@ public class WorkerReports extends JDialog {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				lblBirth.setIcon(new ImageIcon("src/icons/birthday.png"));
-				lblBest.setIcon(new ImageIcon("src/icons/best.png"));
-				lblStats.setIcon(new ImageIcon("src/icons/analytics.png"));
+				lblBest.setIcon(new ImageIcon("src/icons/analytics.png"));
+				lblStats.setIcon(new ImageIcon("src/icons/best.png"));
 			}
 		});
 		///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
@@ -96,6 +124,97 @@ public class WorkerReports extends JDialog {
 			panel_2 = new JPanel();
 			panel_2.setBackground(new Color(220,220,220));
 			panel_2.setVisible(false);
+			{
+				panel_3 = new JPanel();
+				panel_3.setVisible(false);
+				panel_3.setBackground(new Color(220,220,220));
+				panel_3.setBounds(10, 40, 536, 259);
+				contentPanel.add(panel_3);
+				panel_3.setLayout(null);
+				{
+					lblNewLabel_2 = new JLabel("");
+					lblNewLabel_2.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/bestWorker_opt.png")));
+					lblNewLabel_2.setBounds(226, 0, 103, 122);
+					panel_3.add(lblNewLabel_2);
+				}
+				{
+					lblBack3 = new JLabel("");
+					lblBack3.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mousePressed(MouseEvent e) {
+							lblBack3.setIcon(new ImageIcon("src/icons/backTransition.png"));
+						}
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							lblBack3.setIcon(new ImageIcon("src/icons/back.png"));
+							panel_3.setVisible(false);
+							activePrincipal();
+							lblBack3.setVisible(false);
+						}
+					});
+					lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
+					lblBack3.setBounds(0, 0, 32, 34);
+					panel_3.add(lblBack3);
+				}
+				{
+					bestWorkerName = new JLabel("No Disponible");
+					bestWorkerName.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+					bestWorkerName.setHorizontalAlignment(SwingConstants.CENTER);
+					bestWorkerName.setBounds(200, 144, 129, 34);
+					panel_3.add(bestWorkerName);
+				}
+				{
+					bestWorkerEficiency = new JLabel("No Disponible");
+					bestWorkerEficiency.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+					bestWorkerEficiency.setHorizontalAlignment(SwingConstants.CENTER);
+					bestWorkerEficiency.setBounds(29, 144, 129, 34);
+					panel_3.add(bestWorkerEficiency);
+				}
+				{
+					bestWorkerType = new JLabel("No Disponible");
+					bestWorkerType.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+					bestWorkerType.setHorizontalAlignment(SwingConstants.CENTER);
+					bestWorkerType.setBounds(383, 144, 129, 34);
+					panel_3.add(bestWorkerType);
+				}
+				
+				JButton btnBonificacion = new JButton("Dar Bonificaci\u00F3n");
+				btnBonificacion.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (!bestWorkerName.getText().equals("No Disponible")) {
+							float aux = Admin.getInstance().givePrize();
+							JOptionPane.showMessageDialog(null, "Se le ha dado la bonificación al trabajador. El monto fue de "+aux, null, JOptionPane.INFORMATION_MESSAGE, null);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "No hay ningún trabajador destacado actualmente", null, JOptionPane.INFORMATION_MESSAGE, null);
+						}
+					}
+				});
+				btnBonificacion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+				btnBonificacion.setBounds(186, 205, 163, 43);
+				panel_3.add(btnBonificacion);
+				{
+					lblNewLabel_5 = new JLabel("Eficiencia");
+					lblNewLabel_5.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+					lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+					lblNewLabel_5.setBounds(55, 111, 87, 34);
+					panel_3.add(lblNewLabel_5);
+				}
+				{
+					lblNombre = new JLabel("Nombre");
+					lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+					lblNombre.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+					lblNombre.setBounds(229, 111, 87, 34);
+					panel_3.add(lblNombre);
+				}
+				{
+					lblTipo = new JLabel("Tipo");
+					lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+					lblTipo.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+					lblTipo.setBounds(400, 111, 87, 34);
+					panel_3.add(lblTipo);
+				}
+			}
 			panel_2.setBounds(10, 40, 536, 259);
 			contentPanel.add(panel_2);
 			panel_2.setLayout(null);
@@ -103,17 +222,13 @@ public class WorkerReports extends JDialog {
 			panel_4 = new JPanel();
 			panel_4.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Trabajadores", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel_4.setBackground(new Color(220,220,220));
-			panel_4.setBounds(10, 11, 253, 237);
+			panel_4.setBounds(10, 34, 161, 214);
 			panel_2.add(panel_4);
 			panel_4.setLayout(null);
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 24, 233, 202);
+			scrollPane.setBounds(10, 21, 142, 182);
 			panel_4.add(scrollPane);
-			{
-				table = new JTable();
-				scrollPane.setViewportView(table);
-			}
 			
 			///////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////////////
 			String[] columnsHeaders = {"Nombre"};
@@ -130,27 +245,53 @@ public class WorkerReports extends JDialog {
 			}
 			
 			};
+			Admin.getInstance().setResponsibility();
+			final String eficiencia = "Eficiencia Individual";
+			final String eficienciaProm = "Eficiencia Promedio";
 			tableModel.setColumnIdentifiers(columnsHeaders);
+			data.addValue(Admin.getInstance().getWorkers().get(0).getEficiency(), eficiencia, "Efi. Individual");
+			data.addValue(getAverageEficiency(), eficienciaProm, "Efi. Promedio");
+			JFreeChart jfree = ChartFactory.createBarChart3D("Eficiencia del trabajador", null, "Porcentaje", data, PlotOrientation.VERTICAL, true, true, false);
 			table = new JTable();
 			table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-			if(table.getSelectedRow()>=0){
-			
-			}
+				if(table.getSelectedRow()>=0){
+					int index = table.getSelectedRow();
+					Worker worker = Admin.getInstance().getWorkers().get(index);
+					data.addValue(worker.getEficiency(), eficiencia, "Efi. Individual");
+				}
 			}
 			});
 			scrollPane.setColumnHeaderView(table);
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			table.setModel(tableModel);
 			scrollPane.setViewportView(table);
-			////////////////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////
 			
-			panel_3 = new JPanel();
-			panel_3.setBackground(new Color(220,220,220));
-			panel_3.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Gr\u00E1ficos", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-			panel_3.setBounds(273, 11, 253, 237);
-			panel_2.add(panel_3);
+			chartPanel = new ChartPanel(jfree);
+			chartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gr\u00E1ficos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			chartPanel.setBounds(181, 11, 345, 237);
+			chartPanel.setBackground(new Color(220, 220, 220));
+			panel_2.add(chartPanel);
+			
+			lblBack2 = new JLabel("");
+			lblBack2.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					lblBack2.setIcon(icon);
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+			        lblBack2.setIcon(backIcon);
+			        panel_2.setVisible(false);
+			        activePrincipal();
+				}
+			});
+			lblBack2.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
+			lblBack2.setBounds(10, 1, 32, 34);
+			panel_2.add(lblBack2);
+			////////////////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////
+			loadWorkers();
 		}
 		{
 			JPanel topPanel = new JPanel();
@@ -169,7 +310,7 @@ public class WorkerReports extends JDialog {
 			label.setBounds(530, 0, 26, 29);
 			topPanel.add(label);
 			{
-				JLabel lblTitle = new JLabel("\u00BFQu\u00E9 desea ver?");
+				lblTitle = new JLabel("\u00BFQu\u00E9 desea ver?");
 				lblTitle.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
 				lblTitle.setBounds(10, 0, 205, 29);
 				topPanel.add(lblTitle);
@@ -188,6 +329,7 @@ public class WorkerReports extends JDialog {
 					lblBirth.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/birthday.png")));
 					lblBack.setVisible(true);
 					panel.setVisible(true);
+					lblTitle.setText("Cumpleaños");
 					disablePrincipal();
 				}
 			});
@@ -206,20 +348,23 @@ public class WorkerReports extends JDialog {
 			lblBest.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					lblBest.setIcon(new ImageIcon("src/icons/bestmouseover.png"));
+					lblBest.setIcon(new ImageIcon("src/icons/analyticsmpuseover.png"));
 				}
 				@Override
 				public void mouseReleased(MouseEvent e) {
+					lblBest.setIcon(new ImageIcon("src/icons/analytics.png"));
 					panel_2.setVisible(true);
+					lblTitle.setText("Estadísticas");
+					disablePrincipal();
 				}
 			});
 			lblBest.addMouseMotionListener(new MouseMotionAdapter() {
 				@Override
 				public void mouseMoved(MouseEvent e) {
-					lblBest.setIcon(new ImageIcon("src/icons/bestmousemotion.png"));
+					lblBest.setIcon(new ImageIcon("src/icons/analyticsmousemotion.png"));
 				}
 			});
-			lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/best.png")));
+			lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analytics.png")));
 			lblBest.setBounds(235, 85, 100, 100);
 			contentPanel.add(lblBest);
 		}
@@ -228,16 +373,24 @@ public class WorkerReports extends JDialog {
 			lblStats.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					lblStats.setIcon(new ImageIcon("src/icons/analyticsmpuseover.png"));
+					lblStats.setIcon(new ImageIcon("src/icons/bestmouseover.png"));
+				}
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					lblBack3.setVisible(true);
+					disablePrincipal();
+					panel_3.setVisible(true);
+					lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/best.png")));
+					lblTitle.setText("Empleado del mes");
 				}
 			});
 			lblStats.addMouseMotionListener(new MouseMotionAdapter() {
 				@Override
 				public void mouseMoved(MouseEvent e) {
-					lblStats.setIcon(new ImageIcon("src/icons/analyticsmousemotion.png"));
+					lblStats.setIcon(new ImageIcon("src/icons/bestmousemotion.png"));
 				}
 			});
-			lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analytics.png")));
+			lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/best.png")));
 			lblStats.setBounds(410, 85, 97, 108);
 			contentPanel.add(lblStats);
 		}
@@ -248,14 +401,14 @@ public class WorkerReports extends JDialog {
 			lblCumpleaos.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		}
 		{
-			lblEstadsticas = new JLabel("Empleado del mes");
+			lblEstadsticas = new JLabel("Estad\u00EDsticas");
 			lblEstadsticas.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-			lblEstadsticas.setBounds(215, 215, 145, 14);
+			lblEstadsticas.setBounds(242, 215, 97, 20);
 			contentPanel.add(lblEstadsticas);
 		}
 		{
-			lblNoSe = new JLabel("Estad\u00EDsticas");
-			lblNoSe.setBounds(415, 215, 123, 14);
+			lblNoSe = new JLabel("Empleado del mes");
+			lblNoSe.setBounds(391, 215, 159, 20);
 			contentPanel.add(lblNoSe);
 			lblNoSe.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
 		}
@@ -422,6 +575,7 @@ public class WorkerReports extends JDialog {
 		setModal(true);
 		setReminderDays();
 		setWorkers();
+		setBestWorker();
 	}
 	private void setReminderDays() {
 		for (Worker i: Admin.getInstance().getWorkers()) {
@@ -480,8 +634,10 @@ public class WorkerReports extends JDialog {
 		lblNoSe.setVisible(true);
 		lblEstadsticas.setVisible(true);
 		lblBack.setVisible(false);
+		lblTitle.setText("¿Qué desea ver?");
+		
 	}
-	public void loadContracts() {
+	public void loadWorkers() {
 	   	tableModel.setRowCount(0);
 	   	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 	   	tcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -491,5 +647,43 @@ public class WorkerReports extends JDialog {
 	   	    row[0]=i.getFirstName() +" "+ i.getLastName();
 	   	    tableModel.addRow(row);
 	   	}
+	}
+	private float getAverageEficiency() {
+		float aux = 0f;
+		int counter = 0;
+		for (int i=0;i<Admin.getInstance().getWorkers().size();i++) {
+			aux += Admin.getInstance().getWorkers().get(i).getEficiency();
+			if (Admin.getInstance().getWorkers().get(i).getEficiency()!=0)
+				counter++;
+		}
+		if (counter==0)
+			aux = aux/Admin.getInstance().getWorkers().size();
+		else 
+			aux = aux/counter;
+		
+		return aux;
+	}
+	private void setBestWorker() {
+		Worker worker = null;
+		for (Worker i: Admin.getInstance().getWorkers()) {
+			if (i.getAnualEvaluation().equals("Destacado"))
+				worker = i;
+		}
+		if (worker!=null) {
+			bestWorkerName.setText(worker.getFirstName()+" "+worker.getLastName());
+			bestWorkerEficiency.setText(String.valueOf(worker.getEficiency())+"%");
+			String type= null;
+			if (worker instanceof ProjectBoss)
+				type = "Jefe de Proyecto";
+			else if (worker instanceof Planner)
+				type = "Planeador";
+			else if (worker instanceof Designer)
+				type = "Diseñador";
+			else if (worker instanceof SoftwareTester)
+				type = "Tester";
+			else
+				type = "Programador";
+			bestWorkerType.setText(type);
+		}
 	}
 }
