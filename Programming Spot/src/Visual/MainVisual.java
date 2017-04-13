@@ -628,11 +628,12 @@ public class MainVisual extends JFrame {
 		
 		JPanel rightPanel = new JPanel();
 		rightPanel.setBounds(panel.getWidth()-280, 13, 255, 377);
+		rightPanel.setBackground(new Color(153,153,153,153));
 		panel.add(rightPanel);
 		rightPanel.setLayout(null);
 		
 		lblGananciasYPrdidas = new JLabel("Ganancias y p\u00E9rdidas");
-		lblGananciasYPrdidas.setBounds(60, 48, 149, 19);
+		lblGananciasYPrdidas.setBounds(60, 56, 149, 19);
 		rightPanel.add(lblGananciasYPrdidas);
 		lblGananciasYPrdidas.setVisible(false);
 		lblGananciasYPrdidas.addMouseListener(new MouseAdapter() {
@@ -670,19 +671,19 @@ public class MainVisual extends JFrame {
 		lblAdminIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin.png")));
 		
 		lblGananciaIcon = new JLabel("");
-		lblGananciaIcon.setBounds(219, 43, 24, 24);
+		lblGananciaIcon.setBounds(219, 53, 24, 24);
 		rightPanel.add(lblGananciaIcon);
 		lblGananciaIcon.setVisible(false);
 		lblGananciaIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png")));
 		
 		lblWorkersIcon = new JLabel("");
-		lblWorkersIcon.setBounds(219, 78, 24, 24);
+		lblWorkersIcon.setBounds(219, 93, 24, 24);
 		rightPanel.add(lblWorkersIcon);
 		lblWorkersIcon.setVisible(false);
 		lblWorkersIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/workers.png")));
 		
 		lblWorkers = new JLabel("Trabajadores");
-		lblWorkers.setBounds(116, 78, 93, 24);
+		lblWorkers.setBounds(116, 93, 93, 24);
 		rightPanel.add(lblWorkers);
 		lblWorkers.setVisible(false);
 		lblWorkers.addMouseListener(new MouseAdapter() {
@@ -693,12 +694,14 @@ public class MainVisual extends JFrame {
 		    @Override
 		    public void mouseReleased(MouseEvent e) {
 		    	lblWorkers.setForeground(new Color(0, 0, 0));
+		    	WorkerReports reports = new WorkerReports();
+		    	reports.setVisible(true);
 		    }
 		});
 		lblWorkers.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		lblSoftware = new JLabel("Software");
-		lblSoftware.setBounds(144, 118, 65, 14);
+		lblSoftware.setBounds(144, 138, 65, 14);
 		rightPanel.add(lblSoftware);
 		lblSoftware.setVisible(false);
 		lblSoftware.addMouseListener(new MouseAdapter() {
@@ -709,24 +712,26 @@ public class MainVisual extends JFrame {
 		    @Override
 		    public void mouseReleased(MouseEvent e) {
 		    	lblSoftware.setForeground(new Color(0, 0, 0));
+		    	SoftwareReport sftReport = new SoftwareReport();
+		    	sftReport.setVisible(true);
 		    }
 		});
 		lblSoftware.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		lblSoftwareIcon = new JLabel("");
-		lblSoftwareIcon.setBounds(219, 113, 24, 24);
+		lblSoftwareIcon.setBounds(219, 133, 24, 24);
 		rightPanel.add(lblSoftwareIcon);
 		lblSoftwareIcon.setVisible(false);
 		lblSoftwareIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/software.png")));
 		
 		lblSettingsIcon = new JLabel("");
-		lblSettingsIcon.setBounds(219, 143, 24, 24);
+		lblSettingsIcon.setBounds(219, 173, 24, 24);
 		rightPanel.add(lblSettingsIcon);
 		lblSettingsIcon.setVisible(false);
 		lblSettingsIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/settings.png")));
 		
 		lblAjustes = new JLabel("Ajustes");
-		lblAjustes.setBounds(159, 143, 50, 19);
+		lblAjustes.setBounds(159, 175, 50, 19);
 		rightPanel.add(lblAjustes);
 		lblAjustes.setVisible(false);
 		lblAjustes.addMouseListener(new MouseAdapter() {
@@ -737,6 +742,8 @@ public class MainVisual extends JFrame {
 		    @Override
 		    public void mouseReleased(MouseEvent e) {
 		    	lblAjustes.setForeground(new Color(0, 0, 0));
+		    	Settings settings = new Settings();
+		    	settings.setVisible(true);
 		    }
 		});
 		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
