@@ -71,6 +71,7 @@ public class ListClient extends JDialog {
     private JTextField tfdPostpone;
     private JButton btnDetails;
     private Contract selectedContract;
+    private JButton btnBack;
 
     /**
      * Launch the application.
@@ -194,7 +195,6 @@ public class ListClient extends JDialog {
 		    			clientID = (String)table.getModel().getValueAt(index, 0);
 		    			foundClient = Admin.getInstance().searchClientByID(clientID);
 		    			loadContracts(foundClient);
-		    			backToStart();
 		    			btnDetails.setEnabled(false);
 		    		    }
 		    		}
@@ -228,10 +228,9 @@ public class ListClient extends JDialog {
 		    		    if(tableContracts.getSelectedRow()>=0){
 		    			int index = tableContracts.getSelectedRow();
 		    			String contractId = (String)tableContracts.getModel().getValueAt(index, 0);
-		    			System.out.println(contractId);
 		    			selectedContract=foundClient.searchContractByID(contractId);
 		    			btnDetails.setEnabled(true);
-		    			backToStart();
+		    			loadSideParams();
 		    		    }
 		    		}
 		    	});
@@ -262,6 +261,17 @@ public class ListClient extends JDialog {
 		lblIcon.setBounds(60, 32, 64, 64);
 		outContentPanel.add(lblIcon);
 		lblIcon.setIcon(new ImageIcon("src/icons/agreement.png"));
+		
+		btnBack = new JButton("");
+		btnBack.setBackground(new Color(255, 255, 240));
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    backToStart();
+			}
+		});
+		btnBack.setBounds(10, 20, 24, 24);
+		btnBack.setIcon(new ImageIcon("src/icons/back.png"));
+		outContentPanel.add(btnBack);
 		
 		JLabel lblName = new JLabel("Proyecto");
 		lblName.setBounds(65, 120, 70, 16);
@@ -351,14 +361,7 @@ public class ListClient extends JDialog {
 	    	buttonPane.add(btnDetails);
 	    	btnDetails.addActionListener(new ActionListener() {
 	    		public void actionPerformed(ActionEvent e) {
-	    		    tfdName.setText(selectedContract.getProject().getName());
-	    		    tfdDeliverDate.setText(selectedContract.getFinalDate());
-	    		    tfdPrice.setText(String.valueOf(selectedContract.getFinalPrice()));
-	    		    if(selectedContract.getPostpone()>=1){
-	    			tfdPostpone.setText("Si");
-	    		    }else{
-	    			tfdPostpone.setText("No");
-	    		    }
+	    		    loadSideParams();
 	    		    setBounds(100, 100, 1235, 500);
 	    		    topPanel.setBounds(0, 0, 1236, 29);
 	    		    lblClose.setBounds(1210, 3, 26, 26);
@@ -442,6 +445,17 @@ public class ListClient extends JDialog {
 	  lblClose.setBounds(977, 3, 26, 26);
 	  setLocationRelativeTo(null);
 
+    }
+    
+    private void loadSideParams(){
+	    tfdName.setText(selectedContract.getProject().getName());
+		    tfdDeliverDate.setText(selectedContract.getFinalDate());
+		    tfdPrice.setText(String.valueOf(selectedContract.getFinalPrice()));
+		    if(selectedContract.getPostpone()>=1){
+			tfdPostpone.setText("Si");
+		    }else{
+			tfdPostpone.setText("No");
+		    }
     }
     
     private ArrayList<Client> findClients() {
