@@ -34,6 +34,17 @@ public class Client implements Serializable{
 		this.phone = phone;
 	
 	}
+	
+	public Contract searchContractByID(String contractId) {
+	    Contract foundContract=null;
+	    for (Contract ct : contracts) {
+		if(ct.getContractID().equals(contractId)){
+		    foundContract=ct;
+		    break;
+		}
+	    }
+	    return foundContract;
+	}
 
 	
 

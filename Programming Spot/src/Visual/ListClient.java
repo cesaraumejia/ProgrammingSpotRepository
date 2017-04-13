@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -57,6 +58,19 @@ public class ListClient extends JDialog {
     private String clientID;
     private Client foundClient;
     private JFormattedTextField formattedID;
+    private JPanel outPanel;
+    private JPanel topPanel;
+    private JLabel lblClose;
+    private JLabel lblIcon;
+    private JPanel outContentPanel;
+    private JTextField tfdName;
+    private JTextField tfdPrice;
+    private JLabel lblDeliverDate;
+    private JTextField tfdDeliverDate;
+    private JLabel lblPostpone;
+    private JTextField tfdPostpone;
+    private JButton btnDetails;
+    private Contract selectedContract;
 
     /**
      * Launch the application.
@@ -74,72 +88,238 @@ public class ListClient extends JDialog {
 	this.setResizable(false);
 	setLocationRelativeTo(null);
 	setModal(true);
+	
+///////////////Inicializaciond de los table models /////////////////
+	
+	String[] columnsHeaders = {"Cédula", "Cliente", "Residencia","Cantidad de Contratos"};
+	tableModel = new DefaultTableModel(){
+	    /**
+	     * 
+	     */
+	    private static final long serialVersionUID = 1L;
+
+	    @Override
+	    public boolean isCellEditable(int row, int column) {
+		
+		return false;
+	    }
+	 
+	};
+	
+	tableModel.setColumnIdentifiers(columnsHeaders);
+    	String[] columnsHeadersContracts = {"No.", "Tipo", "Lenguaje"};
+	tableModelContracts = new DefaultTableModel(){
+	    /**
+	     * 
+	     */
+	    private static final long serialVersionUID = 1L;
+
+	    @Override
+	    public boolean isCellEditable(int row, int column) {
+		
+		return false;
+	    }
+	 
+	};
+	
+	tableModelContracts.setColumnIdentifiers(columnsHeadersContracts);
+	
+	
+	MaskFormatter idFormatter = null;
+	
+	try {
+	    idFormatter = new MaskFormatter("###-#######-#");
+	    idFormatter.setPlaceholderCharacter('_');
+	    //idFormatter.setValueContainsLiteralCharacters(false);
+	    //idFormatter.setOverwriteMode(true);
+	} catch (ParseException e1) {
+	    // TODO Auto-generated catch block
+	    e1.printStackTrace();
+	}
+	
+	JPanel mainPanel = new JPanel();
+	mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	mainPanel.setBackground(new Color(220, 220, 220));
+	mainPanel.setBounds(0, 27, 1003, 436);
+	contentPanel.add(mainPanel);
+	mainPanel.setLayout(null);
+	
+	JPanel panelSearchClient = new JPanel();
+	panelSearchClient.setBounds(716, 13, 263, 88);
+	mainPanel.add(panelSearchClient);
+	panelSearchClient.setLayout(null);
+	panelSearchClient.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda de clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	panelSearchClient.setBackground(new Color(220, 220, 220));
+	
+	JLabel label = new JLabel("C\u00E9dula:");
+	label.setFont(new Font("Tahoma", Font.BOLD, 11));
+	label.setBounds(10, 37, 46, 14);
+	panelSearchClient.add(label);
+	
+	JLabel lblintroducirCdulaConguiones = new JLabel("*Introducir c\u00E9dula con guiones");
+	lblintroducirCdulaConguiones.setFont(new Font("Tahoma", Font.ITALIC, 10));
+	lblintroducirCdulaConguiones.setBounds(10, 63, 150, 14);
+	panelSearchClient.add(lblintroducirCdulaConguiones);
+	
+	formattedID = new JFormattedTextField(idFormatter);
+	formattedID.addKeyListener(new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+	
+			loadClients(findClients());
+			
+		}
+	});
+	formattedID.setHorizontalAlignment(SwingConstants.CENTER);
+	formattedID.setBackground(new Color(230, 230, 250));
+	formattedID.setBounds(64, 32, 187, 22);
+	panelSearchClient.add(formattedID);
+	
+		    	JPanel panel = new JPanel();
+		    	panel.setBounds(22, 13, 679, 407);
+		    	mainPanel.add(panel);
+		    	panel.setBackground(new Color(220, 220, 220));
+		    	panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		    	panel.setLayout(null);
+		    	JScrollPane scrollPane = new JScrollPane();
+		    	scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		    	scrollPane.setBounds(12, 22, 655, 365);
+		    	panel.add(scrollPane);
+		    	table=new JTable();
+		    	table.addMouseListener(new MouseAdapter() {
+		    		@Override
+		    		public void mouseReleased(MouseEvent e) {
+		    		    if(table.getSelectedRow()>=0){
+		    			int index = table.getSelectedRow();
+		    			clientID = (String)table.getModel().getValueAt(index, 0);
+		    			foundClient = Admin.getInstance().searchClientByID(clientID);
+		    			loadContracts(foundClient);
+		    			backToStart();
+		    			btnDetails.setEnabled(false);
+		    		    }
+		    		}
+		    	});
+		    	scrollPane.setColumnHeaderView(table);
+		    	table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		    	table.setModel(tableModel);
+		    	scrollPane.setViewportView(table);
+		    	JPanel panelActiveContracts = new JPanel();
+		    	panelActiveContracts.setBounds(713, 121, 263, 299);
+		    	mainPanel.add(panelActiveContracts);
+		    	panelActiveContracts.setBackground(new Color(220, 220, 220));
+		    	panelActiveContracts.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		    	panelActiveContracts.setLayout(null);
+		    	
+		    	JPanel panel_2_1 = new JPanel();
+		    	panel_2_1.setLayout(null);
+		    	panel_2_1.setBorder(null);
+		    	panel_2_1.setBackground(new Color(220, 220, 220));
+		    	panel_2_1.setBounds(12, 26, 239, 260);
+		    	panelActiveContracts.add(panel_2_1);
+		    	
+		    	scrollPaneContracts = new JScrollPane();    
+		    	scrollPaneContracts.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		    	scrollPaneContracts.setBounds(0, 0, 239, 260);
+		    	panel_2_1.add(scrollPaneContracts);
+		    	tableContracts=new JTable();
+		    	tableContracts.addMouseListener(new MouseAdapter() {
+		    		@Override
+		    		public void mouseReleased(MouseEvent e) {
+		    		    if(tableContracts.getSelectedRow()>=0){
+		    			int index = tableContracts.getSelectedRow();
+		    			String contractId = (String)tableContracts.getModel().getValueAt(index, 0);
+		    			System.out.println(contractId);
+		    			selectedContract=foundClient.searchContractByID(contractId);
+		    			btnDetails.setEnabled(true);
+		    			backToStart();
+		    		    }
+		    		}
+		    	});
+		    	scrollPaneContracts.setColumnHeaderView(tableContracts);
+		    	tableContracts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		    	tableContracts.setModel(tableModelContracts);
+		    	scrollPaneContracts.setViewportView(tableContracts);
+			
+		    	
 
 	{
-
-	    	JPanel panel = new JPanel();
-		panel.setBackground(new Color(220, 220, 220));
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(12, 42, 691, 400);
-		contentPanel.add(panel);
-		panel.setLayout(null);
-		{
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.setBounds(12, 22, 667, 365);
-			panel.add(scrollPane);
-			{
-			    
-				String[] columnsHeaders = {"Cédula", "Nombre", "Apellido", "Residencia","Cantidad de Contratos"};
-				tableModel = new DefaultTableModel(){
-				    /**
-				     * 
-				     */
-				    private static final long serialVersionUID = 1L;
-
-				    @Override
-				    public boolean isCellEditable(int row, int column) {
-					
-					return false;
-				    }
-				 
-				};
-				
-				tableModel.setColumnIdentifiers(columnsHeaders);
-				table=new JTable();
-				table.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseReleased(MouseEvent e) {
-					    if(table.getSelectedRow()>=0){
-						int index = table.getSelectedRow();
-						clientID = (String)table.getModel().getValueAt(index, 0);
-						foundClient = Admin.getInstance().searchClientByID(clientID);
-						loadContracts(foundClient);
-					    }
-					}
-				});
-				scrollPane.setColumnHeaderView(table);
-				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				table.setModel(tableModel);
-				scrollPane.setViewportView(table);
-			}
-	    
-		}
 		loadClients(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(0, 0, 1003, 29);
-		contentPanel.add(panel_1);
+		outPanel = new JPanel();
+		outPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		outPanel.setBackground(new Color(220, 220, 220));
+		outPanel.setBounds(991, 27, 244, 440);
+		contentPanel.add(outPanel);
+		outPanel.setLayout(null);
+		
+		outContentPanel = new JPanel();
+		outContentPanel.setBackground(new Color(220, 220, 220));
+		outContentPanel.setBounds(30, 10, 200, 410);
+		outPanel.add(outContentPanel);
+		outContentPanel.setLayout(null);
+		
+		lblIcon = new JLabel("");
+		lblIcon.setBounds(60, 32, 64, 64);
+		outContentPanel.add(lblIcon);
+		lblIcon.setIcon(new ImageIcon("src/icons/agreement.png"));
+		
+		JLabel lblName = new JLabel("Proyecto");
+		lblName.setBounds(65, 120, 70, 16);
+		outContentPanel.add(lblName);
+		
+		tfdName = new JTextField();
+		tfdName.setBackground(new Color(220, 220, 220));
+		tfdName.setEditable(false);
+		tfdName.setBounds(42, 140, 116, 22);
+		outContentPanel.add(tfdName);
+		tfdName.setColumns(10);
+		
+		JLabel lblPrice = new JLabel("Cotizaci\u00F3n");
+		lblPrice.setBounds(65, 180, 70, 16);
+		outContentPanel.add(lblPrice);
+		
+		tfdPrice = new JTextField();
+		tfdPrice.setBackground(new Color(220, 220, 220));
+		tfdPrice.setEditable(false);
+		tfdPrice.setBounds(42, 200, 116, 22);
+		outContentPanel.add(tfdPrice);
+		tfdPrice.setColumns(10);
+		
+		lblDeliverDate = new JLabel("Entrega");
+		lblDeliverDate.setBounds(72, 240, 56, 16);
+		outContentPanel.add(lblDeliverDate);
+		
+		tfdDeliverDate = new JTextField();
+		tfdDeliverDate.setEditable(false);
+		tfdDeliverDate.setBackground(new Color(220, 220, 220));
+		tfdDeliverDate.setBounds(42, 260, 116, 22);
+		outContentPanel.add(tfdDeliverDate);
+		tfdDeliverDate.setColumns(10);
+		
+		lblPostpone = new JLabel("\u00BFPospuesto?");
+		lblPostpone.setBounds(60, 300, 80, 16);
+		outContentPanel.add(lblPostpone);
+		
+		tfdPostpone = new JTextField();
+		tfdPostpone.setBackground(new Color(220, 220, 220));
+		tfdPostpone.setEditable(false);
+		tfdPostpone.setBounds(42, 320, 116, 22);
+		outContentPanel.add(tfdPostpone);
+		tfdPostpone.setColumns(10);
+		
+		topPanel = new JPanel();
+		topPanel.setLayout(null);
+		topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		topPanel.setBounds(0, 0, 1003, 29);
+		contentPanel.add(topPanel);
 		
 		JLabel lblListarClientes = new JLabel("Listar Clientes");
 		lblListarClientes.setFont(new Font("Dialog", Font.PLAIN, 17));
 		lblListarClientes.setBounds(12, 1, 141, 27);
-		panel_1.add(lblListarClientes);
+		topPanel.add(lblListarClientes);
 		
-		JLabel label_1 = new JLabel("New label");
-		label_1.addMouseListener(new MouseAdapter() {
+		lblClose = new JLabel("New label");
+		lblClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 			    
@@ -155,116 +335,36 @@ public class ListClient extends JDialog {
 				dispose();
 			}
 		});
-		label_1.setBounds(977, 3, 26, 26);
-		label_1.setIcon(windowsCloseIcon);
-		panel_1.add(label_1);
-		{
-			JPanel panelActiveContracts = new JPanel();
-			panelActiveContracts.setBackground(new Color(220, 220, 220));
-			panelActiveContracts.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-			panelActiveContracts.setBounds(715, 160, 263, 282);
-			contentPanel.add(panelActiveContracts);
-			panelActiveContracts.setLayout(null);
-			
-			JPanel panel_2 = new JPanel();
-			panel_2.setLayout(null);
-			panel_2.setBorder(null);
-			panel_2.setBackground(new Color(220, 220, 220));
-			panel_2.setBounds(12, 13, 229, 243);
-			panelActiveContracts.add(panel_2);
-			
-			
-			String[] columnsHeadersContracts = {"No.", "Tipo", "Lenguaje"};
-			tableModelContracts = new DefaultTableModel(){
-			    /**
-			     * 
-			     */
-			    private static final long serialVersionUID = 1L;
+		lblClose.setBounds(977, 3, 26, 26);
+		lblClose.setIcon(windowsCloseIcon);
+		topPanel.add(lblClose);
+	
 
-			    @Override
-			    public boolean isCellEditable(int row, int column) {
-				
-				return false;
-			    }
-			 
-			};
-			
-			scrollPaneContracts = new JScrollPane();    
-			scrollPaneContracts.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPaneContracts.setBounds(12, 13, 206, 220);
-			panel_2.add(scrollPaneContracts);
-			
-			
-			tableModelContracts.setColumnIdentifiers(columnsHeadersContracts);
-			tableContracts=new JTable();
-			tableContracts.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
-				    if(tableContracts.getSelectedRow()>=0){
-					
-				    }
-				}
-			});
-			scrollPaneContracts.setColumnHeaderView(tableContracts);
-			tableContracts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			tableContracts.setModel(tableModelContracts);
-			scrollPaneContracts.setViewportView(tableContracts);
-			
-			
-		
-		}
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda de clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_2.setBackground(new Color(220, 220, 220));
-		panel_2.setBounds(715, 42, 263, 88);
-		contentPanel.add(panel_2);
-		
-		JLabel label = new JLabel("C\u00E9dula:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label.setBounds(10, 37, 46, 14);
-		panel_2.add(label);
-		
-		JLabel lblintroducirCdulaConguiones = new JLabel("*Introducir c\u00E9dula con guiones");
-		lblintroducirCdulaConguiones.setFont(new Font("Tahoma", Font.ITALIC, 10));
-		lblintroducirCdulaConguiones.setBounds(10, 63, 150, 14);
-		panel_2.add(lblintroducirCdulaConguiones);
-		MaskFormatter idFormatter = null;
-		
-		try {
-		    idFormatter = new MaskFormatter("###-#######-#");
-		    idFormatter.setPlaceholderCharacter('_');
-		    //idFormatter.setValueContainsLiteralCharacters(false);
-		    //idFormatter.setOverwriteMode(true);
-		} catch (ParseException e1) {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-		}
-		
-		formattedID = new JFormattedTextField(idFormatter);
-		formattedID.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-		
-				loadClients(findClients());
-				
-			}
-		});
-		formattedID.setHorizontalAlignment(SwingConstants.CENTER);
-		formattedID.setBackground(new Color(230, 230, 250));
-		formattedID.setBounds(64, 32, 187, 22);
-		panel_2.add(formattedID);
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
 	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
-	    	JButton btnDetails = new JButton("Ver detalles de contrato");
+	    	btnDetails = new JButton("Mas detalles del contrato");
+	    	btnDetails.setEnabled(false);
 	    	buttonPane.add(btnDetails);
 	    	btnDetails.addActionListener(new ActionListener() {
 	    		public void actionPerformed(ActionEvent e) {
+	    		    tfdName.setText(selectedContract.getProject().getName());
+	    		    tfdDeliverDate.setText(selectedContract.getFinalDate());
+	    		    tfdPrice.setText(String.valueOf(selectedContract.getFinalPrice()));
+	    		    if(selectedContract.getPostpone()>=1){
+	    			tfdPostpone.setText("Si");
+	    		    }else{
+	    			tfdPostpone.setText("No");
+	    		    }
+	    		    setBounds(100, 100, 1235, 500);
+	    		    topPanel.setBounds(0, 0, 1236, 29);
+	    		    lblClose.setBounds(1210, 3, 26, 26);
+	    		    setLocationRelativeTo(null);
+	    		    outContentPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Detalles del Contrato", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+	    		    
 	    		}
 	    	});
 	    	btnDetails.setBackground(new Color(255, 255, 240));
@@ -305,7 +405,6 @@ public class ListClient extends JDialog {
    	table.getColumnModel().getColumn(1).setCellRenderer(tcr);
    	table.getColumnModel().getColumn(2).setCellRenderer(tcr);
    	table.getColumnModel().getColumn(3).setCellRenderer(tcr);
-   	table.getColumnModel().getColumn(4).setCellRenderer(tcr);
    	row = new Object[tableModel.getColumnCount()];
    	ArrayList<Client> clientsList = Admin.getInstance().getClients();
    	if(filteredClients!=null && !formattedID.getText().equals("  ")){
@@ -314,10 +413,9 @@ public class ListClient extends JDialog {
    	
    	for (Client ct : clientsList) {
    	    row[0]=ct.getIdNumber();
-   	    row[1]=ct.getName();
-   	    row[2]=ct.getLastName();
-   	    row[3]=ct.getAddress();
-   	    row[4]=String.valueOf(ct.getContracts().size());
+   	    row[1]=ct.getName() +" "+ct.getLastName();;
+   	    row[2]=ct.getAddress();
+   	    row[3]=String.valueOf(ct.getContracts().size());
    	    tableModel.addRow(row);
    	}
     }
@@ -336,6 +434,14 @@ public class ListClient extends JDialog {
 	    rowContracts[2] = ct.getProject().getProgrammingLanguage();
 	    tableModelContracts.addRow(rowContracts);
    	}
+    }
+    
+    private void backToStart(){
+	  setBounds(100, 100, 1003, 500);
+	  topPanel.setBounds(0, 0, 1003, 29);
+	  lblClose.setBounds(977, 3, 26, 26);
+	  setLocationRelativeTo(null);
+
     }
     
     private ArrayList<Client> findClients() {
