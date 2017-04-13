@@ -215,7 +215,7 @@ public class Admin implements Serializable{
 	}*/
 	public boolean winning(Contract contract) {
 		boolean aux = false;
-		if (contracts.contains(contract)) {
+		if (contracts.contains(contract) && contract.getProject().getState().equals("Finalizado")) {
 			if (contract.getProject().getTotalPrice()>getProjectFinalPrice(contract))
 				aux = true;
 		}
@@ -245,6 +245,7 @@ public class Admin implements Serializable{
 			}
 			if ((counter/counter1)*100 >= 70 && counter1!=0) {
 				i.setAnualEvaluation("Cumplidor");
+				i.setEficiency((counter/counter1)*100);
 				if ((counter/counter1)*100 > bestWorkerAverage){
 					bestWorkerIndex = workers.indexOf(i);
 				}
@@ -252,7 +253,8 @@ public class Admin implements Serializable{
 			else
 				i.setAnualEvaluation("Incumplidor");
 		}
-		workers.get(bestWorkerIndex).setAnualEvaluation("Destacado");
+		if (bestWorkerIndex!=-1)
+			workers.get(bestWorkerIndex).setAnualEvaluation("Destacado");
 	}
 	
 	public ProjectBoss bossByName(String name){
