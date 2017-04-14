@@ -99,6 +99,16 @@ public class Project implements Serializable{
 			aux += i.computeSalary();
 		return aux*1.15f;
 	}
+	public float calculate(){
+		float aux = 0f;
+		for(Worker i: workers){
+			aux += i.computeSalary();
+		}
+		return aux;
+	}
+	public float earnings(){
+		return calculateBasePrice() - calculate();
+	}
 	
 	
 	

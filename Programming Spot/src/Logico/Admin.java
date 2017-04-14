@@ -27,12 +27,9 @@ public class Admin implements Serializable{
 		return clients;
 	}
 
-
-
 	public ArrayList<Contract> getContracts() {
 		return contracts;
 	}
-
 
 	public ArrayList<Worker> getWorkers() {
 		return workers;
@@ -177,7 +174,7 @@ public class Admin implements Serializable{
 		   if(tester!=null){
 		       projectWorkers.add(tester);
 		   }
-		   createdProject=new Project(projectWorkers, name, programmingType,state, programmingLanguage);
+		   createdProject = new Project(projectWorkers, name, programmingType,state, programmingLanguage);
 		   
 	    }
 	
@@ -336,6 +333,12 @@ public class Admin implements Serializable{
 	}
 	public static void setMiAdmin(Admin miAdmin) {
 		Admin.miAdmin = miAdmin;
+	}
+	
+	public float contractsEarning(){
+		float earn = 0;
+		
+		return earn;
 	}
 
 	
