@@ -10,16 +10,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextArea;
 
 import org.jfree.chart.ChartFactory;
@@ -27,6 +34,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.plot.PlotOrientation;
+
+import Logico.Admin;
+import Logico.Project;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class EarningGraphics extends JDialog {
 
@@ -44,15 +57,26 @@ public class EarningGraphics extends JDialog {
     private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
     private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
     private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
-    private JPanel panel;
     private JPanel graphicPanel;
-    private JPanel reportsPanel;
     private ChartPanel chartPanel;
+    private JPanel selectionPanel;
+    private JPanel tablePanel;
+    private JScrollPane scrollPane;
+    private int index = 0;
+    
+    private	JTable table;
+	private static DefaultTableModel tableModel;
+    private static Object[] row;
+    
+	private DefaultCategoryDataset data = new DefaultCategoryDataset();
+	final String ganancias = "Ganancias";
+	final String perdidas = "P\u00e9rdidas";
+	private JFreeChart grafico;
     
     public EarningGraphics() {
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     setUndecorated(true);
-	setBounds(100, 100, 902, 461);
+	setBounds(100, 100, 715, 461);
 	getContentPane().setLayout(new BorderLayout());
 	contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 	contentPane.setBackground(new Color(220, 220, 220));
@@ -61,7 +85,6 @@ public class EarningGraphics extends JDialog {
 	this.setResizable(false);
 	setLocationRelativeTo(null);
 	setModal(true);
-	DefaultCategoryDataset data = new DefaultCategoryDataset();
 ////////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 	{
 	    
@@ -72,16 +95,21 @@ public class EarningGraphics extends JDialog {
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
 	    	
-		JButton btnRegister = new JButton("Registrar");
-		btnRegister.setBackground(new Color(255, 255, 240));
-		btnRegister.setActionCommand("OK");
-		buttonPane.add(btnRegister);
-		getRootPane().setDefaultButton(btnRegister);
+		JButton btnGenerateReport = new JButton("Ver todas las ganancias");
+		btnGenerateReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				allEarnings();
+			}
+		});
+		btnGenerateReport.setBackground(new Color(255, 255, 240));
+		btnGenerateReport.setActionCommand("OK");
+		buttonPane.add(btnGenerateReport);
+		getRootPane().setDefaultButton(btnGenerateReport);
 		
 	    }
 	    
 	    	topPanel = new JPanel();
-	    	topPanel.setBounds(0, 0, 902, 29);
+	    	topPanel.setBounds(0, 0, 715, 29);
 	    	topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	    	topPanel.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
@@ -106,11 +134,11 @@ public class EarningGraphics extends JDialog {
 		
 		
 		lblClose = new JLabel("New label");
-		lblClose.setBounds(876, 1, 26, 26);
+		lblClose.setBounds(680, 1, 26, 26);
 		topPanel.add(lblClose);
 		lblClose.addMouseListener(new MouseAdapter() {   
 			public void mouseReleased(MouseEvent e) {
-			    	MainVisual.getInstance().getMenuPanel().setVisible(false);
+			    MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getClientsPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
 				MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
@@ -120,52 +148,101 @@ public class EarningGraphics extends JDialog {
 		});
 		lblClose.setIcon(windowsCloseIcon);
 		
-		panel = new JPanel();
-		panel.setBounds(0, 29, 351, 397);
-		panel.setBackground(new Color(128, 128, 128));
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		reportsPanel = new JPanel();
-		reportsPanel.setBorder(new TitledBorder(null, "Reporte", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		reportsPanel.setBounds(10, 11, 331, 375);
-		panel.add(reportsPanel);
-		reportsPanel.setLayout(null);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBackground(new Color(240, 240, 240));
-		textArea.setBounds(10, 21, 311, 343);
-		reportsPanel.add(textArea);
-		
 		graphicPanel = new JPanel();
 		graphicPanel.setBackground(new Color(128, 128, 128));
-		graphicPanel.setBounds(349, 29, 553, 397);
+		graphicPanel.setBounds(271, 29, 444, 397);
 		contentPane.add(graphicPanel);
 		graphicPanel.setLayout(null);
 		
 		final String ganancias = "Ganancias";
 		final String perdidas = "P\u00e9rdidas";
-		data.addValue(100, ganancias, "Dato 1");
-		data.addValue(10, perdidas, "Dato 2");
-		JFreeChart grafico = ChartFactory.createBarChart3D("Prueba", "Prueba", "Prueba", data, PlotOrientation.VERTICAL, true, true, false);
+		grafico = ChartFactory.createBarChart3D("Ganancias & P\u00e9rdidas", "", "Ganancias", data, PlotOrientation.VERTICAL, true, true, false);
 		chartPanel = new ChartPanel(grafico);
 		chartPanel.setBorder(new TitledBorder(null, "Gr\u00E1fico", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		chartPanel.setBounds(0, 11, 543, 375);
+		chartPanel.setBounds(27, 11, 408, 375);
 		graphicPanel.add(chartPanel);
 		
+		selectionPanel = new JPanel();
+		selectionPanel.setBackground(new Color(128, 128, 128));
+		selectionPanel.setBounds(0, 29, 274, 397);
+		contentPane.add(selectionPanel);
+		selectionPanel.setLayout(null);
 		
-	    {
-		JButton btnCancel = new JButton("Salir");
-		btnCancel.setBackground(new Color(255, 255, 240));
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			    dispose();
+		tablePanel = new JPanel();
+		tablePanel.setBorder(new TitledBorder(null, "Seleccione proyecto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		tablePanel.setBounds(10, 11, 247, 375);
+		selectionPanel.add(tablePanel);
+		tablePanel.setLayout(null);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 21, 227, 343);
+		tablePanel.add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				index = table.getSelectedRow();
+				updateGraph();
 			}
 		});
-		btnCancel.setActionCommand("Cancel");
-		buttonPane.add(btnCancel);
-	    }
+		String[] columsHeaders = {"Nombre del proyecto"};
+		tableModel = new DefaultTableModel();
+		tableModel.setColumnIdentifiers(columsHeaders);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setModel(tableModel);
+		scrollPane.setViewportView(table);
 	    
 		}
+	
+	load();
+	//fillReportField();
     }
+    
+	private void load() {
+		tableModel.setRowCount(0);
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+		table.getColumnModel().getColumn(0).setCellRenderer(tcr);
+		tableModel.setRowCount(0);
+		row = new Object[tableModel.getColumnCount()];
+		int i = 0;
+		ArrayList<Project> projects = new ArrayList<>();
+		for(i = 0; i < Admin.getInstance().getContracts().size(); i++){
+			if(Admin.getInstance().getContracts().get(i).getProject().getState().equals("Finalizado")){
+				projects.add(Admin.getInstance().getContracts().get(i).getProject());
+			}
+		}
+		for (int j = 0; j < projects.size(); j++){
+			row[0] = projects.get(j).getName();
+			tableModel.addRow(row);
+		}
+	}
+	
+	
+	public void updateGraph(){
+		long time = Date.parse(Admin.getInstance().getContracts().get(index).getFinalDate());
+		long time1 = Date.parse(Admin.getInstance().getContracts().get(index).getInitialDate());
+		long time2 =  time - time1;
+		long date = TimeUnit.DAYS.convert(time2, TimeUnit.MILLISECONDS) / 30;
+		data.addValue(Admin.getInstance().getContracts().get(index).getProject().earnings()*date, ganancias, "Ganancias");
+		data.addValue(Admin.getInstance().getContracts().get(index).getLostMoney(), perdidas, "P\u00e9rdidas");
+	}
+	
+	public void allEarnings(){
+		float sum = 0f;
+		float lost =  0f;
+		for(int i = 0; i < Admin.getInstance().getContracts().size(); i++){
+			if(Admin.getInstance().getContracts().get(i).getProject().getState().equals("Finalizado")){
+				long time = Date.parse(Admin.getInstance().getContracts().get(i).getFinalDate());
+				long time1 = Date.parse(Admin.getInstance().getContracts().get(i).getInitialDate());
+				long time2 =  time - time1;
+				long date = TimeUnit.DAYS.convert(time2, TimeUnit.MILLISECONDS) / 30;
+				sum += Admin.getInstance().getContracts().get(i).getProject().earnings()*date;
+				lost += Admin.getInstance().getContracts().get(index).getLostMoney();
+			}
+		}
+		data.addValue(sum, ganancias, "Ganancias");
+		data.addValue(lost, perdidas, "P\u00e9rdidas");
+	}	
 }

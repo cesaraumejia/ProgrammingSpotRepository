@@ -105,9 +105,16 @@ public class CreateContract extends JDialog {
 	    	@Override
 	    	public void mouseMoved(MouseEvent e) {
 	    		if (!((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().equals("") && !((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals("")) {
-					if (validate(fechaInicial) && validate(fechaFinal) && validarFecha()) {
-	    				double price = project.calculateBasePrice()*getDays();
-	    				priceLabel.setText(String.valueOf(price));
+					if ((validate(fechaInicial) && validate(fechaFinal) && validarFecha()) || postpone) {
+						if(!postpone){
+							double price = project.calculateBasePrice()*getDays();
+		    				priceLabel.setText(String.valueOf(price));	
+						}
+						else{
+							double price = contract.getProject().calculateBasePrice()*getDays();
+		    				priceLabel.setText(String.valueOf(price));	
+						}
+	    				
 					}	
 	    		}
 	    	}
@@ -329,7 +336,7 @@ public class CreateContract extends JDialog {
 		
 		lblPrecio = new JLabel("Precio: RD$");
 		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPrecio.setBounds(373, 250, 149, 14);
+		lblPrecio.setBounds(373, 250, 80, 14);
 		panel.add(lblPrecio);
 		
 		priceLabel = new JLabel("0.00");

@@ -9,6 +9,7 @@ public class ProjectBoss extends Worker implements Serializable{
 	 */
 	private static final long serialVersionUID = 8233613402460131023L;
 	private int experienceYears;
+	private int projectsQuantity;
 	
 	public ProjectBoss() {
 		// TODO Auto-generated constructor stub
