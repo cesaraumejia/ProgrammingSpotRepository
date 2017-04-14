@@ -317,7 +317,12 @@ public class CreateContract extends JDialog {
 						JOptionPane.showMessageDialog(null, "Se ha pospuesto correctamente el proyecto","", JOptionPane.INFORMATION_MESSAGE, null);
 						Admin.getInstance().getContracts().get(index).setPostpone(1);
 						dispose();
-						ListContract.getInstance().loadContracts(Admin.getInstance().getContracts());
+						try {
+							ListContract.getInstance().loadContracts(Admin.getInstance().getContracts());
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
 			}

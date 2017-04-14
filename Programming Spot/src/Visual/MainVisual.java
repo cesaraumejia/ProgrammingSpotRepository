@@ -247,8 +247,15 @@ public class MainVisual extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				lblListContract.setForeground(new Color(0,0,0));
-				ListContract list = new ListContract();
-				list.setVisible(true);
+				ListContract list;
+				try {
+					list = new ListContract();
+					list.setVisible(true);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		lblListContract.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
@@ -878,8 +885,13 @@ public class MainVisual extends JFrame {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				workerReports.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickWorkerReport.png")));
-				WorkerReports worker = new WorkerReports();
-				worker.setVisible(true);
+				if (Admin.getInstance().getWorkers().size()>0) {
+					WorkerReports worker = new WorkerReports();
+					worker.setVisible(true);
+				}
+				else {						
+					JOptionPane.showMessageDialog(null, "No hay ningún trabajador agregado","", JOptionPane.INFORMATION_MESSAGE, null);
+				}
 			}
 		});
 		workerReports.addMouseMotionListener(new MouseMotionAdapter() {

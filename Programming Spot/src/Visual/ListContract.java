@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,18 +19,19 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
 import Logico.Contract;
@@ -48,7 +50,7 @@ public class ListContract extends JDialog {
 	private JTable table_1;
     private static DefaultTableModel tableModel1;
     private static Object[] row1;
-    private JTextField busqueda;
+    private JFormattedTextField busqueda;
     private static ListContract listInstance;
     private ArrayList<Contract> active = new ArrayList<>();
     private ArrayList<Contract> finished = new ArrayList<>();
@@ -58,8 +60,9 @@ public class ListContract extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws ParseException 
 	 */
-	public ListContract() {
+	public ListContract() throws ParseException {
 		load();
 ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 		setUndecorated(true);
@@ -76,11 +79,13 @@ public class ListContract extends JDialog {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		busqueda = new JTextField();
+		MaskFormatter mask = new MaskFormatter("#####-#####-#####-#####");
+		
+		busqueda = new JFormattedTextField(mask);
 		busqueda.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				loadContracts(Admin.getInstance().getContracts());
+				findContract();
 			}
 		});
 		busqueda.setBounds(110, 22, 216, 22);
@@ -291,7 +296,6 @@ public class ListContract extends JDialog {
 		table.getColumnModel().getColumn(4).setCellRenderer(tcr);
 	   	row = new Object[tableModel.getColumnCount()];
 	   	for (Contract ct: contracts) {
-	   		if (busqueda.getText().length()==0) {
 	   		if (ct.getProject().getState().equals("En progreso")) {
 	   	    row[0]=ct.getClient().getName() +" "+ ct.getClient().getLastName();
 	   	    row[1]=ct.getProject().getName();
@@ -300,17 +304,7 @@ public class ListContract extends JDialog {
 	   	    row[4]=ct.getContractID();
 	   	    tableModel.addRow(row);
 	   		}
-	   	}
-	   		else {
-		   		if (ct.getProject().getState().equals("En progreso") && busqueda.getText().equals(ct.getContractID())) {
-			   	    row[0]=ct.getClient().getName() +" "+ ct.getClient().getLastName();
-			   	    row[1]=ct.getProject().getName();
-			   	    row[2]=ct.getFinalDate();
-			   	    row[3]=ct.getFinalPrice();
-			   	    row[4]=ct.getContractID();
-			   	    tableModel.addRow(row);
-			   		}
-	   		}
+	   	
 	  }
    }
     private void loadFinishedContracts(ArrayList<Contract> contracts) {
@@ -384,7 +378,7 @@ public class ListContract extends JDialog {
 		return aux;
 	}
     
-    public static ListContract getInstance(){
+    public static ListContract getInstance() throws ParseException{
 	if(listInstance==null){
 	    return new ListContract();
 	}else{
@@ -437,4 +431,27 @@ public class ListContract extends JDialog {
     		Admin.getInstance().getContracts().add(j);
     	}
     }
+	private void findContract() {
+		String textField = busqueda.getText().substring(0, busqueda.getCaretPosition());
+		ArrayList<Contract> selected = new ArrayList<>();
+		if (textField.length()!=0) {
+		for (Contract i: Admin.getInstance().getContracts()) {
+			String aux = getIDContract(busqueda.getCaretPosition(), i);
+			if (textField.equals(aux))
+				selected.add(i);
+		   }
+		}
+		else {
+			selected = Admin.getInstance().getContracts();
+		}
+		loadContracts(selected);
+		
+	}
+
+	private String getIDContract(int number, Contract contract) {
+		String aux = null;
+		String aux1 = contract.getContractID();
+		aux = aux1.substring(0, number);
+		return aux;
+	}
 }
