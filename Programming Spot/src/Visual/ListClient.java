@@ -57,7 +57,7 @@ public class ListClient extends JDialog {
     private JScrollPane scrollPaneContracts;
     private String clientID;
     private Client foundClient;
-    private JFormattedTextField formattedID;
+    private static JFormattedTextField formattedID;
     private JPanel outPanel;
     private JPanel topPanel;
     private JLabel lblClose;
@@ -409,7 +409,7 @@ public class ListClient extends JDialog {
 	}
     }
     
-    private void loadClients( ArrayList<Client> filteredClients) {
+    public static void loadClients( ArrayList<Client> filteredClients) {
 	System.out.println();
    	tableModel.setRowCount(0);
    	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();

@@ -162,6 +162,7 @@ public class CreateContract extends JDialog {
 		topPanel.add(lblClose);
 		lblClose.addMouseListener(new MouseAdapter() {   
 			public void mouseReleased(MouseEvent e) {
+				Admin.getInstance().getProjects().remove(project);
 			    	MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getContractPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
@@ -281,6 +282,7 @@ public class CreateContract extends JDialog {
 				if (!tfdClientName.getText().equals("")||((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText().equals("")||((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText().equals("")) {
 						if (validate(fechaInicial) && validate(fechaFinal)) {
 							if (validarFecha()) {
+								if(findClient(tfdClientName.getText()).getActiveProjects() < 5){
 								String init = ((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText();
 								String finall = ((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText();
 								Admin.getInstance().createContract(init, finall, createID(), findClient(tfdClientName.getText()), project, project.calculateBasePrice()*getDays());
@@ -290,6 +292,9 @@ public class CreateContract extends JDialog {
 								   MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
 								   MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
 								   dispose();
+								}else{
+									JOptionPane.showMessageDialog(null, "El cliente ha llegado al limite de contrats activos","ERROR", JOptionPane.WARNING_MESSAGE, null);
+								}
 							}
 							else {
 								JOptionPane.showMessageDialog(null, "La fecha final no puede ser menor que la inicial","Fechas inválidas", JOptionPane.WARNING_MESSAGE, null);
@@ -436,6 +441,7 @@ public class CreateContract extends JDialog {
 		btnCancel.setBackground(new Color(255,255,240));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Admin.getInstance().getProjects().remove(project);
 			    MainVisual.getInstance().getMenuPanel().setVisible(false);
 			    MainVisual.getInstance().getContractPanel().setVisible(true);
 			    MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));

@@ -152,7 +152,7 @@ public class Admin implements Serializable{
 	
 	private boolean workersAvailable(ProjectBoss boss,Programmer pr1,Programmer pr2){
 	    boolean workersAvailable = false;
-	    if(workers.get(workers.indexOf(boss)).isAvailable() && workers.get(workers.indexOf(pr1)).isAvailable() && workers.get(workers.indexOf(pr2)).isAvailable()){
+	    if((workers.get(workers.indexOf(boss)).getAvailable() < 2) && (workers.get(workers.indexOf(pr1)).getAvailable() < 1) && (workers.get(workers.indexOf(pr2)).getAvailable() < 1)){
 	    	workersAvailable=true;
 	    }
 	    return workersAvailable;
@@ -167,13 +167,17 @@ public class Admin implements Serializable{
 	       projectWorkers.add(pr1);
 	       projectWorkers.add(pr2);
 	       if(planner!=null){
-		       projectWorkers.add(planner);
+	    	   if(planner.getAvailable() < 3)
+	    		   projectWorkers.add(planner);
+		       
 		   }
 		   if(designer!=null){
-		       projectWorkers.add(designer);
+			   if(designer.getAvailable() < 2)
+				   projectWorkers.add(designer);
 		   }
 		   if(tester!=null){
-		       projectWorkers.add(tester);
+			   if(tester.getAvailable() < 3)
+				   projectWorkers.add(tester);
 		   }
 		   createdProject = new Project(projectWorkers, name, programmingType,state, programmingLanguage);
 		   
@@ -184,7 +188,7 @@ public class Admin implements Serializable{
 	
 	///////////////////////////////////Dar el premio al mas destacado///////////////////////////////////////////////////////////////////
 	private Worker findBestWorker() {
-		setResponsibility();
+		setEficiency();
 		Worker aux = workers.get(0);
 		for (Worker i: workers) {
 			if (i.getAnualEvaluation().equals("Destacado"))
@@ -211,21 +215,7 @@ public class Admin implements Serializable{
 		}
 		return aux;
 	}*/
-	public boolean winning(Contract contract) {
-		boolean aux = false;
-		if (contracts.contains(contract) && contract.getProject().getState().equals("Finalizado")) {
-			if (contract.getProject().getTotalPrice()>getProjectFinalPrice(contract))
-				aux = true;
-		}
-		return aux;
-		
-	}
-	private double getProjectFinalPrice(Contract contract) {
-		double aux = 0;
-		if (contracts.contains(contract))
-			aux = contract.getFinalPrice();
-	     return aux;
-	}
+
 	/////////////////////////////////////////Determinación del orden de Plataformas utilizadas (Mayor a menor)/////////////////
 	
 	/*
@@ -279,32 +269,31 @@ public class Admin implements Serializable{
 	}
 	
 	///////////////////////////////////Determinacion de programadores cumplidores e incumplidores y el destacado////////////////////////////////
-	public void setResponsibility() {
-		int bestWorkerIndex = -1;
-		float bestWorkerAverage = 0f;
-		for (Worker i: workers) {
-			float counter =0;
-			float counter1 = 0;
-			for (Contract j: contracts)
-			{
-				if (j.getProject().getWorkers().contains(i)) {
-					counter1++;
-				    if (winning(j))
-			            counter++;
-				} 
-			}
-			if ((counter/counter1)*100 >= 70 && counter1!=0) {
-				i.setAnualEvaluation("Cumplidor");
-				i.setEficiency((counter/counter1)*100);
-				if ((counter/counter1)*100 > bestWorkerAverage){
-					bestWorkerIndex = workers.indexOf(i);
+	public void setEficiency() {
+		int index = -1;
+		float best =0f;
+		for (Worker i: Admin.getInstance().getWorkers()){
+			float counter=0;
+			for (Contract j: Admin.getInstance().getContracts()){
+				if (j.getProject().getWorkers().contains(i)){
+					if (j.getLostMoney()==0)
+						counter++;
 				}
 			}
+			float eficiency = (counter/(i.getContract().size()+1));
+			i.setEficiency(eficiency);
+			if (eficiency>70)
+				i.setAnualEvaluation("Cumplidor");
 			else
-				i.setAnualEvaluation("Incumplidor");
+				i.setAnualEvaluation("Incumplidor");	
 		}
-		if (bestWorkerIndex!=-1)
-			workers.get(bestWorkerIndex).setAnualEvaluation("Destacado");
+		for (Worker i: Admin.getInstance().getWorkers()){
+			if (i.getEficiency()>best){
+				best = i.getEficiency();
+				index = Admin.getInstance().getWorkers().indexOf(i);
+			}
+		}
+		Admin.getInstance().getWorkers().get(index).setAnualEvaluation("Destacado");
 	}
 	
 	public ProjectBoss bossByName(String name){

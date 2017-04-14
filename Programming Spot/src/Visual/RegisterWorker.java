@@ -644,7 +644,6 @@ public class RegisterWorker extends JDialog {
 					    	worker.setBirthday(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
 					    	worker.setTelefono(telefonoText.getText());
 					    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
-					    	worker.setAvailable(true);
 					    	Admin.getInstance().addWorker(worker);
 							JOptionPane.showMessageDialog(null, "¡El trabajador ha sido agregado!", "Trabajador Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 					        clean();

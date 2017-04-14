@@ -28,7 +28,7 @@ public class Client implements Serializable{
 		this.idNumber = idNumber;
 		this.name = name;
 		this.address = address;
-		this.contracts=new ArrayList<>();
+		this.contracts = new ArrayList<>();
 		this.lastName=lastName;
 		this.email=email;
 		this.phone = phone;
@@ -52,6 +52,7 @@ public class Client implements Serializable{
 	public void addContract(Contract contract){
 	    if(contracts.contains(contract)){
 		contracts.add(contract);
+		activeProjects++;
 	    }
 	}
 	

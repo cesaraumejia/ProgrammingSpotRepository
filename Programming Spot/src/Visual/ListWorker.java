@@ -128,7 +128,7 @@ public class ListWorker extends JDialog {
 		scrollPane.setBounds(14, 28, 667, 356);
 		panel_1.add(scrollPane);
 		///////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////////////
-		String[] columnsHeaders = {"Cédula", "Nombre", "Apellido",  "Disponibilidad", "Teléfono"};
+		String[] columnsHeaders = {"Cédula", "Nombre", "Apellido",  "Cantidad de contratos", "Teléfono"};
 		tableModel = new DefaultTableModel(){
 		    /**
 		     * 
@@ -426,7 +426,7 @@ public class ListWorker extends JDialog {
 	   	    row[0]=ct.getIdNumber();
 	   	    row[1]=ct.getFirstName();
 	   	    row[2]=ct.getLastName();
-	   	    row[3]=ct.isAvailable();
+	   	    row[3]=ct.getAvailable();
 	   	    row[4]=ct.getTelefono();
 	   	    tableModel.addRow(row);
 	   	}

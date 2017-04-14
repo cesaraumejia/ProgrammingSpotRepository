@@ -93,7 +93,7 @@ public class RegisterClient extends JDialog {
 				    String lastName = tfdLastName.getText();
 				    String email= tfdEmailFirst.getText() + "@" + tfdEmailSecond.getText();
 				    String phone=formatedPhone.getText();
-				    String address = cbxProvince.getSelectedItem().toString() + " " + tfdLocation.getText() + " " + tfdStreet.getText() + " " + spnNumber.getValue().toString();
+				    String address = cbxProvince.getSelectedItem().toString() + "-" + tfdLocation.getText() + "-" + tfdStreet.getText() + "-" + spnNumber.getValue().toString();
 				    if(idNumber.equalsIgnoreCase("___-_______-_")){
 					JOptionPane.showMessageDialog(null, "Asegurese de introducir una cédula", "No se ha encontrado Cédula", JOptionPane.WARNING_MESSAGE, null);
 				    }else if(name.equalsIgnoreCase("")){
@@ -129,7 +129,7 @@ public class RegisterClient extends JDialog {
 			    String lastName = tfdLastName.getText();
 			    String email= tfdEmailFirst.getText() + "@" + tfdEmailSecond.getText();
 			    String phone=formatedPhone.getText();
-			    String address = cbxProvince.getSelectedItem().toString() + " " + tfdLocation.getText() + " " + tfdStreet.getText() + " " + spnNumber.getValue().toString();
+			    String address = cbxProvince.getSelectedItem().toString() + "-" + tfdLocation.getText() + "-" + tfdStreet.getText() + "-" + spnNumber.getValue().toString();
 			    if(idNumber.equalsIgnoreCase("___-_______-_")){
 				JOptionPane.showMessageDialog(null, "Asegurese de introducir una cédula", "No se ha encontrado Cédula", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(name.equalsIgnoreCase("")){
@@ -154,6 +154,7 @@ public class RegisterClient extends JDialog {
 				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
 				MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
 				MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
+				ListClient.loadClients(Admin.getInstance().getClients());
 				dispose();
 				
 			    }
@@ -426,7 +427,7 @@ public class RegisterClient extends JDialog {
     	tfdEmailFirst.setText(aux[0]);
     	tfdEmailSecond.setText(aux[1]);
     	formatedPhone.setText(client.getPhone());
-    	String[] aux1 = client.getAddress().split(" ");
+    	String[] aux1 = client.getAddress().split("-");
     	for (int i=0;i<cbxProvince.getComponentCount();i++){
     		if (cbxProvince.getItemAt(i).equals(aux1[0]));
     			cbxProvince.setSelectedItem(aux1[0]);

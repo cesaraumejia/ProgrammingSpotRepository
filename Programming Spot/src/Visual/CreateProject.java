@@ -121,9 +121,13 @@ public class CreateProject extends JDialog {
 				}
 				else if (chkDiseador.isSelected() && !chkPlaneador.isSelected() && !chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
 					Programmer programador1 = Admin.getInstance().programmerByName(nombreProgramador1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
+					programador2.setAvailable(programador2.getAvailable() + 1);
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
+					designer.setAvailable(designer.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, designer, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -135,9 +139,13 @@ public class CreateProject extends JDialog {
 				}
 				else if(chkPlaneador.isSelected() && !chkDiseador.isSelected() && !chkTester.isSelected()){
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
 					Programmer programador1 = Admin.getInstance().programmerByName(nombreProgramador1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
+					programador2.setAvailable(programador2.getAvailable() + 1);
 					Planner planner = Admin.getInstance().plannerByName(nombrePlaneador);
+					planner.setAvailable(planner.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, null, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -150,8 +158,13 @@ public class CreateProject extends JDialog {
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
 					Programmer programador1 = Admin.getInstance().programmerByName(nombreProgramador1);
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
+					programador2.setAvailable(programador2.getAvailable() + 1);
 					Planner planner = Admin.getInstance().plannerByName(nombrePlaneador);
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
+					planner.setAvailable(planner.getAvailable() + 1);
+					designer.setAvailable(designer.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, designer, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -165,6 +178,11 @@ public class CreateProject extends JDialog {
 					Programmer programador1 = Admin.getInstance().programmerByName(nombreProgramador1);
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
 					SoftwareTester tester = Admin.getInstance().testerByName(nombreTester);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
+					programador2.setAvailable(programador2.getAvailable() + 1);
+					tester.setAvailable(tester.getAvailable() + 1);
+					
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, null, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -179,6 +197,11 @@ public class CreateProject extends JDialog {
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
 					SoftwareTester tester = Admin.getInstance().testerByName(nombreTester);
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
+					programador2.setAvailable(programador2.getAvailable() + 1);
+					designer.setAvailable(designer.getAvailable() + 1);
+					tester.setAvailable(tester.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, designer, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -193,6 +216,11 @@ public class CreateProject extends JDialog {
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
 					Planner planner = Admin.getInstance().plannerByName(nombrePlaneador);
 					SoftwareTester tester = Admin.getInstance().testerByName(nombreTester);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
+					programador2.setAvailable(programador2.getAvailable() + 1);
+					tester.setAvailable(tester.getAvailable() + 1);
+					planner.setAvailable(planner.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, null, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -208,6 +236,11 @@ public class CreateProject extends JDialog {
 					Planner planner = Admin.getInstance().plannerByName(nombrePlaneador);
 					SoftwareTester tester = Admin.getInstance().testerByName(nombreTester);
 					Designer designer = Admin.getInstance().designerByName(nombreDiseador);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
+					programador2.setAvailable(programador2.getAvailable() + 1);
+					tester.setAvailable(tester.getAvailable() + 1);
+					designer.setAvailable(designer.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, planner, designer, tester, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -220,6 +253,9 @@ public class CreateProject extends JDialog {
 					ProjectBoss jefeProyecto = Admin.getInstance().bossByName(nombreJefe);
 					Programmer programador1 = Admin.getInstance().programmerByName(nombreProgramador1);
 					Programmer  programador2 = Admin.getInstance().programmerByName(nombreProgramador2);
+					jefeProyecto.setAvailable(jefeProyecto.getAvailable() + 1);
+					programador1.setAvailable(programador1.getAvailable() + 1);
+					programador2.setAvailable(programador2.getAvailable() + 1);
 					Project newProject = Admin.getInstance().createProject(titulo, tipo, lenguaje, "En progreso", jefeProyecto, null, null, null, programador1, programador2);
 					Admin.getInstance().addProject(newProject);
 					//JOptionPane.showMessageDialog(null, "¡El proyecto ha sido agregado!", "Proyecto agregado", JOptionPane.INFORMATION_MESSAGE, contractIcon);
@@ -654,19 +690,21 @@ public class CreateProject extends JDialog {
 	
 	public void fillCbxs(){
 		for (Worker worker : Admin.getInstance().getWorkers()) {
-			if(worker instanceof ProjectBoss)
+			if(worker instanceof ProjectBoss && (worker.getContract().size() < 2))
 				getCbxJefeDeProyecto().addItem(worker.getFirstName() + " " + worker.getLastName());
-			else if(worker instanceof Programmer){
+				
+			else if(worker instanceof Programmer && (worker.getContract().size() < 1)){
 				getCbxProgramador1().addItem(worker.getFirstName() + " " + worker.getLastName());
 				getCbxProgramador2().addItem(worker.getFirstName() + " " + worker.getLastName());
 			}
-			else if(worker instanceof Planner)
+			else if(worker instanceof Planner && (worker.getContract().size() < 3))
 				getCbxPlaneador().addItem(worker.getFirstName() + " " + worker.getLastName());
-			else if(worker instanceof Designer)
+			else if(worker instanceof Designer && (worker.getContract().size() < 2))
 				getCbxDiseador().addItem(worker.getFirstName() + " " + worker.getLastName());
-			else
+			else if(worker instanceof SoftwareTester && (worker.getContract().size() < 3))
 				getCbxTester().addItem(worker.getFirstName() + " " + worker.getLastName());
 	    }
+		
 	}
 	
 	   private void clean() {

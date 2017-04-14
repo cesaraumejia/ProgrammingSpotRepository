@@ -226,6 +226,8 @@ public class ListContract extends JDialog {
 							   int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea finalizar este contrato?", null, JOptionPane.WARNING_MESSAGE);
 								if(JOptionPane.OK_OPTION==resp) {
 									if (finishContract(index)) {
+										int i  = Admin.getInstance().getClients().indexOf(Admin.getInstance().getContracts().get(index));
+										Admin.getInstance().getClients().get(i).setActiveProjects(Admin.getInstance().getClients().get(i).getActiveProjects() - 1);
 										JOptionPane.showMessageDialog(null, "Se ha finalizado el contrato", null, JOptionPane.INFORMATION_MESSAGE, null);
 									}
 									else {

@@ -18,7 +18,7 @@ public abstract class Worker implements Serializable{
 	protected String anualEvaluation;
 	protected int hourlyPayment;
 	protected int workedHours;
-	protected boolean available;
+	protected int available = 0;
 	protected String telefono;
 	protected ArrayList<Contract> contract = new ArrayList<>();
 	protected long daysLeft; 
@@ -40,7 +40,6 @@ public abstract class Worker implements Serializable{
 		this.anualEvaluation = anualEvaluation;
 		this.hourlyPayment = hourlyPayment;
 		this.workedHours = workedHours;
-		this.available=true;
 		this.telefono = telefono;
 		this.contract = contract;
 	}
@@ -127,14 +126,6 @@ public abstract class Worker implements Serializable{
 		return salary = hourlyPayment * workedHours;
 	}   
 
-	public boolean isAvailable() {
-	    return available;
-	}
-
-	public void setAvailable(boolean available) {
-	    this.available = available;
-	}
-
 	public String getTelefono() {
 		return telefono;
 	}
@@ -165,6 +156,14 @@ public abstract class Worker implements Serializable{
 
 	public void setEficiency(float eficiency) {
 		this.eficiency = eficiency;
+	}
+
+	public int getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(int available) {
+		this.available = available;
 	}
 	
 	
