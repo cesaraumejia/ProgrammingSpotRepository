@@ -139,7 +139,7 @@ public class SoftwareReport extends JDialog {
 		});
 		panelForBorder.setBackground(new Color(220, 220, 220));
 		panelForBorder.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Selecci\u00F3n de Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelForBorder.setBounds(12, 13, 677, 253);
+		panelForBorder.setBounds(12, 13, 679, 253);
 		startPanel.add(panelForBorder);
 		panelForBorder.setLayout(null);
 		
@@ -222,7 +222,7 @@ public class SoftwareReport extends JDialog {
 		languagePanel.setVisible(false);
 		//Graphics
 		languageChartPanel = new ChartPanel(languageGraphic);
-		languageChartPanel.setBounds(0, 0, 701, 279);
+		languageChartPanel.setBounds(207, 0, 494, 279);
 		languageChartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		languagePanel.add(languageChartPanel);
 		

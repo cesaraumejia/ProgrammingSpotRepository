@@ -315,7 +315,8 @@ public class Admin implements Serializable{
 				index = Admin.getInstance().getWorkers().indexOf(i);
 			}
 		}
-		Admin.getInstance().getWorkers().get(index).setAnualEvaluation("Destacado");
+		if (index != -1)
+			Admin.getInstance().getWorkers().get(index).setAnualEvaluation("Destacado");
 	}
 	
 	public ProjectBoss bossByName(String name){

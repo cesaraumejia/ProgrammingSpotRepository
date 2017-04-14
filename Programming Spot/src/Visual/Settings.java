@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Settings extends JDialog {
@@ -50,6 +52,11 @@ public class Settings extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
