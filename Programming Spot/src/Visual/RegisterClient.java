@@ -57,10 +57,11 @@ public class RegisterClient extends JDialog {
     private JTextField tfdEmailFirst;
     private JComboBox<String> cbxProvince;
     private JSpinner spnNumber;
+    private JButton btnRegister;
     
-    public RegisterClient() {
+    public RegisterClient(final boolean update,final Client client, final int index) {
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
-    	setUndecorated(true);
+    setUndecorated(true);
 	setBounds(100, 100, 702, 461);
 	getContentPane().setLayout(new BorderLayout());
 	contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -79,10 +80,50 @@ public class RegisterClient extends JDialog {
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
-		JButton btnRegister = new JButton("Registrar");
+	    	if (!update)
+	    		btnRegister = new JButton("Registrar");
+	    	else
+	    		btnRegister = new JButton("Modificar");
 		
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!update){
+				    String idNumber = formatedID.getText();
+				    String name =tfdName.getText();
+				    String lastName = tfdLastName.getText();
+				    String email= tfdEmailFirst.getText() + "@" + tfdEmailSecond.getText();
+				    String phone=formatedPhone.getText();
+				    String address = cbxProvince.getSelectedItem().toString() + " " + tfdLocation.getText() + " " + tfdStreet.getText() + " " + spnNumber.getValue().toString();
+				    if(idNumber.equalsIgnoreCase("___-_______-_")){
+					JOptionPane.showMessageDialog(null, "Asegurese de introducir una cédula", "No se ha encontrado Cédula", JOptionPane.WARNING_MESSAGE, null);
+				    }else if(name.equalsIgnoreCase("")){
+					JOptionPane.showMessageDialog(null, "Recuerde introducir un nombre", "No se ha encontrado un nombre", JOptionPane.WARNING_MESSAGE, null);
+				    }else if(lastName.equalsIgnoreCase("")){
+					JOptionPane.showMessageDialog(null, "Recuerde introducir un apellido", "No se ha encontrado un apellido", JOptionPane.WARNING_MESSAGE, null);
+				    }else if(tfdEmailFirst.getText().equalsIgnoreCase("") || tfdEmailSecond.getText().equalsIgnoreCase("")){
+					JOptionPane.showMessageDialog(null, "Asegurese de que el email esté escrito correctamente", "No se ha encontrado un email correcto", JOptionPane.WARNING_MESSAGE, null);
+				    }else if(phone.equalsIgnoreCase("___-___-____")){
+					JOptionPane.showMessageDialog(null, "Recuerde introducir un teléfono", "No se ha encontrado un teléfono", JOptionPane.WARNING_MESSAGE, null);
+				    }else if(cbxProvince.getSelectedIndex()<1){
+					JOptionPane.showMessageDialog(null, "Asegurese de seleccionar una provincia", "Provincia no válida", JOptionPane.WARNING_MESSAGE, null);
+				    }else if(tfdLocation.getText().equalsIgnoreCase("")){
+					JOptionPane.showMessageDialog(null, "Asegurese de introducir una localidad", "No se ha encontrado una localidad", JOptionPane.WARNING_MESSAGE, null);
+				    }else if (!existingID(idNumber)){
+					Admin.getInstance().addClient(new Client(idNumber, name, address, lastName, email,phone));
+					JOptionPane.showMessageDialog(null, "¡El cliente ha sido agregado!", "Cliente Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+					MainVisual.getInstance().getMenuPanel().setVisible(false);
+					MainVisual.getInstance().getClientsPanel().setVisible(true);
+					MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+					MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+					MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
+					dispose();
+					
+				    }
+				    else {
+						JOptionPane.showMessageDialog(null, "Este cliente ya existe", "Cliente existente", JOptionPane.WARNING_MESSAGE, null);
+				    }   
+			} else{
+				
 			    String idNumber = formatedID.getText();
 			    String name =tfdName.getText();
 			    String lastName = tfdLastName.getText();
@@ -103,9 +144,11 @@ public class RegisterClient extends JDialog {
 				JOptionPane.showMessageDialog(null, "Asegurese de seleccionar una provincia", "Provincia no válida", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(tfdLocation.getText().equalsIgnoreCase("")){
 				JOptionPane.showMessageDialog(null, "Asegurese de introducir una localidad", "No se ha encontrado una localidad", JOptionPane.WARNING_MESSAGE, null);
-			    }else if (!existingID(idNumber)){
-				Admin.getInstance().addClient(new Client(idNumber, name, address, lastName, email,phone));
-				JOptionPane.showMessageDialog(null, "¡El cliente ha sido agregado!", "Cliente Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+			    }else {
+				Admin.getInstance().getClients().get(index).setAddress(address);
+				Admin.getInstance().getClients().get(index).setEmail(email);
+				Admin.getInstance().getClients().get(index).setPhone(phone);
+				JOptionPane.showMessageDialog(null, "¡El cliente ha sido modificado!", "Cliente Modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 				MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getClientsPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
@@ -114,13 +157,9 @@ public class RegisterClient extends JDialog {
 				dispose();
 				
 			    }
-			    else {
-					JOptionPane.showMessageDialog(null, "Este cliente ya existe", "Cliente existente", JOptionPane.WARNING_MESSAGE, null);
-			    }
-			   
-			    
-			    
+				
 			}
+		}
 		});
 		btnRegister.setBackground(new Color(255, 255, 240));
 		btnRegister.setActionCommand("OK");
@@ -147,7 +186,10 @@ public class RegisterClient extends JDialog {
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 		
-		lblNewLabel = new JLabel("Registrar Cliente");
+		if(update)
+			lblNewLabel = new JLabel("Modificar Cliente");
+		else
+			lblNewLabel = new JLabel("Registrar Cliente");
 		lblNewLabel.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
 		lblNewLabel.setBounds(12, 1, 141, 27);
 		topPanel.add(lblNewLabel);
@@ -361,6 +403,12 @@ public class RegisterClient extends JDialog {
 		buttonPane.add(btnCancel);
 	    }
 	}
+	if (update){
+		load(client);
+		formatedID.setEditable(false);
+		tfdName.setEditable(false);
+		tfdLastName.setEditable(false);
+	}
     }
     private boolean existingID(String ID) {
     	boolean aux = false;
@@ -369,5 +417,22 @@ public class RegisterClient extends JDialog {
     			aux = true;
     	}
     	return aux;
+    }
+    private void load(Client client){
+    	formatedID.setText(client.getIdNumber());
+    	tfdName.setText(client.getName());
+    	tfdLastName.setText(client.getLastName());
+    	String[] aux = client.getEmail().split("@");
+    	tfdEmailFirst.setText(aux[0]);
+    	tfdEmailSecond.setText(aux[1]);
+    	formatedPhone.setText(client.getPhone());
+    	String[] aux1 = client.getAddress().split(" ");
+    	for (int i=0;i<cbxProvince.getComponentCount();i++){
+    		if (cbxProvince.getItemAt(i).equals(aux1[0]));
+    			cbxProvince.setSelectedItem(aux1[0]);
+    	}
+    	tfdLocation.setText(aux1[1]);
+    	tfdStreet.setText(aux1[2]);
+    	spnNumber.setValue(Integer.valueOf(aux1[3]));
     }
 }

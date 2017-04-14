@@ -307,7 +307,7 @@ public class MainVisual extends JFrame {
 			menuPanel.setVisible(true);
 			clientsPanel.setVisible(false);
 			lblClientRegister.setForeground(new Color(0, 0, 0));
-			RegisterClient registerClient=new RegisterClient();
+			RegisterClient registerClient=new RegisterClient(false, null, -1);
 			registerClient.setVisible(true);
 
 		    }

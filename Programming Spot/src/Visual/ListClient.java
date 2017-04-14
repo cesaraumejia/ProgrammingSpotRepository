@@ -375,6 +375,16 @@ public class ListClient extends JDialog {
 	    }
 	    {
 		JButton btnModify = new JButton("Modificar");
+		btnModify.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow()>=0){
+					int index = table.getSelectedRow();
+					Client client = Admin.getInstance().getClients().get(index);
+					RegisterClient regist = new RegisterClient(true, client, index);
+					regist.setVisible(true);
+				}
+			}
+		});
 		btnModify.setBackground(new Color(255, 255, 240));
 		btnModify.setActionCommand("OK");
 		buttonPane.add(btnModify);
