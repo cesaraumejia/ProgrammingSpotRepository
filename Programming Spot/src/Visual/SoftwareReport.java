@@ -61,6 +61,8 @@ public class SoftwareReport extends JDialog {
 	private JTextArea textAreaLeftPlatform;
 	private Panel graphicPanel;
 	private ChartPanel chartPanel;
+	private JPanel languagePanel;
+	private ChartPanel languageChartPanel;
 
 
 	/**
@@ -81,10 +83,12 @@ public class SoftwareReport extends JDialog {
 		contentPanel.setLayout(null);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		DefaultCategoryDataset data = new DefaultCategoryDataset();
+		DefaultCategoryDataset dataLanguage = new DefaultCategoryDataset();
 
 
 		
 		JPanel topPanel = new JPanel();
+		topPanel.setBorder(new LineBorder(new Color(70, 130, 180)));
 		topPanel.setLayout(null);
 		topPanel.setBounds(0, 0, 701, 31);
 		contentPanel.add(topPanel);
@@ -110,7 +114,16 @@ public class SoftwareReport extends JDialog {
 		layeredPane.setBounds(0, 32, 701, 279);
 		contentPanel.add(layeredPane);
 		
+		
+		
+		
+		
+		
+		
+		
+		
 		startPanel = new JPanel();
+		startPanel.setBorder(new LineBorder(new Color(70, 130, 180), 2));
 		startPanel.setBackground(new Color(220, 220, 220));
 		startPanel.setBounds(0, 0, 701, 279);
 		layeredPane.add(startPanel);
@@ -142,6 +155,7 @@ public class SoftwareReport extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 			    lblTitle.setText("Reporte de Plataformas");
 			    operativySystemPanel.setVisible(true);
+			    languagePanel.setVisible(false);
 			    startPanel.setVisible(false);
 			    btnBack.setVisible(true);
 			}
@@ -158,6 +172,11 @@ public class SoftwareReport extends JDialog {
 		btnLanguage = new JButton("");
 		btnLanguage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			    startPanel.setVisible(false);
+			    operativySystemPanel.setVisible(false);
+			    languagePanel.setVisible(true);
+			    btnBack.setVisible(true);
+			    lblTitle.setText("Reporte de lenguajes");
 			}
 		});
 		btnLanguage.addMouseMotionListener(new MouseMotionAdapter() {
@@ -175,11 +194,43 @@ public class SoftwareReport extends JDialog {
 		JLabel lblLenguajeMsUtilizado = new JLabel("Lenguaje m\u00E1s utilizado");
 		lblLenguajeMsUtilizado.setBounds(267, 195, 137, 16);
 		panelForBorder.add(lblLenguajeMsUtilizado);
+		//Graphics data
+		
+		ArrayList<String> languages = new ArrayList<>();
+		languages.add("Java");
+		languages.add("C#");
+		languages.add("Visual Basic");
+		languages.add("C++");
+		languages.add("Objective C");
+		languages.add("Swift");
+		languages.add("HTML & CSS");
+		languages.add("PHP");
+		languages.add("JavaScript");
+		languages.add("Java");
+		ReturnableGraphic mostUsedLanguage =Admin.getInstance().getMostUsedLanguage(languages);
+		ReturnableGraphic lessUsedLanguage =Admin.getInstance().getLessUsedLanguage(languages);
+		dataLanguage.addValue(mostUsedLanguage.getOcurrences(),"Más Usado",mostUsedLanguage.getReturnType());
+		dataLanguage.addValue(lessUsedLanguage.getOcurrences(),"Menos Usado", lessUsedLanguage.getReturnType());
+		JFreeChart languageGraphic = ChartFactory.createBarChart3D("Solicitud de los lenguages", "Lenguaje", "Cantidad de Contratos", dataLanguage, PlotOrientation.VERTICAL, true, true, false);
+
+		languagePanel = new JPanel();
+		languagePanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		languagePanel.setBackground(new Color(220, 220, 220));
+		languagePanel.setBounds(0, 0, 701, 279);
+		layeredPane.add(languagePanel);
+		languagePanel.setLayout(null);
+		languagePanel.setVisible(false);
+		//Graphics
+		languageChartPanel = new ChartPanel(languageGraphic);
+		languageChartPanel.setBounds(0, 0, 701, 279);
+		languageChartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		languagePanel.add(languageChartPanel);
 		
 		operativySystemPanel = new JPanel();
 		operativySystemPanel.setBounds(0, 0, 701, 279);
 		layeredPane.add(operativySystemPanel);
 		operativySystemPanel.setLayout(null);
+		operativySystemPanel.setVisible(false);
 		
 		mostUsedSystemPanel = new JPanel();
 		mostUsedSystemPanel.setBounds(0, 0, 701, 279);
@@ -206,12 +257,13 @@ public class SoftwareReport extends JDialog {
 		ReturnableGraphic lessUsedPlatform =Admin.getInstance().getLessUsedPlatform(platforms);
 		data.addValue(mostUsedPlatform.getOcurrences(),mostRequested,mostUsedPlatform.getReturnType());
 		data.addValue(lessUsedPlatform.getOcurrences(),lessRequested, lessUsedPlatform.getReturnType());
-		JFreeChart grafico = ChartFactory.createBarChart3D("Solicitud de las plataformas", "Plataforma", "Cantidad de Contratos", data, PlotOrientation.VERTICAL, true, true, false);
+		
+		JFreeChart platformGraphic = ChartFactory.createBarChart3D("Solicitud de las plataformas", "Plataforma", "Cantidad de Contratos", data, PlotOrientation.VERTICAL, true, true, false);
 		
 		graphicPanel = new Panel();
 		splitPane.setRightComponent(graphicPanel);
 		graphicPanel.setLayout(new GridLayout(0, 1, 0, 0));
-		chartPanel = new ChartPanel(grafico);
+		chartPanel = new ChartPanel(platformGraphic);
 		chartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		graphicPanel.add(chartPanel);
 		super.getToolkit().getScreenSize(); 
@@ -221,10 +273,13 @@ public class SoftwareReport extends JDialog {
 		////////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new LineBorder(new Color(70, 130, 180), 2));
+			buttonPane.setBackground(new Color(220, 220, 220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnExit = new JButton("Salir");
+				btnExit.setBackground(new Color(255, 255, 240));
 				btnExit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					    dispose();
@@ -232,10 +287,12 @@ public class SoftwareReport extends JDialog {
 				});
 				
 				btnBack = new JButton("Atr\u00E1s");
+				btnBack.setBackground(new Color(255, 255, 240));
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					    btnBack.setVisible(false);
 					    operativySystemPanel.setVisible(false);
+					    languagePanel.setVisible(false);
 					    startPanel.setVisible(true);
 					    lblTitle.setText("¿Qué desea ver?");
 					   

@@ -207,6 +207,14 @@ public class Admin implements Serializable{
 	    return platformList;
 	}
 	
+	private ArrayList<String> getLanguages(){
+	    ArrayList<String> languageList = new ArrayList<>();
+	    for (Contract ct : contracts) {
+		String platform= ct.getProject().getProgrammingType();
+		languageList.add(platform);
+	    }
+	    return languageList;
+	}	
 	public ReturnableGraphic getMostUsedPlatform(ArrayList<String>existingPlatforms){
 	    ArrayList<String>everyPlatform=getPlatforms();
 	    int timesUsed=0;
@@ -224,6 +232,25 @@ public class Admin implements Serializable{
 	    ReturnableGraphic mostUsedPlatform=new ReturnableGraphic(name, ocurrences);
 	    return mostUsedPlatform;
 	}
+	public ReturnableGraphic getMostUsedLanguage(ArrayList<String>existingLanguages){
+	    ArrayList<String>everyLanguage=getLanguages();
+	    int timesUsed=0;
+	    int aux=0;
+	    int mostUsedIndex=0;
+	    for(int i=0; i<existingLanguages.size();i++){
+		    timesUsed=Collections.frequency(everyLanguage, existingLanguages.get(i));
+		    if(timesUsed>aux){
+			aux=timesUsed;
+			mostUsedIndex=i;
+		    }
+	    }
+	    String name=existingLanguages.get(mostUsedIndex);
+	    int ocurrences=aux;
+	    ReturnableGraphic mostUsedLanguage=new ReturnableGraphic(name, ocurrences);
+	    return mostUsedLanguage;
+	}
+	
+	
 	
 	public ReturnableGraphic getLessUsedPlatform(ArrayList<String>existingPlatforms){
 	    ArrayList<String>everyPlatform=getPlatforms();
@@ -241,8 +268,27 @@ public class Admin implements Serializable{
 	    int ocurrences=aux;
 	    ReturnableGraphic lessUsedPlatform=new ReturnableGraphic(name, ocurrences);
 	    return lessUsedPlatform;
-	    
 	}
+	
+	public ReturnableGraphic getLessUsedLanguage(ArrayList<String>existingLanguages){
+	    ArrayList<String>everyLanguage=getLanguages();
+	    int timesUsed=0;
+	    int aux=0;
+	    int lessUsedIndex=0;
+	    for(int i=0; i<existingLanguages.size();i++){
+		    timesUsed=Collections.frequency(everyLanguage, existingLanguages.get(i));
+		    if(timesUsed<aux){
+			aux=timesUsed;
+			lessUsedIndex=i;
+		    }
+	    }
+	    String name=existingLanguages.get(lessUsedIndex);
+	    int ocurrences=aux;
+	    ReturnableGraphic mostUsedLanguage=new ReturnableGraphic(name, ocurrences);
+	    return mostUsedLanguage;
+	}
+	
+
 	
 	///////////////////////////////////Determinacion de programadores cumplidores e incumplidores y el destacado////////////////////////////////
 	public void setEficiency() {

@@ -60,7 +60,7 @@ public class ClosingDialog extends JDialog {
 		  }
 	}};
 	
-	 t = new javax.swing.Timer(100, (ActionListener) al);
+	 t = new javax.swing.Timer(40, (ActionListener) al);
 	
 	pBar = new JProgressBar();
 	pBar.setStringPainted(true);
