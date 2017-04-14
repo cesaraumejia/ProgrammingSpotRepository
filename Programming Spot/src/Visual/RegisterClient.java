@@ -110,6 +110,9 @@ public class RegisterClient extends JDialog {
 					JOptionPane.showMessageDialog(null, "Asegurese de introducir una localidad", "No se ha encontrado una localidad", JOptionPane.WARNING_MESSAGE, null);
 				    }else if (!existingID(idNumber)){
 					Admin.getInstance().addClient(new Client(idNumber, name, address, lastName, email,phone));
+					//Guardado
+					Admin.getInstance().saveClients();
+					//
 					JOptionPane.showMessageDialog(null, "¡El cliente ha sido agregado!", "Cliente Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 					MainVisual.getInstance().getMenuPanel().setVisible(false);
 					MainVisual.getInstance().getClientsPanel().setVisible(true);
@@ -149,6 +152,9 @@ public class RegisterClient extends JDialog {
 				Admin.getInstance().getClients().get(index).setEmail(email);
 				Admin.getInstance().getClients().get(index).setPhone(phone);
 				JOptionPane.showMessageDialog(null, "¡El cliente ha sido modificado!", "Cliente Modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+				//Guardado
+				Admin.getInstance().saveClients();
+				//	
 				MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getClientsPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);

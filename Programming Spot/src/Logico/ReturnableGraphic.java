@@ -1,6 +1,12 @@
 package Logico;
 
-public class ReturnableGraphic {
+import java.io.Serializable;
+
+public class ReturnableGraphic implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 136046249118768285L;
     private String returnType;
     private int ocurrences;
 

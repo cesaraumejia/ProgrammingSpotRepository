@@ -8,12 +8,6 @@ import java.awt.MouseInfo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.text.ParseException;
 
 import javax.swing.ImageIcon;
@@ -21,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Logico.Admin;
-import javax.swing.SwingConstants;
 
 
 public class MainVisual extends JFrame {
@@ -103,8 +97,6 @@ public class MainVisual extends JFrame {
         private JLabel lblAdminExtIcon;
         private JLabel lblListContract;
         
-        private static ObjectOutputStream writer;
-        private static ObjectInputStream reader;
         private JLabel addContract;
         private JLabel workerReports;
         private JLabel addClient;
@@ -123,22 +115,23 @@ public class MainVisual extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					readAdmin();
+					Admin.getInstance().loadEverything();
 					frame = new MainVisual();
 					frame.setVisible(true);
 				}
-				catch(IOException e1){
-					try {
-						writeAdmin();
-						frame = new MainVisual();
-						frame.setVisible(true);
-					} catch (IOException e) {
-						frame = new MainVisual();
-						frame.setVisible(true);
-					}	
-				}catch (Exception e) {
+				catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				//Metodo para crear un shutdownHook y guardar todo incluso con cierre forzado.
+				 Runtime.getRuntime ().addShutdownHook ( 
+					 new Thread () {   
+					           @Override    
+					          public void run () {    
+					              //System.out.println ( "Shutdown hook" );
+					              Admin.getInstance().saveEverything();
+					         }      
+					    } ); 
 			}
 		});
 	}
@@ -630,13 +623,10 @@ public class MainVisual extends JFrame {
 		lblClose = new JLabel("New label");
 		lblClose.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				try {
-					writeAdmin();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				System.exit(0);
+				Admin.getInstance().saveEverything();
+				ClosingDialog closingDialog = new ClosingDialog();
+				closingDialog.setVisible(true);
+				
 			}
 		});
 		lblClose.setIcon(windowsCloseIcon);
@@ -971,15 +961,5 @@ public class MainVisual extends JFrame {
 	public JPanel getWorkersPanel() {
 	    return workersPanel;
 	}
-	//////////////Ficheros (me harte de esta pendejada con la probadera)/////////////////////////////
-	public static void writeAdmin() throws FileNotFoundException, IOException {
-		writer = new ObjectOutputStream(new FileOutputStream("files.dat"));
-		writer.writeObject(Admin.getInstance());
-		writer.close();
-	}
-	public static void readAdmin() throws FileNotFoundException, IOException, ClassNotFoundException {
-		reader = new ObjectInputStream(new FileInputStream("files.dat"));
-		Admin.setMiAdmin((Admin)reader.readObject());
-		reader.close();
-	}
+	
 }

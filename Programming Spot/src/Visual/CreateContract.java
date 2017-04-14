@@ -286,6 +286,10 @@ public class CreateContract extends JDialog {
 								String init = ((JTextField)fechaInicial.getDateEditor().getUiComponent()).getText();
 								String finall = ((JTextField)fechaFinal.getDateEditor().getUiComponent()).getText();
 								Admin.getInstance().createContract(init, finall, createID(), findClient(tfdClientName.getText()), project, project.calculateBasePrice()*getDays());
+								//Guardado
+								Admin.getInstance().saveContracts();
+								Admin.getInstance().saveContractID();
+								Admin.getInstance().saveProjects();
 								JOptionPane.showMessageDialog(null, "El contrato se ha creado exitosamente","Contrato creado", JOptionPane.INFORMATION_MESSAGE, null);
 								   MainVisual.getInstance().getMenuPanel().setVisible(false);
 								   MainVisual.getInstance().getContractPanel().setVisible(true);
@@ -316,6 +320,10 @@ public class CreateContract extends JDialog {
 						Admin.getInstance().getContracts().get(index).setFinalPrice(Double.parseDouble(priceLabel.getText()));
 						JOptionPane.showMessageDialog(null, "Se ha pospuesto correctamente el proyecto","", JOptionPane.INFORMATION_MESSAGE, null);
 						Admin.getInstance().getContracts().get(index).setPostpone(1);
+						//Guardado
+						Admin.getInstance().saveContracts();
+						Admin.getInstance().saveContractID();
+						Admin.getInstance().saveProjects();
 						dispose();
 						try {
 							ListContract.getInstance().loadContracts(Admin.getInstance().getContracts());
@@ -618,7 +626,7 @@ public class CreateContract extends JDialog {
         String aux2 = aux.substring(5, 10);
         String aux3 = aux.substring(10,15);
         String aux4 = aux.substring(15,aux.length());
-        String aux5 = String.valueOf(Contract.IDnumber);
+        String aux5 = String.valueOf(Contract.IDnumber++);
         if (Contract.IDnumber<10)
         	aux = aux1+"-"+aux2+"-"+aux3+"-"+aux4+"0"+aux5;
         else		

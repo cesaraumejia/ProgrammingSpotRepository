@@ -645,7 +645,10 @@ public class RegisterWorker extends JDialog {
 					    	worker.setTelefono(telefonoText.getText());
 					    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
 					    	Admin.getInstance().addWorker(worker);
-							JOptionPane.showMessageDialog(null, "¡El trabajador ha sido agregado!", "Trabajador Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+					    	//Guardado
+					    	Admin.getInstance().saveWorkers();
+					    	//
+						JOptionPane.showMessageDialog(null, "¡El trabajador ha sido agregado!", "Trabajador Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 					        clean();
 					    }
 					    else {
@@ -702,7 +705,10 @@ public class RegisterWorker extends JDialog {
 						    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
 						    	Admin.getInstance().getWorkers().remove(index);
 						    	Admin.getInstance().getWorkers().add(worker);
-								JOptionPane.showMessageDialog(null, "¡El trabajador ha sido modificado!", "Trabajador modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
+						    	//Guardado
+						    	Admin.getInstance().saveWorkers();
+						    	//
+							JOptionPane.showMessageDialog(null, "¡El trabajador ha sido modificado!", "Trabajador modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 						        dispose();
 						    }
 						    else {

@@ -1,4 +1,9 @@
 package Logico;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +19,6 @@ public class Admin implements Serializable{
 	private ArrayList<Contract> contracts  = new ArrayList<>();
 	private ArrayList<Worker> workers = new ArrayList<>();
 	private ArrayList<Project> projects = new ArrayList<>();
-	public static int IDContractGenerator = 0;
 	private static Admin miAdmin;
 
 	private Admin() {
@@ -52,35 +56,7 @@ public class Admin implements Serializable{
 ///////////////////////////////////////////////////////////////////////////	
 
 ///////////////////////////////Support Methods/////////////////////////////
-	
-	/*private boolean availability() {
-		boolean available = false;
-		int counterProgrammer = 0;
-		int counterBoss = 0;
-		for (Worker wrk: workers) {
-        		if (wrk instanceof ProjectBoss && wrk.isAvailable()){
-        		    counterBoss++;
-        		}else if (wrk instanceof Programmer && wrk.isAvailable()){
-        		    counterProgrammer++;
-        		}
-		}
-		if (counterBoss>=1 && counterProgrammer>=2){
-		    available = true;
-		}
-		return available;
-	}*/
-	
-	/*private int getAnyWorkerIndex(Worker pWorker){
-	    int index=-1;
-	    if(availability()){
-		for(Worker wrk:workers){
-		    if(wrk.getClass()==pWorker.getClass()){
-			index=workers.indexOf(wrk);
-		    }
-		}
-	    }
-	    return index;  
-	}*/
+
 	
 //////////////////////////////////////Metodos Referentes a los CLIENTES///////////////////////////////////////
 
@@ -382,6 +358,153 @@ public class Admin implements Serializable{
 		
 		return earn;
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////Métodos de Ficheros/////////////////////////////////////////
+	
+	public void saveContracts(){
+	    try {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("files/contracts.dat"));
+		oos.writeObject(this.contracts);
+		oos.close();
+	    } catch (IOException e) {
+		
+	    }
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadContracts(){
+	    try {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("files/contracts.dat"));
+		this.contracts=(ArrayList<Contract>) ois.readObject();
+		ois.close();
+	    } catch (IOException e) {
+		saveContracts();
+	    } catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	
+	public void saveWorkers(){
+	    try {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("files/workers.dat"));
+		oos.writeObject(this.workers);
+		oos.close();
+	    } catch (IOException e) {
+		
+	    }
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadWorkers(){
+	    try {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("files/workers.dat"));
+		this.workers=(ArrayList<Worker>) ois.readObject();
+		ois.close();
+	    } catch (IOException e) {
+		saveWorkers();
+	    } catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	
+	public void saveClients(){
+	    try {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("files/clients.dat"));
+		oos.writeObject(this.clients);
+		oos.close();
+	    } catch (IOException e) {
+		
+	    }
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadClients(){
+	    try {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("files/clients.dat"));
+		this.clients=(ArrayList<Client>) ois.readObject();
+		ois.close();
+	    } catch (IOException e) {
+		saveClients();
+	    } catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	
+	public void saveProjects(){
+	    try {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("files/projects.dat"));
+		oos.writeObject(this.projects);
+		oos.close();
+	    } catch (IOException e) {
+		
+		
+	    }
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadProjects(){
+	    try {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("files/projects.dat"));
+		this.projects=(ArrayList<Project>) ois.readObject();
+		ois.close();
+	    } catch (IOException e) {
+		saveProjects();
+	    } catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	}
+	
+	public void saveContractID (){
+	    try {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("files/contractID.dat"));
+	 	oos.writeInt(Contract.IDnumber);
+	 	oos.close();
+	 	} catch (IOException e) {
+	    }
+	}
+	
+	public void loadContractID(){
+	    try {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("files/contractID.dat"));
+		Contract.IDnumber=(int) ois.readInt();
+		ois.close();
+	    } catch (IOException e) {
+		saveContractID();
+	    }
+	}
+	
+	
+	
+	
+	public void saveEverything(){
+	    saveProjects();
+	    saveClients();
+	    saveContracts();
+	    saveWorkers();
+	    saveContractID();
+	}
+	
+	public void loadEverything(){
+	    loadProjects();
+	    loadClients();
+	    loadContracts();
+	    loadWorkers();
+	    loadContractID();
+	    
+	}
+	
+	
+	
+	
+	
+	
+		
+	
 
 	
 }
