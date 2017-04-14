@@ -19,6 +19,7 @@ import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -694,8 +695,12 @@ public class MainVisual extends JFrame {
 		    @Override
 		    public void mouseReleased(MouseEvent e) {
 		    	lblWorkers.setForeground(new Color(0, 0, 0));
-		    	WorkerReports reports = new WorkerReports();
-		    	reports.setVisible(true);
+		    	if (Admin.getInstance().getWorkers().size()>0) {
+		    		WorkerReports reports = new WorkerReports();
+		    		reports.setVisible(true);
+		    	}else {
+					JOptionPane.showMessageDialog(null, "No hay ningún trabajador agregado", null, JOptionPane.WARNING_MESSAGE, null);
+		    	}
 		    }
 		});
 		lblWorkers.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));

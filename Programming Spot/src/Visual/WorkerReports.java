@@ -245,6 +245,7 @@ public class WorkerReports extends JDialog {
 			}
 			
 			};
+			
 			Admin.getInstance().setEficiency();
 			final String eficiencia = "Eficiencia Individual";
 			final String eficienciaProm = "Eficiencia Promedio";
