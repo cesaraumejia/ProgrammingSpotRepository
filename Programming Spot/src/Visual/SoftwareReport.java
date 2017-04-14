@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,10 +20,21 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import Logico.Admin;
+import Logico.ReturnableGraphic;
 
 
 public class SoftwareReport extends JDialog {
@@ -40,11 +54,14 @@ public class SoftwareReport extends JDialog {
 	private ImageIcon platformTransitionIcon=new ImageIcon("src/icons/platformTransition.png");
 	private ImageIcon backIcon=new ImageIcon("src/icons/backSoftware.png");
 	private JButton btnOperativeSystem;
-	private JTabbedPane tabbedPaneOperativeSystem;
 	private JPanel mostUsedSystemPanel;
-	private JPanel lessUsedSystemPanel;
 	private JLabel lblTitle;
 	private JButton btnBack;
+	private JSplitPane splitPane;
+	private JTextArea textAreaLeftPlatform;
+	private Panel graphicPanel;
+	private ChartPanel chartPanel;
+
 
 	/**
 	 * Launch the application.
@@ -63,6 +80,8 @@ public class SoftwareReport extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
+		DefaultCategoryDataset data = new DefaultCategoryDataset();
+
 
 		
 		JPanel topPanel = new JPanel();
@@ -132,9 +151,9 @@ public class SoftwareReport extends JDialog {
 		btnOperativeSystem.setBorder(emptyBorder);
 		panelForBorder.add(btnOperativeSystem);
 		
-		JLabel lblSistemaOperativo = new JLabel("Plataforma m\u00E1s utilizada");
-		lblSistemaOperativo.setBounds(21, 195, 146, 16);
-		panelForBorder.add(lblSistemaOperativo);
+		JLabel lblPlatform = new JLabel("Reporte de Plataformas");
+		lblPlatform.setBounds(26, 195, 137, 16);
+		panelForBorder.add(lblPlatform);
 		
 		btnLanguage = new JButton("");
 		btnLanguage.addActionListener(new ActionListener() {
@@ -162,18 +181,39 @@ public class SoftwareReport extends JDialog {
 		layeredPane.add(operativySystemPanel);
 		operativySystemPanel.setLayout(null);
 		
-		tabbedPaneOperativeSystem = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPaneOperativeSystem.setBackground(new Color(220, 220, 220));
-		tabbedPaneOperativeSystem.setBounds(0, 0, 701, 279);
-		operativySystemPanel.add(tabbedPaneOperativeSystem);
-		
 		mostUsedSystemPanel = new JPanel();
+		mostUsedSystemPanel.setBounds(0, 0, 701, 279);
+		operativySystemPanel.add(mostUsedSystemPanel);
 		mostUsedSystemPanel.setBackground(new Color(220, 220, 220));
-		tabbedPaneOperativeSystem.addTab("Más Usado", null, mostUsedSystemPanel, null);
+		mostUsedSystemPanel.setLayout(null);
 		
-		lessUsedSystemPanel = new JPanel();
-		lessUsedSystemPanel.setBackground(new Color(220, 220, 220));
-		tabbedPaneOperativeSystem.addTab("Menos Usado", null, lessUsedSystemPanel, null);
+		splitPane = new JSplitPane();
+		splitPane.setBounds(0, 0, 701, 279);
+		mostUsedSystemPanel.add(splitPane);
+		
+		textAreaLeftPlatform = new JTextArea();
+		textAreaLeftPlatform.setEditable(false);
+		textAreaLeftPlatform.setText("This is the Text Area Test");
+		splitPane.setLeftComponent(textAreaLeftPlatform);
+		
+		ArrayList<String> platforms = new ArrayList<>();
+		platforms.add("Escritorio");
+		platforms.add("Web");
+		platforms.add("M\u00F3vil");
+		final String mostRequested = "Más Solicitada";
+		final String lessRequested = "Menos Solicitada";
+		ReturnableGraphic mostUsedPlatform =Admin.getInstance().getMostUsedPlatform(platforms);
+		ReturnableGraphic lessUsedPlatform =Admin.getInstance().getLessUsedPlatform(platforms);
+		data.addValue(mostUsedPlatform.getOcurrences(),mostRequested,mostUsedPlatform.getReturnType());
+		data.addValue(lessUsedPlatform.getOcurrences(),lessRequested, lessUsedPlatform.getReturnType());
+		JFreeChart grafico = ChartFactory.createBarChart3D("Solicitud de las plataformas", "Plataforma", "Cantidad de Contratos", data, PlotOrientation.VERTICAL, true, true, false);
+		
+		graphicPanel = new Panel();
+		splitPane.setRightComponent(graphicPanel);
+		graphicPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		chartPanel = new ChartPanel(grafico);
+		chartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		graphicPanel.add(chartPanel);
 		super.getToolkit().getScreenSize(); 
 		this.setResizable(false);
 		setLocationRelativeTo(null);
@@ -197,6 +237,7 @@ public class SoftwareReport extends JDialog {
 					    btnBack.setVisible(false);
 					    operativySystemPanel.setVisible(false);
 					    startPanel.setVisible(true);
+					    lblTitle.setText("¿Qué desea ver?");
 					   
 					}
 				});

@@ -1,6 +1,7 @@
 package Logico;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 
@@ -225,6 +226,58 @@ public class Admin implements Serializable{
 			aux = contract.getFinalPrice();
 	     return aux;
 	}
+	/////////////////////////////////////////Determinación del orden de Plataformas utilizadas (Mayor a menor)/////////////////
+	
+	/*
+	 * ReturnableGraphic class is used to return the appropiate platform with name and times used
+	 * */
+	
+	private ArrayList<String> getPlatforms(){
+	    ArrayList<String> platformList = new ArrayList<>();
+	    for (Contract ct : contracts) {
+		String platform= ct.getProject().getProgrammingType();
+		platformList.add(platform);
+	    }
+	    return platformList;
+	}
+	
+	public ReturnableGraphic getMostUsedPlatform(ArrayList<String>existingPlatforms){
+	    ArrayList<String>everyPlatform=getPlatforms();
+	    int timesUsed=0;
+	    int aux=0;
+	    int mostUsedIndex=0;
+	    for(int i=0; i<existingPlatforms.size();i++){
+		    timesUsed=Collections.frequency(everyPlatform, existingPlatforms.get(i));
+		    if(timesUsed>aux){
+			aux=timesUsed;
+			mostUsedIndex=i;
+		    }
+	    }
+	    String name=existingPlatforms.get(mostUsedIndex);
+	    int ocurrences=aux;
+	    ReturnableGraphic mostUsedPlatform=new ReturnableGraphic(name, ocurrences);
+	    return mostUsedPlatform;
+	}
+	
+	public ReturnableGraphic getLessUsedPlatform(ArrayList<String>existingPlatforms){
+	    ArrayList<String>everyPlatform=getPlatforms();
+	    int timesUsed=0;
+	    int aux=50;
+	    int lessUsedIndex=0;
+	    for(int i=0; i<existingPlatforms.size();i++){
+		    timesUsed=Collections.frequency(everyPlatform, existingPlatforms.get(i));
+		    if(timesUsed<aux){
+			aux=timesUsed;
+			lessUsedIndex=i;
+		    }
+	    }
+	    String name=existingPlatforms.get(lessUsedIndex);
+	    int ocurrences=aux;
+	    ReturnableGraphic lessUsedPlatform=new ReturnableGraphic(name, ocurrences);
+	    return lessUsedPlatform;
+	    
+	}
+	
 	///////////////////////////////////Determinacion de programadores cumplidores e incumplidores y el destacado////////////////////////////////
 	public void setResponsibility() {
 		int bestWorkerIndex = -1;
