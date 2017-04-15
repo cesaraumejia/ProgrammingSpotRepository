@@ -139,7 +139,7 @@ public class ListClient extends JDialog {
 	}
 	
 	JPanel mainPanel = new JPanel();
-	mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	mainPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	mainPanel.setBackground(new Color(220, 220, 220));
 	mainPanel.setBounds(0, 27, 1003, 436);
 	contentPanel.add(mainPanel);
@@ -149,7 +149,7 @@ public class ListClient extends JDialog {
 	panelSearchClient.setBounds(716, 13, 263, 88);
 	mainPanel.add(panelSearchClient);
 	panelSearchClient.setLayout(null);
-	panelSearchClient.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda de clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	panelSearchClient.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "B\u00FAsqueda de clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 	panelSearchClient.setBackground(new Color(220, 220, 220));
 	
 	JLabel label = new JLabel("C\u00E9dula:");
@@ -180,7 +180,7 @@ public class ListClient extends JDialog {
 		    	panel.setBounds(22, 13, 679, 407);
 		    	mainPanel.add(panel);
 		    	panel.setBackground(new Color(220, 220, 220));
-		    	panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		    	panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		    	panel.setLayout(null);
 		    	JScrollPane scrollPane = new JScrollPane();
 		    	scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -207,7 +207,7 @@ public class ListClient extends JDialog {
 		    	panelActiveContracts.setBounds(713, 121, 263, 299);
 		    	mainPanel.add(panelActiveContracts);
 		    	panelActiveContracts.setBackground(new Color(220, 220, 220));
-		    	panelActiveContracts.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		    	panelActiveContracts.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		    	panelActiveContracts.setLayout(null);
 		    	
 		    	JPanel panel_2_1 = new JPanel();
@@ -319,7 +319,7 @@ public class ListClient extends JDialog {
 		
 		topPanel = new JPanel();
 		topPanel.setLayout(null);
-		topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		topPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		topPanel.setBounds(0, 0, 1003, 29);
 		contentPanel.add(topPanel);
 		
@@ -352,7 +352,7 @@ public class ListClient extends JDialog {
 
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
-	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {

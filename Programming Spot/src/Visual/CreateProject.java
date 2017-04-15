@@ -80,7 +80,7 @@ public class CreateProject extends JDialog {
     	setUndecorated(true);
 	setBounds(100, 100, 702, 346);
 	getContentPane().setLayout(new BorderLayout());
-	contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	contentPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	contentPane.setBackground(new Color(220, 220, 220));
 	getContentPane().add(contentPane, BorderLayout.CENTER);
 	super.getToolkit().getScreenSize(); 
@@ -92,7 +92,7 @@ public class CreateProject extends JDialog {
 	    
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
-	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
@@ -272,8 +272,8 @@ public class CreateProject extends JDialog {
 	    }
 	    
 	    	topPanel = new JPanel();
-	    	topPanel.setBounds(0, 0, 710, 29);
-	    	topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    	topPanel.setBounds(0, 0, 702, 29);
+	    	topPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		topPanel.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
 		        java.awt.Point point = MouseInfo.getPointerInfo().getLocation();
@@ -313,7 +313,7 @@ public class CreateProject extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setBounds(17, 60, 667, 240);
 		panel.setBackground(new Color(220, 220, 220));
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Detalles del proyecto", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Detalles del proyecto", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		

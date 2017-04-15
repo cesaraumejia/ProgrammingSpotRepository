@@ -81,7 +81,7 @@ public class ListWorker extends JDialog {
 		setUndecorated(true);
 		setBounds(100, 100, 1050, 597);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		contentPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		contentPanel.setBackground(new Color(220, 220, 220));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -92,6 +92,7 @@ public class ListWorker extends JDialog {
 		setModal(true);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		panel.setBounds(0, 0, 1050, 29);
 		contentPanel.add(panel);
 		panel.setLayout(null);
@@ -119,7 +120,7 @@ public class ListWorker extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(220,220,220));
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Lista de trabajadores", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Lista de trabajadores", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBounds(12, 139, 691, 395);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
@@ -160,7 +161,7 @@ public class ListWorker extends JDialog {
 		////////////////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(220,220,220));
-		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Projectos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Projectos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2.setBounds(715, 36, 323, 498);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
@@ -202,7 +203,7 @@ public class ListWorker extends JDialog {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(220,220,220));
-		panel_4.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Filtro por tipo", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_4.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Filtro por tipo", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_4.setBounds(10, 40, 445, 88);
 		contentPanel.add(panel_4);
 		panel_4.setLayout(null);
@@ -312,7 +313,7 @@ public class ListWorker extends JDialog {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(220,220,220));;
-		panel_5.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "B\u00FAsqueda", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_5.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "B\u00FAsqueda", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_5.setBounds(465, 40, 238, 88);
 		contentPanel.add(panel_5);
 		panel_5.setLayout(null);
@@ -350,6 +351,7 @@ public class ListWorker extends JDialog {
 		filter();
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 			buttonPane.setBackground(new Color(220,220,220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

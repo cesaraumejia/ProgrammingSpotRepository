@@ -95,7 +95,7 @@ public class RegisterWorker extends JDialog {
 		setUndecorated(true);
 		setBounds(100, 100, 1050, 597);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		contentPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		contentPanel.setBackground(new Color(220, 220, 220));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -110,6 +110,7 @@ public class RegisterWorker extends JDialog {
 		}
 		{
 			JPanel panel = new JPanel();
+			panel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 			panel.setBounds(0, 0, 1050, 29);
 			contentPanel.add(panel);
 			panel.setLayout(null);
@@ -144,7 +145,7 @@ public class RegisterWorker extends JDialog {
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(220,220,220));
-			panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Datos Personales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Datos Personales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel.setBounds(10, 90, 1028, 150);
 			contentPanel.add(panel);
 			panel.setLayout(null);
@@ -271,7 +272,7 @@ public class RegisterWorker extends JDialog {
 		}
 		{
 			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Direcci\u00F3n", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+			panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Direcci\u00F3n", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel.setBackground(new Color(220,220,220));
 			panel.setBounds(10, 270, 1028, 133);
 			contentPanel.add(panel);
@@ -486,7 +487,7 @@ public class RegisterWorker extends JDialog {
 		contentPanel.add(tester);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Detalles de trabajador", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Detalles de trabajador", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBackground(new Color(220,220,220));
 		panel.setBounds(10, 462, 1028, 75);
 		contentPanel.add(panel);
@@ -584,7 +585,7 @@ public class RegisterWorker extends JDialog {
 		  metodologia.setVisible(false);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+			buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 			buttonPane.setBackground(new Color(220,220,220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

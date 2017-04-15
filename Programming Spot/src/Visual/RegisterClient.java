@@ -64,7 +64,7 @@ public class RegisterClient extends JDialog {
     setUndecorated(true);
 	setBounds(100, 100, 702, 461);
 	getContentPane().setLayout(new BorderLayout());
-	contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	contentPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	contentPane.setBackground(new Color(220, 220, 220));
 	getContentPane().add(contentPane, BorderLayout.CENTER);
 	super.getToolkit().getScreenSize(); 
@@ -76,7 +76,7 @@ public class RegisterClient extends JDialog {
 	    
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
-	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
@@ -154,7 +154,8 @@ public class RegisterClient extends JDialog {
 				JOptionPane.showMessageDialog(null, "¡El cliente ha sido modificado!", "Cliente Modificado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
 				//Guardado
 				Admin.getInstance().saveClients();
-				//	
+				//
+	
 				MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getClientsPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
@@ -175,7 +176,7 @@ public class RegisterClient extends JDialog {
 	    }
 	    
 	    	topPanel = new JPanel();
-	    	topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    	topPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		topPanel.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
 		        java.awt.Point point = MouseInfo.getPointerInfo().getLocation();
@@ -189,7 +190,7 @@ public class RegisterClient extends JDialog {
 			}
 		});
 		contentPane.setLayout(null);
-		topPanel.setBounds(0, 0, 710, 29);
+		topPanel.setBounds(0, 0, 702, 29);
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 		

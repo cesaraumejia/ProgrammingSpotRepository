@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import Logico.Admin;
 
@@ -101,11 +103,13 @@ public class MainVisual extends JFrame {
         private JLabel workerReports;
         private JLabel addClient;
         private JLabel earnings;
-        private JPanel panel_1;
+        private JPanel panelDirectAccess;
         private JLabel lblNewLabel_1;
         private JLabel lblNewLabel_5;
         private JLabel lblNewLabel_6;
         private JLabel lblNewLabel_7;
+        
+        private ImageIcon frameIcon=new ImageIcon("src/icons/programming.png");
 
 
 	/**
@@ -146,7 +150,6 @@ public class MainVisual extends JFrame {
 				addContract.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickContract.png")));
 				workerReports.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickWorkerReport.png")));
 				earnings.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickEarnings.png")));
-				
 			}
 		});
 		setUndecorated(true);
@@ -158,6 +161,7 @@ public class MainVisual extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		setIconImage(frameIcon.getImage());
 		
 		dim = super.getToolkit().getScreenSize(); 
 		//pack();
@@ -791,11 +795,13 @@ public class MainVisual extends JFrame {
 		lblAdminExtIcon.setVisible(false);
 		lblAdminExtIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin1.png")));
 		
-		panel_1 = new JPanel();
-		panel_1.setBackground(new Color(153, 153, 153));
-		panel_1.setBounds(80, 0, 688, 653);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		panelDirectAccess = new JPanel();
+		panelDirectAccess.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 4), "Accesos Directos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelDirectAccess.setBackground(new Color(153, 153, 153));
+		panelDirectAccess.setBounds(80, 0, 662, 653);
+		panelDirectAccess.setLocation((dim.width/2-panelDirectAccess.getWidth()/2)-250, (dim.height/2-panelDirectAccess.getHeight()/2)-60);
+		panel.add(panelDirectAccess);
+		panelDirectAccess.setLayout(null);
 		
 		addClient = new JLabel("");
 		addClient.addMouseListener(new MouseAdapter() {
@@ -818,7 +824,7 @@ public class MainVisual extends JFrame {
 		});
 		addClient.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickAddClient.png")));
 		addClient.setBounds(12, 11, 263, 243);
-		panel_1.add(addClient);
+		panelDirectAccess.add(addClient);
 		
 		addContract = new JLabel("New label");
 		addContract.addMouseListener(new MouseAdapter() {
@@ -841,7 +847,7 @@ public class MainVisual extends JFrame {
 		});
 		addContract.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickContract.png")));
 		addContract.setBounds(385, 11, 263, 243);
-		panel_1.add(addContract);
+		panelDirectAccess.add(addContract);
 		
 		earnings = new JLabel("New label");
 		earnings.addMouseListener(new MouseAdapter() {
@@ -864,7 +870,7 @@ public class MainVisual extends JFrame {
 		});
 		earnings.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickEarnings.png")));
 		earnings.setBounds(0, 341, 263, 243);
-		panel_1.add(earnings);
+		panelDirectAccess.add(earnings);
 		
 		workerReports = new JLabel("New label");
 		workerReports.addMouseListener(new MouseAdapter() {
@@ -892,31 +898,31 @@ public class MainVisual extends JFrame {
 		});
 		workerReports.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/quickWorkerReport.png")));
 		workerReports.setBounds(364, 317, 263, 267);
-		panel_1.add(workerReports);
+		panelDirectAccess.add(workerReports);
 		
 		lblNewLabel_1 = new JLabel("Agregar Cliente");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Century Schoolbook", Font.ITALIC, 17));
 		lblNewLabel_1.setBounds(0, 275, 243, 32);
-		panel_1.add(lblNewLabel_1);
+		panelDirectAccess.add(lblNewLabel_1);
 		
 		lblNewLabel_5 = new JLabel("Agregar Contrato");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setFont(new Font("Century Schoolbook", Font.ITALIC, 17));
 		lblNewLabel_5.setBounds(385, 276, 234, 30);
-		panel_1.add(lblNewLabel_5);
+		panelDirectAccess.add(lblNewLabel_5);
 		
 		lblNewLabel_6 = new JLabel("Reporte Ganancias y P\u00E9rdidas");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setFont(new Font("Century Schoolbook", Font.ITALIC, 17));
 		lblNewLabel_6.setBounds(0, 597, 263, 29);
-		panel_1.add(lblNewLabel_6);
+		panelDirectAccess.add(lblNewLabel_6);
 		
 		lblNewLabel_7 = new JLabel("Reporte Trabajadores");
 		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setFont(new Font("Century Schoolbook", Font.ITALIC, 17));
 		lblNewLabel_7.setBounds(395, 599, 253, 25);
-		panel_1.add(lblNewLabel_7);
+		panelDirectAccess.add(lblNewLabel_7);
 		
 		image = new ImageIcon("src/icons/code.png");
 		

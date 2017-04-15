@@ -12,7 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -42,8 +42,8 @@ public class ClosingDialog extends JDialog {
     	setUndecorated(true);
 	setBounds(100, 100, 437, 133);
 	getContentPane().setLayout(new BorderLayout());
-	contentPanel.setBackground(new Color(169, 169, 169));
-	contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+	contentPanel.setBackground(new Color(192, 192, 192));
+	contentPanel.setBorder(new LineBorder(new Color(70, 130, 180), 4));
 	getContentPane().add(contentPanel, BorderLayout.CENTER);
 	contentPanel.setLayout(null);
 	setModal(true);
@@ -69,7 +69,7 @@ public class ClosingDialog extends JDialog {
 	contentPanel.add(pBar);
 	
 	JLabel lblGuardandoDatos = new JLabel("Guardando Datos");
-	lblGuardandoDatos.setForeground(new Color(30, 144, 255));
+	lblGuardandoDatos.setForeground(new Color(0, 128, 128));
 	lblGuardandoDatos.setFont(new Font("Tahoma", Font.BOLD, 15));
 	lblGuardandoDatos.setBounds(169, 15, 136, 16);
 	contentPanel.add(lblGuardandoDatos);

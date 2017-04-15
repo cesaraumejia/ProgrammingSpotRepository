@@ -88,7 +88,7 @@ public class CreateContract extends JDialog {
 	setBounds(100, 100, 577, 368);
 	getContentPane().setLayout(null);
 	contentPane.setBounds(0, 0, 577, 334);
-	contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	contentPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	contentPane.setBackground(new Color(220, 220, 220));
 	getContentPane().add(contentPane);
 	super.getToolkit().getScreenSize(); 
@@ -121,7 +121,7 @@ public class CreateContract extends JDialog {
 	    });
 	    buttonPane.setBounds(0, 333, 577, 35);
 	    buttonPane.setBackground(new Color(220, 220, 220));
-	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane);
 	    {
@@ -130,7 +130,7 @@ public class CreateContract extends JDialog {
 	    
 	    	topPanel = new JPanel();
 	    	topPanel.setBounds(0, 0, 577, 29);
-	    	topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    	topPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		topPanel.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
 		        java.awt.Point point = MouseInfo.getPointerInfo().getLocation();
@@ -197,7 +197,7 @@ public class CreateContract extends JDialog {
 		});
 		panel.setBounds(17, 40, 546, 283);
 		panel.setBackground(new Color(220, 220, 220));
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Detalles del contrato", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Detalles del contrato", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		

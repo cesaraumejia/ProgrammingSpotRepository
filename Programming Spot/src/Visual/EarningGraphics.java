@@ -19,27 +19,23 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-
-
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextArea;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import Logico.Admin;
 import Logico.Project;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 public class EarningGraphics extends JDialog {
 
@@ -90,7 +86,7 @@ public class EarningGraphics extends JDialog {
 	    
 	    JPanel buttonPane = new JPanel();
 	    buttonPane.setBackground(new Color(220, 220, 220));
-	    buttonPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	    {
@@ -110,7 +106,7 @@ public class EarningGraphics extends JDialog {
 	    
 	    	topPanel = new JPanel();
 	    	topPanel.setBounds(0, 0, 715, 29);
-	    	topPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+	    	topPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    	topPanel.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
 		        java.awt.Point point = MouseInfo.getPointerInfo().getLocation();
@@ -158,7 +154,7 @@ public class EarningGraphics extends JDialog {
 		final String perdidas = "P\u00e9rdidas";
 		grafico = ChartFactory.createBarChart3D("Ganancias & P\u00e9rdidas", "", "Ganancias", data, PlotOrientation.VERTICAL, true, true, false);
 		chartPanel = new ChartPanel(grafico);
-		chartPanel.setBorder(new TitledBorder(null, "Gr\u00E1fico", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		chartPanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Gr\u00E1fico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		chartPanel.setBounds(27, 11, 408, 375);
 		graphicPanel.add(chartPanel);
 		
@@ -169,7 +165,7 @@ public class EarningGraphics extends JDialog {
 		selectionPanel.setLayout(null);
 		
 		tablePanel = new JPanel();
-		tablePanel.setBorder(new TitledBorder(null, "Seleccione proyecto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		tablePanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Seleccione proyecto", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		tablePanel.setBounds(10, 11, 247, 375);
 		selectionPanel.add(tablePanel);
 		tablePanel.setLayout(null);
