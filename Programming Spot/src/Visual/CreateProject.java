@@ -36,6 +36,8 @@ import Logico.Project;
 import Logico.ProjectBoss;
 import Logico.SoftwareTester;
 import Logico.Worker;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("unused")
 public class CreateProject extends JDialog {
@@ -320,6 +322,14 @@ public class CreateProject extends JDialog {
 		
 	
 		tfdTitulo = new JTextField();
+		tfdTitulo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if ((c < 'a' || c > 'z')&&(c < 'A' || c >'Z')&& c != ' ')
+					e.consume();	
+			}
+		});
 		tfdTitulo.setBounds(87, 38, 236, 22);
 		panel.add(tfdTitulo);
 		tfdTitulo.setBackground(new Color(230, 230, 250));

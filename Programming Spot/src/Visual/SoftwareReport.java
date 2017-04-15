@@ -73,6 +73,13 @@ public class SoftwareReport extends JDialog {
 	 * Create the dialog.
 	 */
 	public SoftwareReport() {
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+			    btnLanguage.setIcon(languageOutIcon);
+			    btnOperativeSystem.setIcon(platformIconOut);
+			}
+		});
 		///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 		setUndecorated(true);
 		setBounds(100, 100, 701, 346);
@@ -130,13 +137,7 @@ public class SoftwareReport extends JDialog {
 		startPanel.setLayout(null);
 		
 		JPanel panelForBorder = new JPanel();
-		panelForBorder.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent e) {
-			    btnLanguage.setIcon(languageOutIcon);
-			    btnOperativeSystem.setIcon(platformIconOut);
-			}
-		});
+
 		panelForBorder.setBackground(new Color(220, 220, 220));
 		panelForBorder.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Selecci\u00F3n de Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelForBorder.setBounds(12, 13, 679, 253);
@@ -160,13 +161,13 @@ public class SoftwareReport extends JDialog {
 			    btnBack.setVisible(true);
 			}
 		});
-		btnOperativeSystem.setBounds(30, 58, 128, 128);
+		btnOperativeSystem.setBounds(120, 58, 128, 128);
 		btnOperativeSystem.setIcon(platformIconOut);
 		btnOperativeSystem.setBorder(emptyBorder);
 		panelForBorder.add(btnOperativeSystem);
 		
 		JLabel lblPlatform = new JLabel("Reporte de Plataformas");
-		lblPlatform.setBounds(26, 195, 137, 16);
+		lblPlatform.setBounds(115, 195, 137, 16);
 		panelForBorder.add(lblPlatform);
 		
 		btnLanguage = new JButton("");
@@ -186,13 +187,13 @@ public class SoftwareReport extends JDialog {
 			}
 		});
 		btnLanguage.setBackground(new Color(220, 220, 220));
-		btnLanguage.setBounds(271, 58, 128, 128);
+		btnLanguage.setBounds(430, 58, 128, 128);
 		btnLanguage.setBorder(emptyBorder);
 		btnLanguage.setIcon(languageOutIcon);
 		panelForBorder.add(btnLanguage);
 		
 		JLabel lblLenguajeMsUtilizado = new JLabel("Lenguaje m\u00E1s utilizado");
-		lblLenguajeMsUtilizado.setBounds(267, 195, 137, 16);
+		lblLenguajeMsUtilizado.setBounds(428, 195, 137, 16);
 		panelForBorder.add(lblLenguajeMsUtilizado);
 		//Graphics data
 		

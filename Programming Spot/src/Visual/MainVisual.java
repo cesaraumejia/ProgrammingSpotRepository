@@ -93,9 +93,7 @@ public class MainVisual extends JFrame {
         private JLabel lblContractCreate;
         private JLabel lblAdminIcon;
         private JLabel lblGananciasYPrdidas;
-        private JLabel lblAjustes;
         private JLabel lblGananciaIcon;
-        private JLabel lblSettingsIcon;
         private JLabel lblAdminExtIcon;
         private JLabel lblListContract;
         
@@ -679,8 +677,6 @@ public class MainVisual extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 			    lblGananciaIcon.setVisible(true);
 			    lblGananciasYPrdidas.setVisible(true);
-			    lblAjustes.setVisible(true);
-			    lblSettingsIcon.setVisible(true);
 			    lblWorkers.setVisible(true);
 			    lblSoftware.setVisible(true);
 			    lblWorkersIcon.setVisible(true);
@@ -750,30 +746,6 @@ public class MainVisual extends JFrame {
 		lblSoftwareIcon.setVisible(false);
 		lblSoftwareIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/software.png")));
 		
-		lblSettingsIcon = new JLabel("");
-		lblSettingsIcon.setBounds(219, 173, 24, 24);
-		rightPanel.add(lblSettingsIcon);
-		lblSettingsIcon.setVisible(false);
-		lblSettingsIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/settings.png")));
-		
-		lblAjustes = new JLabel("Ajustes");
-		lblAjustes.setBounds(159, 175, 50, 19);
-		rightPanel.add(lblAjustes);
-		lblAjustes.setVisible(false);
-		lblAjustes.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mousePressed(MouseEvent e) {
-		    	lblAjustes.setForeground(new Color(240, 240, 240));
-		    }
-		    @Override
-		    public void mouseReleased(MouseEvent e) {
-		    	lblAjustes.setForeground(new Color(0, 0, 0));
-		    	Settings settings = new Settings();
-		    	settings.setVisible(true);
-		    }
-		});
-		lblAjustes.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		
 		lblAdminExtIcon = new JLabel("");
 		lblAdminExtIcon.setBounds(219, 13, 24, 24);
 		rightPanel.add(lblAdminExtIcon);
@@ -781,8 +753,6 @@ public class MainVisual extends JFrame {
 			public void mouseReleased(MouseEvent e) {
 			    lblGananciaIcon.setVisible(false);
 			    lblGananciasYPrdidas.setVisible(false);
-			    lblAjustes.setVisible(false);
-			    lblSettingsIcon.setVisible(false);
 			    lblWorkers.setVisible(false);
 			    lblSoftware.setVisible(false);
 			    lblWorkersIcon.setVisible(false);

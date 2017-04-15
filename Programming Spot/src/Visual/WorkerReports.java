@@ -160,21 +160,21 @@ public class WorkerReports extends JDialog {
 					bestWorkerName = new JLabel("No Disponible");
 					bestWorkerName.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 					bestWorkerName.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerName.setBounds(200, 144, 129, 34);
+					bestWorkerName.setBounds(213, 144, 129, 34);
 					panel_3.add(bestWorkerName);
 				}
 				{
 					bestWorkerEficiency = new JLabel("No Disponible");
 					bestWorkerEficiency.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 					bestWorkerEficiency.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerEficiency.setBounds(29, 144, 129, 34);
+					bestWorkerEficiency.setBounds(33, 144, 129, 34);
 					panel_3.add(bestWorkerEficiency);
 				}
 				{
 					bestWorkerType = new JLabel("No Disponible");
 					bestWorkerType.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 					bestWorkerType.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerType.setBounds(383, 144, 129, 34);
+					bestWorkerType.setBounds(384, 144, 129, 34);
 					panel_3.add(bestWorkerType);
 				}
 				

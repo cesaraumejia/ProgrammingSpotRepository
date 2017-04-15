@@ -129,7 +129,7 @@ public class ListWorker extends JDialog {
 		scrollPane.setBounds(14, 28, 667, 356);
 		panel_1.add(scrollPane);
 		///////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////////////
-		String[] columnsHeaders = {"Cédula", "Nombre", "Apellido",  "Cantidad de contratos", "Teléfono"};
+		String[] columnsHeaders = {"Cédula", "Nombre", "Apellido",  "Cantidad de contratos", "Teléfono", "Tipo de trabajador"};
 		tableModel = new DefaultTableModel(){
 		    /**
 		     * 
@@ -423,6 +423,7 @@ public class ListWorker extends JDialog {
 	   	table.getColumnModel().getColumn(2).setCellRenderer(tcr);
 	   	table.getColumnModel().getColumn(3).setCellRenderer(tcr);
 	   	table.getColumnModel().getColumn(4).setCellRenderer(tcr);
+	   	table.getColumnModel().getColumn(5).setCellRenderer(tcr);
 	   	row = new Object[tableModel.getColumnCount()];
 	   	for (Worker ct : workers) {
 	   	    row[0]=ct.getIdNumber();
@@ -430,6 +431,18 @@ public class ListWorker extends JDialog {
 	   	    row[2]=ct.getLastName();
 	   	    row[3]=ct.getAvailable();
 	   	    row[4]=ct.getTelefono();
+	   	    String aux = null;
+	   	    if (ct instanceof ProjectBoss)
+	   	    	aux = "Jefe de proyecto";
+	   	    else if (ct instanceof Planner)
+	   	    	aux = "Planeador";
+	   	    else if (ct instanceof SoftwareTester)
+	   	    	aux = "Tester";
+	   	    else if (ct instanceof Designer)
+	   	    	aux = "Diseñador";
+	   	    else
+	   	    	aux = "Programador";
+	   	    row[5]=aux;
 	   	    tableModel.addRow(row);
 	   	}
 	    }

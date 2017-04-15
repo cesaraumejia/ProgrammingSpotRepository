@@ -150,8 +150,7 @@ public class EarningGraphics extends JDialog {
 		contentPane.add(graphicPanel);
 		graphicPanel.setLayout(null);
 		
-		final String ganancias = "Ganancias";
-		final String perdidas = "P\u00e9rdidas";
+
 		grafico = ChartFactory.createBarChart3D("Ganancias & P\u00e9rdidas", "", "Ganancias", data, PlotOrientation.VERTICAL, true, true, false);
 		chartPanel = new ChartPanel(grafico);
 		chartPanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Gr\u00E1fico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -217,7 +216,9 @@ public class EarningGraphics extends JDialog {
 	
 	
 	public void updateGraph(){
+		@SuppressWarnings("deprecation")
 		long time = Date.parse(Admin.getInstance().getContracts().get(index).getFinalDate());
+		@SuppressWarnings("deprecation")
 		long time1 = Date.parse(Admin.getInstance().getContracts().get(index).getInitialDate());
 		long time2 =  time - time1;
 		long date = TimeUnit.DAYS.convert(time2, TimeUnit.MILLISECONDS) / 30;
@@ -230,7 +231,9 @@ public class EarningGraphics extends JDialog {
 		float lost =  0f;
 		for(int i = 0; i < Admin.getInstance().getContracts().size(); i++){
 			if(Admin.getInstance().getContracts().get(i).getProject().getState().equals("Finalizado")){
+				@SuppressWarnings("deprecation")
 				long time = Date.parse(Admin.getInstance().getContracts().get(i).getFinalDate());
+				@SuppressWarnings("deprecation")
 				long time1 = Date.parse(Admin.getInstance().getContracts().get(i).getInitialDate());
 				long time2 =  time - time1;
 				long date = TimeUnit.DAYS.convert(time2, TimeUnit.MILLISECONDS) / 30;
