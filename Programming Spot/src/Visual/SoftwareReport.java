@@ -88,7 +88,7 @@ public class SoftwareReport extends JDialog {
 
 		
 		JPanel topPanel = new JPanel();
-		topPanel.setBorder(new LineBorder(new Color(70, 130, 180)));
+		topPanel.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 		topPanel.setLayout(null);
 		topPanel.setBounds(0, 0, 701, 31);
 		contentPanel.add(topPanel);
@@ -212,19 +212,19 @@ public class SoftwareReport extends JDialog {
 		dataLanguage.addValue(mostUsedLanguage.getOcurrences(),"Más Usado",mostUsedLanguage.getReturnType());
 		dataLanguage.addValue(lessUsedLanguage.getOcurrences(),"Menos Usado", lessUsedLanguage.getReturnType());
 		JFreeChart languageGraphic = ChartFactory.createBarChart3D("Solicitud de los lenguages", "Lenguaje", "Cantidad de Contratos", dataLanguage, PlotOrientation.VERTICAL, true, true, false);
-
-		languagePanel = new JPanel();
-		languagePanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		languagePanel.setBackground(new Color(220, 220, 220));
-		languagePanel.setBounds(0, 0, 701, 279);
-		layeredPane.add(languagePanel);
-		languagePanel.setLayout(null);
-		languagePanel.setVisible(false);
-		//Graphics
-		languageChartPanel = new ChartPanel(languageGraphic);
-		languageChartPanel.setBounds(207, 0, 494, 279);
-		languageChartPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		languagePanel.add(languageChartPanel);
+		
+				languagePanel = new JPanel();
+				languagePanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				languagePanel.setBackground(new Color(220, 220, 220));
+				languagePanel.setBounds(0, 0, 701, 279);
+				layeredPane.add(languagePanel);
+				languagePanel.setLayout(null);
+				languagePanel.setVisible(false);
+				//Graphics
+				languageChartPanel = new ChartPanel(languageGraphic);
+				languageChartPanel.setBounds(0, 0, 701, 279);
+				languageChartPanel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 2), "Gr\u00E1fico", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				languagePanel.add(languageChartPanel);
 		
 		operativySystemPanel = new JPanel();
 		operativySystemPanel.setBounds(0, 0, 701, 279);
@@ -273,7 +273,7 @@ public class SoftwareReport extends JDialog {
 		////////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new LineBorder(new Color(70, 130, 180), 2));
+			buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 			buttonPane.setBackground(new Color(220, 220, 220));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

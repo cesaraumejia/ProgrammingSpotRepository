@@ -220,7 +220,7 @@ public class RegisterClient extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(220, 220, 220));
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Datos Personales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Datos Personales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(17, 60, 667, 176);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -325,7 +325,7 @@ public class RegisterClient extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Direcci\u00F3n", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Direcci\u00F3n", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBackground(new Color(220, 220, 220));
 		panel_1.setBounds(17, 256, 667, 141);
 		contentPane.add(panel_1);
