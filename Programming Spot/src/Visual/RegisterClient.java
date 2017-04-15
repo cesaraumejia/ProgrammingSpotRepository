@@ -234,7 +234,7 @@ public class RegisterClient extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z'))
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 					e.consume();
 			}
 		});
@@ -260,7 +260,7 @@ public class RegisterClient extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z'))
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 					e.consume();
 			}
 		});
@@ -359,6 +359,14 @@ public class RegisterClient extends JDialog {
 		panel_1.add(tfdLocal);
 		
 		tfdLocation = new JTextField();
+		tfdLocation.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
+					e.consume();
+			}
+		});
 		tfdLocation.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdLocation.setColumns(10);
 		tfdLocation.setBackground(new Color(230, 230, 250));
@@ -390,6 +398,14 @@ public class RegisterClient extends JDialog {
 		panel_1.add(cbxProvince);
 		
 		tfdStreet = new JTextField();
+		tfdStreet.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
+					e.consume();
+			}
+		});
 		tfdStreet.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdStreet.setColumns(10);
 		tfdStreet.setBackground(new Color(230, 230, 250));

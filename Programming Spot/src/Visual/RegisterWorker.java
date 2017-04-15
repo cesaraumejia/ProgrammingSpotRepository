@@ -194,7 +194,7 @@ public class RegisterWorker extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent e) {
 					char c = e.getKeyChar();
-					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z'))
+					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 						e.consume();
 				}
 			});
@@ -214,7 +214,7 @@ public class RegisterWorker extends JDialog {
 				@Override
 				public void keyTyped(KeyEvent e) {
 					char c = e.getKeyChar();
-					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z'))
+					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 						e.consume();
 				}
 			});
@@ -251,6 +251,10 @@ public class RegisterWorker extends JDialog {
 				public void keyTyped(KeyEvent e) {
 					char c =  e.getKeyChar();
 					if((c < '0' || c > '9') && c != '.')
+						e.consume();
+					if (dotAmount() && c=='.')
+						e.consume();
+					if (c=='.' && salario.getText().length()==0)
 						e.consume();
 				}
 			});
@@ -315,6 +319,15 @@ public class RegisterWorker extends JDialog {
 			panel.add(lblLocalidad);
 			
 			localidad = new JTextField();
+			localidad.setHorizontalAlignment(SwingConstants.CENTER);
+			localidad.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
+						e.consume();
+				}
+			});
 			localidad.setBackground(new Color(230,230,250));
 			localidad.setBounds(445, 26, 207, 22);
 			panel.add(localidad);
@@ -326,6 +339,15 @@ public class RegisterWorker extends JDialog {
 			panel.add(lblCalle);
 			
 			calle = new JTextField();
+			calle.setHorizontalAlignment(SwingConstants.CENTER);
+			calle.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
+						e.consume();
+				}
+			});
 			calle.setBackground(new Color(230,230,250));
 			calle.setBounds(106, 77, 207, 22);
 			panel.add(calle);
@@ -524,11 +546,12 @@ public class RegisterWorker extends JDialog {
 		panel.add(lblTipoDeProgramador);
 		
 		tipoProgramador = new JTextField();
+		tipoProgramador.setHorizontalAlignment(SwingConstants.CENTER);
 		tipoProgramador.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z')&&(c < 'A' || c > 'Z'))
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 					e.consume();
 			}
 		});
@@ -545,11 +568,12 @@ public class RegisterWorker extends JDialog {
 		panel.add(lblLenguaje);
 		
 		lenguajeDeProgramacion = new JTextField();
+		lenguajeDeProgramacion.setHorizontalAlignment(SwingConstants.CENTER);
 		lenguajeDeProgramacion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z')&&(c < 'A' || c > 'Z') && c != '+')
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 					e.consume();
 			}
 		});
@@ -570,6 +594,7 @@ public class RegisterWorker extends JDialog {
 		panel.add(softwareD);
 		
 		softwareDisenio = new JTextField();
+		softwareDisenio.setHorizontalAlignment(SwingConstants.CENTER);
 		softwareDisenio.setBackground(new Color(230, 230, 250));
 		softwareDisenio.setBounds(507, 28, 147, 22);
 		panel.add(softwareDisenio);
@@ -581,6 +606,7 @@ public class RegisterWorker extends JDialog {
 		panel.add(softwarePrueba);
 		
 		testingSoftware = new JTextField();
+		testingSoftware.setHorizontalAlignment(SwingConstants.CENTER);
 		testingSoftware.setBackground(new Color(230, 230, 250));
 		testingSoftware.setBounds(178, 29, 179, 22);
 		panel.add(testingSoftware);
@@ -845,7 +871,7 @@ public class RegisterWorker extends JDialog {
 	    }
 	    localidad.setText(separator[1]);
 	    calle.setText(separator[2]);
-	    numero.setValue(separator[3]);
+	    numero.setValue(Integer.parseInt(separator[3]));
 	    if (worker instanceof ProjectBoss) {
 	    	jefeProyecto.setSelected(true);
 	    	aniosExperiencia.setValue(((ProjectBoss)worker).getExperienceYears());
@@ -917,6 +943,16 @@ public class RegisterWorker extends JDialog {
 	   boolean aux = false;
 	   for (Worker i: Admin.getInstance().getWorkers()) {
 		   if (i.getIdNumber().equals(ID))
+			   aux = true;
+	   }
+	   return aux;
+   }
+   private boolean dotAmount() {
+	   boolean aux = false;
+	   String aux1 = salario.getText();
+	   char[] aux2 = aux1.toCharArray();
+	   for (int i =0;i<aux2.length;i++) {
+		   if (aux2[i]=='.')
 			   aux = true;
 	   }
 	   return aux;

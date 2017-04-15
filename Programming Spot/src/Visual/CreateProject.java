@@ -326,7 +326,7 @@ public class CreateProject extends JDialog {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if ((c < 'a' || c > 'z')&&(c < 'A' || c >'Z')&& c != ' ')
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
 					e.consume();	
 			}
 		});

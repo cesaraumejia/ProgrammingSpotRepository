@@ -125,6 +125,8 @@ public class WorkerReports extends JDialog {
 			panel_2.setBackground(new Color(220,220,220));
 			panel_2.setVisible(false);
 			{
+				panel = new JPanel();
+				panel.setVisible(false);
 				panel_3 = new JPanel();
 				panel_3.setVisible(false);
 				panel_3.setBackground(new Color(220,220,220));
@@ -160,7 +162,7 @@ public class WorkerReports extends JDialog {
 					bestWorkerName = new JLabel("No Disponible");
 					bestWorkerName.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 					bestWorkerName.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerName.setBounds(213, 144, 129, 34);
+					bestWorkerName.setBounds(208, 144, 129, 34);
 					panel_3.add(bestWorkerName);
 				}
 				{
@@ -191,7 +193,7 @@ public class WorkerReports extends JDialog {
 					}
 				});
 				btnBonificacion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-				btnBonificacion.setBounds(186, 205, 163, 43);
+				btnBonificacion.setBounds(190, 205, 163, 43);
 				panel_3.add(btnBonificacion);
 				{
 					lblNewLabel_5 = new JLabel("Eficiencia");
@@ -214,6 +216,176 @@ public class WorkerReports extends JDialog {
 					lblTipo.setBounds(400, 111, 87, 34);
 					panel_3.add(lblTipo);
 				}
+				panel.setBounds(10, 40, 536, 259);
+				contentPanel.add(panel);
+				panel.setBackground(new Color(220,220,220));
+				panel.setLayout(null);
+				{
+					JPanel panel_1 = new JPanel();
+					panel_1.setBorder(null);
+					panel_1.setBackground(new Color(200,200,200));
+					panel_1.setBounds(53, 108, 156, 140);
+					panel.add(panel_1);
+					panel_1.setLayout(null);
+					{
+						lbl1 = new JLabel("No disponible");
+						lbl1.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl1.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+						lbl1.setBounds(21, 11, 109, 25);
+						panel_1.add(lbl1);
+					}
+					{
+						lbl4 = new JLabel("No disponible");
+						lbl4.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl4.setBounds(21, 59, 109, 25);
+						panel_1.add(lbl4);
+						lbl4.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+					{
+						lbl7 = new JLabel("No disponible");
+						lbl7.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl7.setBounds(21, 104, 109, 25);
+						panel_1.add(lbl7);
+						lbl7.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+				}
+				{
+					JPanel panel_1 = new JPanel();
+					panel_1.setBackground(new Color(200,200,200));
+					panel_1.setBounds(209, 108, 156, 140);
+					panel.add(panel_1);
+					panel_1.setLayout(null);
+					{
+						lbl5 = new JLabel("No disponible");
+						lbl5.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl5.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+						lbl5.setBounds(16, 59, 121, 25);
+						panel_1.add(lbl5);
+					}
+					{
+						lbl2 = new JLabel("No disponible");
+						lbl2.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl2.setBounds(16, 11, 121, 25);
+						panel_1.add(lbl2);
+						lbl2.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+					{
+						lbl8 = new JLabel("No disponible");
+						lbl8.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl8.setBounds(16, 104, 121, 25);
+						panel_1.add(lbl8);
+						lbl8.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+				}
+				{
+					JPanel panel_1 = new JPanel();
+					panel_1.setBackground(new Color(200,200,200));
+					panel_1.setBounds(365, 108, 156, 140);
+					panel.add(panel_1);
+					panel_1.setLayout(null);
+					{
+						lbl3 = new JLabel("No disponible");
+						lbl3.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl3.setBounds(21, 11, 113, 25);
+						panel_1.add(lbl3);
+						lbl3.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+					{
+						lbl6 = new JLabel("No disponible");
+						lbl6.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl6.setBounds(21, 57, 113, 25);
+						panel_1.add(lbl6);
+						lbl6.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+					{
+						lbl9 = new JLabel("No disponible");
+						lbl9.setBounds(21, 104, 113, 25);
+						panel_1.add(lbl9);
+						lbl9.setHorizontalAlignment(SwingConstants.CENTER);
+						lbl9.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+					}
+				}
+				{
+					JLabel lblCumpleaosPrximos = new JLabel("Cumplea\u00F1os pr\u00F3ximos");
+					lblCumpleaosPrximos.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
+					lblCumpleaosPrximos.setBounds(175, 21, 178, 27);
+					panel.add(lblCumpleaosPrximos);
+				}
+				{
+					JLabel lblNewLabel = new JLabel("");
+					lblNewLabel.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/vectores globos fiesta 5_opt (1).png")));
+					lblNewLabel.setBounds(70, 0, 50, 71);
+					panel.add(lblNewLabel);
+				}
+				{
+					JLabel lblNewLabel_1 = new JLabel("");
+					lblNewLabel_1.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/vectores globos fiesta 5_opt (1).png")));
+					lblNewLabel_1.setBounds(414, 0, 50, 71);
+					panel.add(lblNewLabel_1);
+				}
+				{
+					lblBack = new JLabel("");
+					lblBack.setBounds(0, 0, 24, 29);
+					panel.add(lblBack);
+					lblBack.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mousePressed(MouseEvent e) {
+							lblBack.setIcon(icon);
+						}
+						@Override
+						public void mouseReleased(MouseEvent e) {
+					        lblBack.setIcon(backIcon);
+					        panel.setVisible(false);
+					        activePrincipal();
+						}
+					});
+					lblBack.setVisible(false);
+					lblBack.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
+					lblBack.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
+					lblBack.setHorizontalAlignment(SwingConstants.LEFT);
+				}
+				{
+					lblNombres = new JLabel("Nombres");
+					lblNombres.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
+					lblNombres.setHorizontalAlignment(SwingConstants.CENTER);
+					lblNombres.setForeground(new Color(0, 0, 0));
+					lblNombres.setBackground(new Color(240, 255, 240));
+					lblNombres.setBounds(70, 70, 118, 27);
+					panel.add(lblNombres);
+				}
+				{
+					lblFechaDeCumpleaos = new JLabel("Fecha ");
+					lblFechaDeCumpleaos.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
+					lblFechaDeCumpleaos.setHorizontalAlignment(SwingConstants.CENTER);
+					lblFechaDeCumpleaos.setForeground(Color.BLACK);
+					lblFechaDeCumpleaos.setBackground(new Color(240, 255, 240));
+					lblFechaDeCumpleaos.setBounds(196, 70, 178, 27);
+					panel.add(lblFechaDeCumpleaos);
+				}
+				{
+					lblDasRestantes = new JLabel("D\u00EDas restantes");
+					lblDasRestantes.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
+					lblDasRestantes.setHorizontalAlignment(SwingConstants.CENTER);
+					lblDasRestantes.setForeground(Color.BLACK);
+					lblDasRestantes.setBackground(new Color(240, 255, 240));
+					lblDasRestantes.setBounds(372, 70, 138, 27);
+					panel.add(lblDasRestantes);
+				}
+				
+				JLabel lblNewLabel_3 = new JLabel("");
+				lblNewLabel_3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/right.png")));
+				lblNewLabel_3.setBounds(13, 119, 24, 27);
+				panel.add(lblNewLabel_3);
+				
+				JLabel label = new JLabel("");
+				label.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/right.png")));
+				label.setBounds(13, 167, 25, 27);
+				panel.add(label);
+				
+				JLabel label_1 = new JLabel("");
+				label_1.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/right.png")));
+				label_1.setBounds(13, 209, 25, 27);
+				panel.add(label_1);
 			}
 			panel_2.setBounds(10, 40, 536, 259);
 			contentPanel.add(panel_2);
@@ -412,163 +584,6 @@ public class WorkerReports extends JDialog {
 			lblNoSe.setBounds(391, 215, 159, 20);
 			contentPanel.add(lblNoSe);
 			lblNoSe.setFont(new Font("Trebuchet MS", Font.BOLD, 15));
-		}
-		panel = new JPanel();
-		panel.setVisible(false);
-		panel.setBounds(10, 40, 536, 259);
-		contentPanel.add(panel);
-		panel.setBackground(new Color(220,220,220));
-		panel.setLayout(null);
-		{
-			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(null);
-			panel_1.setBackground(new Color(200,200,200));
-			panel_1.setBounds(10, 108, 167, 140);
-			panel.add(panel_1);
-			panel_1.setLayout(null);
-			{
-				lbl1 = new JLabel("No disponible");
-				lbl1.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl1.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-				lbl1.setBounds(25, 11, 109, 25);
-				panel_1.add(lbl1);
-			}
-			{
-				lbl4 = new JLabel("No disponible");
-				lbl4.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl4.setBounds(25, 59, 109, 25);
-				panel_1.add(lbl4);
-				lbl4.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-			{
-				lbl7 = new JLabel("No disponible");
-				lbl7.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl7.setBounds(25, 104, 109, 25);
-				panel_1.add(lbl7);
-				lbl7.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-		}
-		{
-			JPanel panel_1 = new JPanel();
-			panel_1.setBackground(new Color(200,200,200));
-			panel_1.setBounds(187, 108, 166, 140);
-			panel.add(panel_1);
-			panel_1.setLayout(null);
-			{
-				lbl5 = new JLabel("No disponible");
-				lbl5.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl5.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-				lbl5.setBounds(24, 59, 121, 25);
-				panel_1.add(lbl5);
-			}
-			{
-				lbl2 = new JLabel("No disponible");
-				lbl2.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl2.setBounds(24, 11, 121, 25);
-				panel_1.add(lbl2);
-				lbl2.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-			{
-				lbl8 = new JLabel("No disponible");
-				lbl8.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl8.setBounds(24, 104, 121, 25);
-				panel_1.add(lbl8);
-				lbl8.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-		}
-		{
-			JPanel panel_1 = new JPanel();
-			panel_1.setBackground(new Color(200,200,200));
-			panel_1.setBounds(363, 108, 165, 140);
-			panel.add(panel_1);
-			panel_1.setLayout(null);
-			{
-				lbl3 = new JLabel("No disponible");
-				lbl3.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl3.setBounds(28, 11, 113, 25);
-				panel_1.add(lbl3);
-				lbl3.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-			{
-				lbl6 = new JLabel("No disponible");
-				lbl6.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl6.setBounds(28, 57, 113, 25);
-				panel_1.add(lbl6);
-				lbl6.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-			{
-				lbl9 = new JLabel("No disponible");
-				lbl9.setBounds(28, 104, 113, 25);
-				panel_1.add(lbl9);
-				lbl9.setHorizontalAlignment(SwingConstants.CENTER);
-				lbl9.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-			}
-		}
-		{
-			JLabel lblCumpleaosPrximos = new JLabel("Cumplea\u00F1os pr\u00F3ximos");
-			lblCumpleaosPrximos.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-			lblCumpleaosPrximos.setBounds(175, 21, 178, 27);
-			panel.add(lblCumpleaosPrximos);
-		}
-		{
-			JLabel lblNewLabel = new JLabel("");
-			lblNewLabel.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/vectores globos fiesta 5_opt (1).png")));
-			lblNewLabel.setBounds(70, 0, 50, 71);
-			panel.add(lblNewLabel);
-		}
-		{
-			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/vectores globos fiesta 5_opt (1).png")));
-			lblNewLabel_1.setBounds(414, 0, 50, 71);
-			panel.add(lblNewLabel_1);
-		}
-		{
-			lblBack = new JLabel("");
-			lblBack.setBounds(0, 0, 24, 29);
-			panel.add(lblBack);
-			lblBack.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mousePressed(MouseEvent e) {
-					lblBack.setIcon(icon);
-				}
-				@Override
-				public void mouseReleased(MouseEvent e) {
-			        lblBack.setIcon(backIcon);
-			        panel.setVisible(false);
-			        activePrincipal();
-				}
-			});
-			lblBack.setVisible(false);
-			lblBack.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
-			lblBack.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-			lblBack.setHorizontalAlignment(SwingConstants.LEFT);
-		}
-		{
-			lblNombres = new JLabel("Nombres");
-			lblNombres.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-			lblNombres.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNombres.setForeground(new Color(0, 0, 0));
-			lblNombres.setBackground(new Color(240, 255, 240));
-			lblNombres.setBounds(35, 70, 118, 27);
-			panel.add(lblNombres);
-		}
-		{
-			lblFechaDeCumpleaos = new JLabel("Fecha de Cumplea\u00F1os");
-			lblFechaDeCumpleaos.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-			lblFechaDeCumpleaos.setHorizontalAlignment(SwingConstants.CENTER);
-			lblFechaDeCumpleaos.setForeground(Color.BLACK);
-			lblFechaDeCumpleaos.setBackground(new Color(240, 255, 240));
-			lblFechaDeCumpleaos.setBounds(175, 70, 178, 27);
-			panel.add(lblFechaDeCumpleaos);
-		}
-		{
-			lblDasRestantes = new JLabel("D\u00EDas restantes");
-			lblDasRestantes.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-			lblDasRestantes.setHorizontalAlignment(SwingConstants.CENTER);
-			lblDasRestantes.setForeground(Color.BLACK);
-			lblDasRestantes.setBackground(new Color(240, 255, 240));
-			lblDasRestantes.setBounds(372, 70, 138, 27);
-			panel.add(lblDasRestantes);
 		}
 		super.getToolkit().getScreenSize(); 
 		this.setResizable(false);
