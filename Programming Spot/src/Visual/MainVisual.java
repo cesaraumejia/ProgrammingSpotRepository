@@ -72,16 +72,22 @@ public class MainVisual extends JFrame {
         private JLabel menuIcon;
         
         ImageIcon image;
-        private ImageIcon backTransitionIcon= new ImageIcon("src/icons/backTransition.png");
-        private ImageIcon backIcon = new ImageIcon("src/icons/back.png");
-        private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-        private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-        private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
-        private ImageIcon listClientIcon = new ImageIcon("src/icons/listClient.png");
-        private ImageIcon registerClienticon= new ImageIcon("src/icons/registerClient.png");
-        private ImageIcon menuImageIcon = new ImageIcon("src/icons/nemu.png");
-        private ImageIcon menuTransitionIcon = new ImageIcon("src/icons/menuTransition.png");
-        private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
+        private ImageIcon backTransitionIcon= new ImageIcon(MainVisual.class.getResource("/icons/backTransition.png"));
+        private ImageIcon backIcon = new ImageIcon(MainVisual.class.getResource("/icons/back.png"));
+        private ImageIcon workerIcon = new ImageIcon(MainVisual.class.getResource("/icons/worker.png"));
+        private ImageIcon contractIcon =new ImageIcon(MainVisual.class.getResource("/icons/contract.png"));
+        private ImageIcon clientIcon = new ImageIcon(MainVisual.class.getResource("/icons/client.png"));
+        private ImageIcon listClientIcon = new ImageIcon(MainVisual.class.getResource("/icons/listClient.png"));
+        private ImageIcon registerClienticon= new ImageIcon(MainVisual.class.getResource("/icons/registerClient.png"));
+        private ImageIcon menuImageIcon = new ImageIcon(MainVisual.class.getResource("/icons/nemu.png"));
+        private ImageIcon menuTransitionIcon = new ImageIcon(MainVisual.class.getResource("/icons/menuTransition.png"));
+        private ImageIcon windowsCloseIcon =new ImageIcon(MainVisual.class.getResource("/icons/close.png"));
+        private ImageIcon minimizeIcon=new ImageIcon(MainVisual.class.getResource("/icons/minimize.png"));
+        private ImageIcon adminIcon=new ImageIcon(MainVisual.class.getResource("/icons/admin.png"));
+	private ImageIcon gananciasIcon=new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png"));
+	private ImageIcon workersBigIcon=new ImageIcon(MainVisual.class.getResource("/icons/workers.png"));
+        private ImageIcon frameIcon=new ImageIcon(MainVisual.class.getResource("/icons/programming.png"));
+
         private JPanel workersPanel;
         
         private JLabel lblListar;
@@ -107,7 +113,6 @@ public class MainVisual extends JFrame {
         private JLabel lblNewLabel_6;
         private JLabel lblNewLabel_7;
         
-        private ImageIcon frameIcon=new ImageIcon("src/icons/programming.png");
 
 
 	/**
@@ -193,7 +198,7 @@ public class MainVisual extends JFrame {
 		    }
 		});
 		lblBackContractIcon.setBounds(3, 0, 24, 37);
-		lblBackContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/back.png")));
+		lblBackContractIcon.setIcon(backIcon);
 		contractPanel.add(lblBackContractIcon);
 		
 		lblContractsMenu = new JLabel("Contratos");
@@ -202,7 +207,7 @@ public class MainVisual extends JFrame {
 		contractPanel.add(lblContractsMenu);
 		
 		lblContractIcon = new JLabel("");
-		lblContractIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+		lblContractIcon.setIcon(contractIcon);
 		lblContractIcon.setBounds(3, 35, 24, 37);
 		contractPanel.add(lblContractIcon);
 		
@@ -219,7 +224,7 @@ public class MainVisual extends JFrame {
 		    }
 		    @Override
 		    public void mouseReleased(MouseEvent e) {
-			lblIcon1.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+			lblIcon1.setIcon(contractIcon);
 			lblIcon2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
 			lblIcon3.setVisible(false);
 			menuPanel.setVisible(true);
@@ -258,7 +263,7 @@ public class MainVisual extends JFrame {
 		contractPanel.add(lblListContract);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/listClient.png")));
+		label_1.setIcon(listClientIcon);
 		label_1.setBounds(3, 125, 24, 37);
 		contractPanel.add(label_1);
 		contractPanel.setVisible(false);
@@ -377,22 +382,22 @@ public class MainVisual extends JFrame {
 				workersBackButton.setIcon(backTransitionIcon);
 			}
 		});
-		workersBackButton.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/back.png")));
+		workersBackButton.setIcon(backIcon);
 		workersBackButton.setBounds(3, 0, 24, 37);
 		workersPanel.add(workersBackButton);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/client.png")));
+		lblNewLabel_2.setIcon(clientIcon);
 		lblNewLabel_2.setBounds(3, 35, 24, 37);
 		workersPanel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/registerClient.png")));
+		lblNewLabel_3.setIcon(registerClienticon);
 		lblNewLabel_3.setBounds(3, 82, 24, 37);
 		workersPanel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/listClient.png")));
+		lblNewLabel_4.setIcon(listClientIcon);
 		lblNewLabel_4.setBounds(3, 130, 24, 37);
 		workersPanel.add(lblNewLabel_4);
 		
@@ -618,7 +623,7 @@ public class MainVisual extends JFrame {
 				frame.setExtendedState(ICONIFIED);
 			}
 		});
-		lblMinimize.setIcon(new ImageIcon("src/icons/minimize.png"));
+		lblMinimize.setIcon(minimizeIcon);
 		lblMinimize.setBounds((int)dim.width-80, 0, 29, 34);
 		topPanel.add(lblMinimize);
 		
@@ -686,19 +691,21 @@ public class MainVisual extends JFrame {
 
 			}
 		});
-		lblAdminIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin.png")));
+		lblAdminIcon.setIcon(adminIcon);
+		
+		
 		
 		lblGananciaIcon = new JLabel("");
 		lblGananciaIcon.setBounds(219, 53, 24, 24);
 		rightPanel.add(lblGananciaIcon);
 		lblGananciaIcon.setVisible(false);
-		lblGananciaIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png")));
+		lblGananciaIcon.setIcon(gananciasIcon);
 		
 		lblWorkersIcon = new JLabel("");
 		lblWorkersIcon.setBounds(219, 93, 24, 24);
 		rightPanel.add(lblWorkersIcon);
 		lblWorkersIcon.setVisible(false);
-		lblWorkersIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/workers.png")));
+		lblWorkersIcon.setIcon(workersBigIcon);
 		
 		lblWorkers = new JLabel("Trabajadores");
 		lblWorkers.setBounds(116, 93, 93, 24);

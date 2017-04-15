@@ -50,10 +50,10 @@ public class ListClient extends JDialog {
     private static DefaultTableModel tableModelContracts;
     private static Object[] rowContracts;
     
-    private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
-    private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-    private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-    private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+    private ImageIcon windowsCloseIcon =new ImageIcon(ListClient.class.getResource("/icons/close.png"));
+    private ImageIcon workerIcon = new ImageIcon(ListClient.class.getResource("/icons/worker.png"));
+    private ImageIcon contractIcon =new ImageIcon(ListClient.class.getResource("/icons/contract.png"));
+    private ImageIcon clientIcon = new ImageIcon(ListClient.class.getResource("/icons/client.png"));
     private JScrollPane scrollPaneContracts;
     private String clientID;
     private Client foundClient;
@@ -260,7 +260,7 @@ public class ListClient extends JDialog {
 		lblIcon = new JLabel("");
 		lblIcon.setBounds(60, 32, 64, 64);
 		outContentPanel.add(lblIcon);
-		lblIcon.setIcon(new ImageIcon("src/icons/agreement.png"));
+		lblIcon.setIcon(new ImageIcon(ListClient.class.getResource("/icons/agreement.png")));
 		
 		btnBack = new JButton("");
 		btnBack.setBackground(new Color(255, 255, 240));
@@ -270,7 +270,7 @@ public class ListClient extends JDialog {
 			}
 		});
 		btnBack.setBounds(10, 20, 24, 24);
-		btnBack.setIcon(new ImageIcon("src/icons/back.png"));
+		btnBack.setIcon(new ImageIcon(ListClient.class.getResource("/icons/back.png")));
 		outContentPanel.add(btnBack);
 		
 		JLabel lblName = new JLabel("Proyecto");

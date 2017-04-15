@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -36,8 +38,6 @@ import Logico.Project;
 import Logico.ProjectBoss;
 import Logico.SoftwareTester;
 import Logico.Worker;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 @SuppressWarnings("unused")
 public class CreateProject extends JDialog {
@@ -52,10 +52,10 @@ public class CreateProject extends JDialog {
     private int y;
     private JLabel lblNewLabel;
     private JLabel lblClose;
-    private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
-	private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-    private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-    private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+    private ImageIcon windowsCloseIcon =new ImageIcon(CreateProject.class.getResource("/icons/close.png"));
+    private ImageIcon workerIcon = new ImageIcon(CreateProject.class.getResource("/icons/worker.png"));
+    private ImageIcon contractIcon =new ImageIcon(CreateProject.class.getResource("/icons/contract.png"));
+    private ImageIcon clientIcon = new ImageIcon(CreateProject.class.getResource("/icons/client.png"));
     private JTextField tfdTitulo;
     
     // ***Check Boxes***

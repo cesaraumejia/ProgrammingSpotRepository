@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -22,7 +24,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -37,10 +41,6 @@ import Logico.SoftwareTester;
 import Logico.Worker;
 
 import com.toedter.calendar.JDateChooser;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 public class RegisterWorker extends JDialog {
 
@@ -55,9 +55,9 @@ public class RegisterWorker extends JDialog {
 	private JFormattedTextField telefonoText;
 	private JTextField localidad;
 	private JTextField calle;
-	private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-	private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-	private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+	private ImageIcon workerIcon = new ImageIcon(RegisterWorker.class.getResource("/icons/worker.png"));
+	private ImageIcon contractIcon =new ImageIcon(RegisterClient.class.getResource("/icons/contract.png"));
+	private ImageIcon clientIcon = new ImageIcon(RegisterClient.class.getResource("/icons/client.png"));
 	private JFormattedTextField cedulaText;
 	private JComboBox<String> sexo;
 	private JTextField tipoProgramador;

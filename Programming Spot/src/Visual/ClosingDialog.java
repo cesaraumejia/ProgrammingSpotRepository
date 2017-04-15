@@ -23,7 +23,6 @@ public class ClosingDialog extends JDialog {
      */
     private static final long serialVersionUID = 1L;
     private final JPanel contentPanel = new JPanel();
-    private int i=1;
     private JProgressBar pBar;
     private javax.swing.Timer t;
     /**
@@ -86,19 +85,5 @@ public class ClosingDialog extends JDialog {
 	        });
 	
     }
-
-   /* public void run() {
-	
-        try {
-	    Thread.sleep(10);
-	} catch (InterruptedException e) {
-	    
-	}
-        pBar.setValue(i);
-        pBar.repaint();
-        i++;
-    
-    }*/
-    
     
 }

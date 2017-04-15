@@ -52,7 +52,7 @@ public class CreateContract extends JDialog {
     private JLabel lblNewLabel;
     private JLabel lblClose;
     private JLabel lblBuscar;
-    private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
+    private ImageIcon windowsCloseIcon =new ImageIcon(CreateContract.class.getResource("/icons/close.png"));
     //private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
     //private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
     //private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");

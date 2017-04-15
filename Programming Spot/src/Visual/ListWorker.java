@@ -47,9 +47,9 @@ public class ListWorker extends JDialog {
 	 */
 	private static final long serialVersionUID = 5748751159444413874L;
 	private final JPanel contentPanel = new JPanel();
-	private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-	private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-	private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+	private ImageIcon workerIcon = new ImageIcon(ListWorker.class.getResource("/icons/worker.png"));
+	private ImageIcon contractIcon =new ImageIcon(ListWorker.class.getResource("/icons/contract.png"));
+	private ImageIcon clientIcon = new ImageIcon(ListWorker.class.getResource("/icons/client.png"));
 	
 	private JTable table;
 	private static DefaultTableModel tableModel;

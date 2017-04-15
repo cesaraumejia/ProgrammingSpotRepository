@@ -49,10 +49,10 @@ public class EarningGraphics extends JDialog {
     private int y;
     private JLabel lblNewLabel;
     private JLabel lblClose;
-    private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
-    private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-    private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-    private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+    private ImageIcon windowsCloseIcon =new ImageIcon(EarningGraphics.class.getResource("/icons/close.png"));
+    private ImageIcon workerIcon = new ImageIcon(EarningGraphics.class.getResource("/icons/worker.png"));
+    private ImageIcon contractIcon =new ImageIcon(EarningGraphics.class.getResource("/icons/contract.png"));
+    private ImageIcon clientIcon = new ImageIcon(EarningGraphics.class.getResource("/icons/client.png"));
     private JPanel graphicPanel;
     private ChartPanel chartPanel;
     private JPanel selectionPanel;

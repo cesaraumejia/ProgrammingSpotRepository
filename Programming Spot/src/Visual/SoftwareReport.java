@@ -48,11 +48,11 @@ public class SoftwareReport extends JDialog {
 	private JPanel startPanel;
 	private JPanel operativySystemPanel;
 	private JButton btnLanguage;
-	private ImageIcon platformIconOut=new ImageIcon("src/icons/platform.png");
-	private ImageIcon languageOutIcon=new ImageIcon("src/icons/binary.png");
-	private ImageIcon languageTransitionIcon=new ImageIcon("src/icons/binaryTransition.png");
-	private ImageIcon platformTransitionIcon=new ImageIcon("src/icons/platformTransition.png");
-	private ImageIcon backIcon=new ImageIcon("src/icons/backSoftware.png");
+	private ImageIcon platformIconOut=new ImageIcon(SoftwareReport.class.getResource("/icons/platform.png"));
+	private ImageIcon languageOutIcon=new ImageIcon(SoftwareReport.class.getResource("/icons/binary.png"));
+	private ImageIcon languageTransitionIcon=new ImageIcon(SoftwareReport.class.getResource("/icons/binaryTransition.png"));
+	private ImageIcon platformTransitionIcon=new ImageIcon(SoftwareReport.class.getResource("/icons/platformTransition.png"));
+	private ImageIcon backIcon=new ImageIcon(SoftwareReport.class.getResource("/icons/backSoftware.png"));
 	private JButton btnOperativeSystem;
 	private JPanel mostUsedSystemPanel;
 	private JLabel lblTitle;

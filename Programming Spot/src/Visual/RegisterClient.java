@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -30,8 +32,6 @@ import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
 import Logico.Client;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class RegisterClient extends JDialog {
 
@@ -45,10 +45,10 @@ public class RegisterClient extends JDialog {
     private int y;
     private JLabel lblNewLabel;
     private JLabel lblClose;
-    private ImageIcon windowsCloseIcon =new ImageIcon("src/icons/close.png");
-    private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-    private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-    private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+    private ImageIcon windowsCloseIcon =new ImageIcon(RegisterClient.class.getResource("/icons/close.png"));
+    private ImageIcon workerIcon = new ImageIcon(RegisterClient.class.getResource("/icons/worker.png"));
+    private ImageIcon contractIcon =new ImageIcon(RegisterClient.class.getResource("/icons/contract.png"));
+    private ImageIcon clientIcon = new ImageIcon(RegisterClient.class.getResource("/icons/client.png"));
     private JTextField tfdName;
     private JTextField tfdLastName;
     private JFormattedTextField formatedPhone;
@@ -339,7 +339,7 @@ public class RegisterClient extends JDialog {
 		JLabel lblUserIcon = new JLabel("");
 		lblUserIcon.setBounds(519, 13, 64, 64);
 		panel.add(lblUserIcon);
-		lblUserIcon.setIcon(new ImageIcon("src/icons/registerClient2x.png"));
+		lblUserIcon.setIcon(new ImageIcon(RegisterClient.class.getResource("/icons/registerClient2x.png")));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -420,7 +420,7 @@ public class RegisterClient extends JDialog {
 		JLabel lblDominicanIcon = new JLabel("");
 		lblDominicanIcon.setBounds(489, 13, 64, 64);
 		panel_1.add(lblDominicanIcon);
-		lblDominicanIcon.setIcon(new ImageIcon("src/icons/domincan.png"));
+		lblDominicanIcon.setIcon(new ImageIcon(RegisterClient.class.getResource("/icons/domincan.png")));
 		
 		JLabel lblParmetros = new JLabel("* -> Par\u00E1metros obligatorios");
 		lblParmetros.setFont(new Font("Tahoma", Font.ITALIC, 13));

@@ -2,37 +2,33 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-
-import Logico.Admin;
-import Logico.Designer;
-import Logico.Planner;
-import Logico.ProjectBoss;
-import Logico.SoftwareTester;
-import Logico.Worker;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.event.MouseMotionAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -40,10 +36,12 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import javax.swing.UIManager;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import Logico.Admin;
+import Logico.Designer;
+import Logico.Planner;
+import Logico.ProjectBoss;
+import Logico.SoftwareTester;
+import Logico.Worker;
 
 
 public class WorkerReports extends JDialog {
@@ -66,8 +64,8 @@ public class WorkerReports extends JDialog {
 	private JLabel lbl7;
 	private JLabel lbl8;
 	private JLabel lbl9;
-	private ImageIcon icon = new ImageIcon("src/icons/backTransition.png");
-    private ImageIcon backIcon = new ImageIcon("src/icons/back.png");
+	private ImageIcon icon = new ImageIcon(WorkerReports.class.getResource("/icons/backTransition.png"));
+    private ImageIcon backIcon = new ImageIcon(WorkerReports.class.getResource("/icons/back.png"));
 	private JLabel lblBack;
 	private JLabel lblCumpleaos;
 	private JLabel lblEstadsticas;
@@ -105,9 +103,9 @@ public class WorkerReports extends JDialog {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				lblBirth.setIcon(new ImageIcon("src/icons/birthday.png"));
-				lblBest.setIcon(new ImageIcon("src/icons/analytics.png"));
-				lblStats.setIcon(new ImageIcon("src/icons/best.png"));
+				lblBirth.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/birthday.png")));
+				lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analytics.png")));
+				lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/best.png")));
 			}
 		});
 		///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
@@ -144,11 +142,11 @@ public class WorkerReports extends JDialog {
 					lblBack3.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mousePressed(MouseEvent e) {
-							lblBack3.setIcon(new ImageIcon("src/icons/backTransition.png"));
+							lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/backTransition.png")));
 						}
 						@Override
 						public void mouseReleased(MouseEvent e) {
-							lblBack3.setIcon(new ImageIcon("src/icons/back.png"));
+							lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
 							panel_3.setVisible(false);
 							activePrincipal();
 							lblBack3.setVisible(false);
@@ -313,13 +311,13 @@ public class WorkerReports extends JDialog {
 				}
 				{
 					JLabel lblNewLabel = new JLabel("");
-					lblNewLabel.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/vectores globos fiesta 5_opt (1).png")));
+					lblNewLabel.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/globos.png")));
 					lblNewLabel.setBounds(70, 0, 50, 71);
 					panel.add(lblNewLabel);
 				}
 				{
 					JLabel lblNewLabel_1 = new JLabel("");
-					lblNewLabel_1.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/vectores globos fiesta 5_opt (1).png")));
+					lblNewLabel_1.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/globos.png")));
 					lblNewLabel_1.setBounds(414, 0, 50, 71);
 					panel.add(lblNewLabel_1);
 				}
@@ -521,11 +519,11 @@ public class WorkerReports extends JDialog {
 			lblBest.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					lblBest.setIcon(new ImageIcon("src/icons/analyticsmpuseover.png"));
+					lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analyticsmpuseover.png")));
 				}
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					lblBest.setIcon(new ImageIcon("src/icons/analytics.png"));
+					lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analytics.png")));
 					panel_2.setVisible(true);
 					lblTitle.setText("Estadísticas");
 					disablePrincipal();
@@ -534,7 +532,7 @@ public class WorkerReports extends JDialog {
 			lblBest.addMouseMotionListener(new MouseMotionAdapter() {
 				@Override
 				public void mouseMoved(MouseEvent e) {
-					lblBest.setIcon(new ImageIcon("src/icons/analyticsmousemotion.png"));
+					lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analyticsmousemotion.png")));
 				}
 			});
 			lblBest.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/analytics.png")));
@@ -546,7 +544,7 @@ public class WorkerReports extends JDialog {
 			lblStats.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					lblStats.setIcon(new ImageIcon("src/icons/bestmouseover.png"));
+					lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/bestmouseover.png")));
 				}
 				@Override
 				public void mouseReleased(MouseEvent e) {
@@ -560,7 +558,7 @@ public class WorkerReports extends JDialog {
 			lblStats.addMouseMotionListener(new MouseMotionAdapter() {
 				@Override
 				public void mouseMoved(MouseEvent e) {
-					lblStats.setIcon(new ImageIcon("src/icons/bestmousemotion.png"));
+					lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/bestmousemotion.png")));
 				}
 			});
 			lblStats.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/best.png")));
