@@ -35,6 +35,7 @@ import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
 import Logico.Contract;
+import Logico.Worker;
 
 public class ListContract extends JDialog {
 
@@ -234,6 +235,7 @@ public class ListContract extends JDialog {
 									if (finishContract(index)) {
 										int i  = Admin.getInstance().getClients().indexOf(Admin.getInstance().getContracts().get(index));
 										Admin.getInstance().getClients().get(i).setActiveProjects(Admin.getInstance().getClients().get(i).getActiveProjects() - 1);
+										freeWorkers(Admin.getInstance().getContracts().get(index));
 										JOptionPane.showMessageDialog(null, "Se ha finalizado el contrato", null, JOptionPane.INFORMATION_MESSAGE, null);
 									}
 									else {
@@ -454,5 +456,12 @@ public class ListContract extends JDialog {
 		String aux1 = contract.getContractID();
 		aux = aux1.substring(0, number);
 		return aux;
+	}
+	private void freeWorkers(Contract contract) {
+		ArrayList<Worker> workers = contract.getProject().getWorkers();
+		for (Worker i: workers) {
+			int index = Admin.getInstance().getWorkers().indexOf(i);
+			Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()-1);
+		}
 	}
 }

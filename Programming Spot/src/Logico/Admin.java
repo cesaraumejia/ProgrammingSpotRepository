@@ -140,20 +140,34 @@ public class Admin implements Serializable{
 	   ArrayList<Worker>projectWorkers=new ArrayList<>();
 	   if(workersAvailable(boss, pr1, pr2)){
 	       projectWorkers.add(boss);
+	       int index = Admin.getInstance().getWorkers().indexOf(boss);
+	       Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()+1);
 	       projectWorkers.add(pr1);
+	       index = Admin.getInstance().getWorkers().indexOf(pr1);
+	       Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()+1);
 	       projectWorkers.add(pr2);
+	       index = Admin.getInstance().getWorkers().indexOf(pr2);
+	       Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()+1);
 	       if(planner!=null){
-	    	   if(planner.getAvailable() < 3)
+	    	   if(planner.getAvailable() < 3) {
 	    		   projectWorkers.add(planner);
-		       
+	    	       index = Admin.getInstance().getWorkers().indexOf(planner);
+	    	       Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()+1);  
+	    	   }
 		   }
 		   if(designer!=null){
-			   if(designer.getAvailable() < 2)
+			   if(designer.getAvailable() < 2) {
 				   projectWorkers.add(designer);
+			       index = Admin.getInstance().getWorkers().indexOf(designer);
+			       Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()+1);
+			   }
 		   }
 		   if(tester!=null){
-			   if(tester.getAvailable() < 3)
+			   if(tester.getAvailable() < 3) {
 				   projectWorkers.add(tester);
+			       index = Admin.getInstance().getWorkers().indexOf(tester);
+			       Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()+1);
+			   }
 		   }
 		   createdProject = new Project(projectWorkers, name, programmingType,state, programmingLanguage);
 		   
@@ -297,12 +311,15 @@ public class Admin implements Serializable{
 		for (Worker i: Admin.getInstance().getWorkers()){
 			float counter=0;
 			for (Contract j: Admin.getInstance().getContracts()){
-				if (j.getProject().getWorkers().contains(i)){
+				if (j.getProject().getWorkers().contains(i) && j.getProject().getState().equals("Finalizado")){
 					if (j.getLostMoney()==0)
 						counter++;
 				}
 			}
-			float eficiency = (counter/(i.getContract().size()+1));
+			float eficiency = 0f;
+			if (i.getContract().size()>0)
+				eficiency = (counter/(i.getContract().size()))*100;
+			
 			i.setEficiency(eficiency);
 			if (eficiency>70)
 				i.setAnualEvaluation("Cumplidor");

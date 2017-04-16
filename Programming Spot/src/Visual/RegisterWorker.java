@@ -665,7 +665,7 @@ public class RegisterWorker extends JDialog {
 						if (!registerModify) {
 					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals(""))
 							JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-					    else if ((jefeProyecto.isSelected())||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals("")))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))) {
+					    else if ((programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals("")))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))) {
 					    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 					    }
 					    else if (!validarFecha(dateChooser))
@@ -765,6 +765,7 @@ public class RegisterWorker extends JDialog {
 						    	worker.setBirthday(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
 						    	worker.setTelefono(telefonoText.getText());
 						    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
+						    	worker.setAvailable(0);
 						    	Admin.getInstance().getWorkers().remove(index);
 						    	Admin.getInstance().getWorkers().add(worker);
 						    	//Guardado

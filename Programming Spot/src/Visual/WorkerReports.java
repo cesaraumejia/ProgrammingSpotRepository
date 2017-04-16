@@ -142,20 +142,20 @@ public class WorkerReports extends JDialog {
 						lbl1 = new JLabel("No disponible");
 						lbl1.setHorizontalAlignment(SwingConstants.CENTER);
 						lbl1.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-						lbl1.setBounds(21, 11, 109, 25);
+						lbl1.setBounds(10, 11, 136, 25);
 						panel_1.add(lbl1);
 					}
 					{
 						lbl4 = new JLabel("No disponible");
 						lbl4.setHorizontalAlignment(SwingConstants.CENTER);
-						lbl4.setBounds(21, 59, 109, 25);
+						lbl4.setBounds(10, 59, 136, 25);
 						panel_1.add(lbl4);
 						lbl4.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 					}
 					{
 						lbl7 = new JLabel("No disponible");
 						lbl7.setHorizontalAlignment(SwingConstants.CENTER);
-						lbl7.setBounds(21, 104, 109, 25);
+						lbl7.setBounds(10, 104, 136, 25);
 						panel_1.add(lbl7);
 						lbl7.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 					}
@@ -598,14 +598,15 @@ public class WorkerReports extends JDialog {
 			String aux1 = format.format(today);
 			String[] separateDate = aux1.split("/");
 			String[] separate = i.getBirthday().split("/");
-			String a = separate[0]+"/"+separate[1]+"/"+separateDate[2];
+			String a = ListContract.giveMonth(Integer.parseInt(separate[1]))+" "+separate[0]+", "+separateDate[2];
+			String b = ListContract.giveMonth(Integer.parseInt(separateDate[1]))+" "+separateDate[0]+", "+separateDate[2];
 			@SuppressWarnings("deprecation")
 			long time = Date.parse(a);
 			@SuppressWarnings("deprecation")
-			long timeToday = Date.parse(aux1);
+			long timeToday = Date.parse(b);
 			long aux2 = time - timeToday;
 			long days = TimeUnit.DAYS.convert(aux2, TimeUnit.MILLISECONDS);
-			i.setDaysLeft(days/30);
+			i.setDaysLeft(days);
 		}
 	}
 	private void setWorkers() {

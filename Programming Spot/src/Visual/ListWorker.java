@@ -363,9 +363,10 @@ public class ListWorker extends JDialog {
 						if (table.getSelectedRow()>=0) {
 							int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar este Trabajador?", null, JOptionPane.WARNING_MESSAGE);
 							if(JOptionPane.OK_OPTION==resp) {
-						     Worker worker = Admin.getInstance().getWorkers().get(table.getSelectedRow());
-						     if (!isWorking(worker)) {
+						     Worker worker = notDeleted().get(table.getSelectedRow());
+						       if (!isWorking(worker)) {
 						     deleted.add(worker);
+						     Admin.getInstance().getWorkers().remove(worker);
 						     filter();
 								JOptionPane.showMessageDialog(null, "Se ha eliminado este trabajador", null, JOptionPane.INFORMATION_MESSAGE, null);
 						     }
