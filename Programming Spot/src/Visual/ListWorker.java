@@ -364,9 +364,14 @@ public class ListWorker extends JDialog {
 							int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar este Trabajador?", null, JOptionPane.WARNING_MESSAGE);
 							if(JOptionPane.OK_OPTION==resp) {
 						     Worker worker = Admin.getInstance().getWorkers().get(table.getSelectedRow());
+						     if (!isWorking(worker)) {
 						     deleted.add(worker);
 						     filter();
 								JOptionPane.showMessageDialog(null, "Se ha eliminado este trabajador", null, JOptionPane.INFORMATION_MESSAGE, null);
+						     }
+						     else {
+									JOptionPane.showMessageDialog(null, "No se puede eliminar este trabajador", null, JOptionPane.WARNING_MESSAGE, null); 
+						     }
 							}
 						}
 					}
@@ -519,6 +524,14 @@ public class ListWorker extends JDialog {
 	   	    row1[2]=pr.getProject().getProgrammingLanguage();
 	   	    tableModel1.addRow(row1);
 	   	}
+    }
+    private boolean isWorking(Worker worker) {
+    	boolean aux = false;
+    	for (Contract i: Admin.getInstance().getContracts()) {
+    		if (i.getProject().getState().equals("En progreso") && i.getProject().getWorkers().contains(worker))
+    			aux = true;
+    	}
+    	return aux;
     }
     
 }
