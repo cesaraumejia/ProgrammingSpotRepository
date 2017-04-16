@@ -9,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,10 +23,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.jvnet.substance.SubstanceLookAndFeel;
+
 import Logico.Admin;
 
 
-public class MainVisual extends JFrame {
+public class MainVisual extends JFrame implements Runnable{
 
 	/**
      * 
@@ -84,8 +89,8 @@ public class MainVisual extends JFrame {
         private ImageIcon windowsCloseIcon =new ImageIcon(MainVisual.class.getResource("/icons/close.png"));
         private ImageIcon minimizeIcon=new ImageIcon(MainVisual.class.getResource("/icons/minimize.png"));
         private ImageIcon adminIcon=new ImageIcon(MainVisual.class.getResource("/icons/admin.png"));
-	private ImageIcon gananciasIcon=new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png"));
-	private ImageIcon workersBigIcon=new ImageIcon(MainVisual.class.getResource("/icons/workers.png"));
+        private ImageIcon gananciasIcon=new ImageIcon(MainVisual.class.getResource("/icons/ganancias.png"));
+        private ImageIcon workersBigIcon=new ImageIcon(MainVisual.class.getResource("/icons/workers.png"));
         private ImageIcon frameIcon=new ImageIcon(MainVisual.class.getResource("/icons/programming.png"));
 
         private JPanel workersPanel;
@@ -112,9 +117,25 @@ public class MainVisual extends JFrame {
         private JLabel lblNewLabel_5;
         private JLabel lblNewLabel_6;
         private JLabel lblNewLabel_7;
+        private JPanel clockPanel;
+        private JLabel lblMinutes;
+        private JLabel lblHours;
+        private JLabel lblSeconds;
+        private JLabel lblWeekDay;
+        private JLabel lblDay;
+        private JLabel lblYear;
+        private JLabel lblMonth;
         
-
-
+        private String hours;
+        private String minutes;
+        private String seconds;
+        private String year;
+        private String weekDay;
+        private String day;
+        private String month;
+        private Thread thread;  
+        private String meridian;
+        private JLabel lblAdministracion;
 	/**
 	 * Launch the application.
 	 */
@@ -122,6 +143,7 @@ public class MainVisual extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.CremeSkin");
 					Admin.getInstance().loadEverything();
 					frame = new MainVisual();
 					frame.setVisible(true);
@@ -676,7 +698,9 @@ public class MainVisual extends JFrame {
 		lblGananciasYPrdidas.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 		
 		lblAdminIcon = new JLabel("");
-		lblAdminIcon.setBounds(219, 13, 24, 24);
+		lblAdminIcon.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAdminIcon.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblAdminIcon.setBounds(94, 13, 149, 24);
 		rightPanel.add(lblAdminIcon);
 		lblAdminIcon.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
@@ -688,7 +712,12 @@ public class MainVisual extends JFrame {
 			    lblSoftwareIcon.setVisible(true);
 			    lblAdminIcon.setVisible(false);
 			    lblAdminExtIcon.setVisible(true);
+			    lblAdministracion.setForeground(new Color(0,0,0));
 
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblAdministracion.setForeground(new Color(255,255,255));
 			}
 		});
 		lblAdminIcon.setIcon(adminIcon);
@@ -754,7 +783,8 @@ public class MainVisual extends JFrame {
 		lblSoftwareIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/software.png")));
 		
 		lblAdminExtIcon = new JLabel("");
-		lblAdminExtIcon.setBounds(219, 13, 24, 24);
+		lblAdminExtIcon.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAdminExtIcon.setBounds(94, 13, 149, 24);
 		rightPanel.add(lblAdminExtIcon);
 		lblAdminExtIcon.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
@@ -766,11 +796,20 @@ public class MainVisual extends JFrame {
 			    lblSoftwareIcon.setVisible(false);
 			    lblAdminIcon.setVisible(true);
 			    lblAdminExtIcon.setVisible(false);
-
+			    lblAdministracion.setForeground(new Color(0,0,0));
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				lblAdministracion.setForeground(new Color(255,255,255));
 			}
 		});
 		lblAdminExtIcon.setVisible(false);
 		lblAdminExtIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/admin1.png")));
+		
+		lblAdministracion = new JLabel("Administraci\u00F3n");
+		lblAdministracion.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		lblAdministracion.setBounds(104, 18, 105, 14);
+		rightPanel.add(lblAdministracion);
 		
 		panelDirectAccess = new JPanel();
 		panelDirectAccess.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180), 4), "Accesos Directos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -901,9 +940,56 @@ public class MainVisual extends JFrame {
 		lblNewLabel_7.setBounds(395, 599, 253, 25);
 		panelDirectAccess.add(lblNewLabel_7);
 		
+		clockPanel = new JPanel();
+		clockPanel.setBackground(new Color(153, 153, 153));
+		clockPanel.setBounds(panel.getWidth() - 320, 435, 349, 216);
+		panel.add(clockPanel);
+		clockPanel.setLayout(null);
+		
+		lblHours = new JLabel("55");
+		lblHours.setFont(new Font("Malgun Gothic Semilight", Font.BOLD, 90));
+		lblHours.setBounds(22, 60, 124, 96);
+		clockPanel.add(lblHours);
+		
+		lblMinutes = new JLabel("55");
+		lblMinutes.setFont(new Font("Malgun Gothic Semilight", Font.BOLD, 90));
+		lblMinutes.setBounds(167, 60, 115, 96);
+		clockPanel.add(lblMinutes);
+		
+		JLabel lbl = new JLabel(":");
+		lbl.setFont(new Font("Malgun Gothic Semilight", Font.BOLD, 90));
+		lbl.setBounds(132, 60, 25, 96);
+		clockPanel.add(lbl);
+		
+		lblSeconds = new JLabel("55");
+		lblSeconds.setFont(new Font("Malgun Gothic Semilight", Font.PLAIN, 27));
+		lblSeconds.setBounds(282, 116, 30, 37);
+		clockPanel.add(lblSeconds);
+		
+		lblWeekDay = new JLabel("Mi\u00E9rcoles");
+		lblWeekDay.setFont(new Font("Dialog", Font.PLAIN, 24));
+		lblWeekDay.setBounds(22, 167, 124, 38);
+		clockPanel.add(lblWeekDay);
+		
+		lblDay = new JLabel("21");
+		lblDay.setFont(new Font("Malgun Gothic Semilight", Font.BOLD, 34));
+		lblDay.setBounds(142, 159, 46, 44);
+		clockPanel.add(lblDay);
+		
+		lblYear = new JLabel("2017");
+		lblYear.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
+		lblYear.setBounds(189, 167, 46, 14);
+		clockPanel.add(lblYear);
+		
+		lblMonth = new JLabel("Septiembre");
+		lblMonth.setFont(new Font("Trebuchet MS", Font.ITALIC, 14));
+		lblMonth.setBounds(189, 184, 93, 14);
+		clockPanel.add(lblMonth);
+		
 		image = new ImageIcon("src/icons/code.png");
 		
-		
+		thread = new Thread(this);
+		thread.start();
 		
 	}
 
@@ -944,5 +1030,85 @@ public class MainVisual extends JFrame {
 	public JPanel getWorkersPanel() {
 	    return workersPanel;
 	}
-	
+	@Override
+	public void run() {
+		Thread currentThread = Thread.currentThread();
+		while(currentThread == thread){
+			computeTime();
+			lblHours.setText(hours);
+			lblMinutes.setText(minutes);
+			lblSeconds.setText(seconds);
+			lblWeekDay.setText(weekDay);
+			lblDay.setText(day);
+			lblMonth.setText(month);
+			lblYear.setText(year);
+			try {
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	private void computeTime() {
+		Calendar myCalendar = new GregorianCalendar();
+		Date currentDate = new Date();
+		
+		myCalendar.setTime(currentDate);
+		meridian = myCalendar.get(Calendar.AM_PM) == Calendar.AM?"AM":"PM";
+		
+		if(meridian.equals("PM")){
+			int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+			hours = hour > 9?""+hour:"0"+hour;
+		}else{
+            hours = myCalendar.get(Calendar.HOUR_OF_DAY)>9?""+myCalendar.get(Calendar.HOUR_OF_DAY):"0"+myCalendar.get(Calendar.HOUR_OF_DAY); 
+        }
+        minutes = myCalendar.get(Calendar.MINUTE)>9?""+myCalendar.get(Calendar.MINUTE):"0"+myCalendar.get(Calendar.MINUTE);
+        seconds = myCalendar.get(Calendar.SECOND)>9?""+myCalendar.get(Calendar.SECOND):"0"+myCalendar.get(Calendar.SECOND);
+		
+        day = String.valueOf(myCalendar.get(Calendar.DAY_OF_MONTH));
+        int m = myCalendar.get(Calendar.MONTH);
+        if(m == 1)
+        	month = "Enero";
+        else if(m == 2)
+        	month = "Febrero";
+        else if(m == 3)
+        	month = "Marzo";
+        else if(m == 4)
+        	month = "Abril";
+        else if(m == 5)
+        	month = "Mayo";
+        else if(m == 6)
+        	month = "Junio";
+        else if(m == 7)
+        	month = "Julio";
+        else if(m == 8)
+        	month = "Agosto";
+        else if(m == 9)
+        	month = "Septiembre";
+        else if(m == 10)
+        	month = "Octubre";
+        else if(m == 11)
+        	month = "Noviembre";
+        else if(m == 12)
+        	month = "Diciembre";
+        
+        year = String.valueOf(myCalendar.get(Calendar.YEAR));
+        
+        int weekday =  myCalendar.get(Calendar.DAY_OF_WEEK);
+        if(weekday == 1)
+        	weekDay = "Domingo";
+        else if(weekday == 2)
+        	weekDay = "Lunes";
+        else if(weekday == 3)
+        	weekDay = "Martes";
+        else if(weekday == 4)
+        	weekDay = "Miércoles";
+        else if(weekday == 5)
+        	weekDay = "Jueves";
+        else if(weekday == 6)
+        	weekDay = "Viernes";
+        else if(weekday == 7)
+        	weekDay = "Sábado";
+        
+	}
 }
