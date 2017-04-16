@@ -123,97 +123,10 @@ public class WorkerReports extends JDialog {
 			panel_2.setBackground(new Color(220,220,220));
 			panel_2.setVisible(false);
 			{
-				panel = new JPanel();
-				panel.setVisible(false);
 				panel_3 = new JPanel();
 				panel_3.setVisible(false);
-				panel_3.setBackground(new Color(220,220,220));
-				panel_3.setBounds(10, 40, 536, 259);
-				contentPanel.add(panel_3);
-				panel_3.setLayout(null);
-				{
-					lblNewLabel_2 = new JLabel("");
-					lblNewLabel_2.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/bestWorker_opt.png")));
-					lblNewLabel_2.setBounds(226, 0, 103, 122);
-					panel_3.add(lblNewLabel_2);
-				}
-				{
-					lblBack3 = new JLabel("");
-					lblBack3.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mousePressed(MouseEvent e) {
-							lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/backTransition.png")));
-						}
-						@Override
-						public void mouseReleased(MouseEvent e) {
-							lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
-							panel_3.setVisible(false);
-							activePrincipal();
-							lblBack3.setVisible(false);
-						}
-					});
-					lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
-					lblBack3.setBounds(0, 0, 32, 34);
-					panel_3.add(lblBack3);
-				}
-				{
-					bestWorkerName = new JLabel("No Disponible");
-					bestWorkerName.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-					bestWorkerName.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerName.setBounds(208, 144, 129, 34);
-					panel_3.add(bestWorkerName);
-				}
-				{
-					bestWorkerEficiency = new JLabel("No Disponible");
-					bestWorkerEficiency.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-					bestWorkerEficiency.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerEficiency.setBounds(33, 144, 129, 34);
-					panel_3.add(bestWorkerEficiency);
-				}
-				{
-					bestWorkerType = new JLabel("No Disponible");
-					bestWorkerType.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-					bestWorkerType.setHorizontalAlignment(SwingConstants.CENTER);
-					bestWorkerType.setBounds(384, 144, 129, 34);
-					panel_3.add(bestWorkerType);
-				}
-				
-				JButton btnBonificacion = new JButton("Dar Bonificaci\u00F3n");
-				btnBonificacion.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (!bestWorkerName.getText().equals("No Disponible")) {
-							float aux = Admin.getInstance().givePrize();
-							JOptionPane.showMessageDialog(null, "Se le ha dado la bonificación al trabajador. El monto fue de "+aux, null, JOptionPane.INFORMATION_MESSAGE, null);
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "No hay ningún trabajador destacado actualmente", null, JOptionPane.INFORMATION_MESSAGE, null);
-						}
-					}
-				});
-				btnBonificacion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-				btnBonificacion.setBounds(190, 205, 163, 43);
-				panel_3.add(btnBonificacion);
-				{
-					lblNewLabel_5 = new JLabel("Eficiencia");
-					lblNewLabel_5.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
-					lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-					lblNewLabel_5.setBounds(55, 111, 87, 34);
-					panel_3.add(lblNewLabel_5);
-				}
-				{
-					lblNombre = new JLabel("Nombre");
-					lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-					lblNombre.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
-					lblNombre.setBounds(229, 111, 87, 34);
-					panel_3.add(lblNombre);
-				}
-				{
-					lblTipo = new JLabel("Tipo");
-					lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
-					lblTipo.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
-					lblTipo.setBounds(400, 111, 87, 34);
-					panel_3.add(lblTipo);
-				}
+				panel = new JPanel();
+				panel.setVisible(false);
 				panel.setBounds(10, 40, 536, 259);
 				contentPanel.add(panel);
 				panel.setBackground(new Color(220,220,220));
@@ -384,6 +297,93 @@ public class WorkerReports extends JDialog {
 				label_1.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/right.png")));
 				label_1.setBounds(13, 209, 25, 27);
 				panel.add(label_1);
+				panel_3.setBackground(new Color(220,220,220));
+				panel_3.setBounds(10, 40, 536, 259);
+				contentPanel.add(panel_3);
+				panel_3.setLayout(null);
+				{
+					lblNewLabel_2 = new JLabel("");
+					lblNewLabel_2.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/bestWorker_opt.png")));
+					lblNewLabel_2.setBounds(226, 0, 103, 122);
+					panel_3.add(lblNewLabel_2);
+				}
+				{
+					lblBack3 = new JLabel("");
+					lblBack3.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mousePressed(MouseEvent e) {
+							lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/backTransition.png")));
+						}
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
+							panel_3.setVisible(false);
+							activePrincipal();
+							lblBack3.setVisible(false);
+						}
+					});
+					lblBack3.setIcon(new ImageIcon(WorkerReports.class.getResource("/icons/back.png")));
+					lblBack3.setBounds(0, 0, 32, 34);
+					panel_3.add(lblBack3);
+				}
+				{
+					bestWorkerName = new JLabel("No Disponible");
+					bestWorkerName.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+					bestWorkerName.setHorizontalAlignment(SwingConstants.CENTER);
+					bestWorkerName.setBounds(208, 144, 129, 34);
+					panel_3.add(bestWorkerName);
+				}
+				{
+					bestWorkerEficiency = new JLabel("No Disponible");
+					bestWorkerEficiency.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+					bestWorkerEficiency.setHorizontalAlignment(SwingConstants.CENTER);
+					bestWorkerEficiency.setBounds(33, 144, 129, 34);
+					panel_3.add(bestWorkerEficiency);
+				}
+				{
+					bestWorkerType = new JLabel("No Disponible");
+					bestWorkerType.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+					bestWorkerType.setHorizontalAlignment(SwingConstants.CENTER);
+					bestWorkerType.setBounds(384, 144, 129, 34);
+					panel_3.add(bestWorkerType);
+				}
+				
+				JButton btnBonificacion = new JButton("Dar Bonificaci\u00F3n");
+				btnBonificacion.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (!bestWorkerName.getText().equals("No Disponible")) {
+							float aux = Admin.getInstance().givePrize();
+							JOptionPane.showMessageDialog(null, "Se le ha dado la bonificación al trabajador. El monto fue de "+aux, null, JOptionPane.INFORMATION_MESSAGE, null);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "No hay ningún trabajador destacado actualmente", null, JOptionPane.INFORMATION_MESSAGE, null);
+						}
+					}
+				});
+				btnBonificacion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+				btnBonificacion.setBounds(190, 205, 163, 43);
+				panel_3.add(btnBonificacion);
+				{
+					lblNewLabel_5 = new JLabel("Eficiencia");
+					lblNewLabel_5.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+					lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+					lblNewLabel_5.setBounds(55, 111, 87, 34);
+					panel_3.add(lblNewLabel_5);
+				}
+				{
+					lblNombre = new JLabel("Nombre");
+					lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+					lblNombre.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+					lblNombre.setBounds(229, 111, 87, 34);
+					panel_3.add(lblNombre);
+				}
+				{
+					lblTipo = new JLabel("Tipo");
+					lblTipo.setHorizontalAlignment(SwingConstants.CENTER);
+					lblTipo.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+					lblTipo.setBounds(400, 111, 87, 34);
+					panel_3.add(lblTipo);
+				}
 			}
 			panel_2.setBounds(10, 40, 536, 259);
 			contentPanel.add(panel_2);
