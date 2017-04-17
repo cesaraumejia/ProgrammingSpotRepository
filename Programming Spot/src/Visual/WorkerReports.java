@@ -668,7 +668,6 @@ public class WorkerReports extends JDialog {
 		int counter = 0;
 		for (int i=0;i<Admin.getInstance().getWorkers().size();i++) {
 			aux += Admin.getInstance().getWorkers().get(i).getEficiency();
-			if (Admin.getInstance().getWorkers().get(i).getEficiency()!=0)
 				counter++;
 		}
 		if (counter==0)

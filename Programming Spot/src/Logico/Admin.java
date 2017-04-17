@@ -126,6 +126,7 @@ public class Admin implements Serializable{
 			for (Worker i: project.getWorkers()) {
 				int index = Admin.getInstance().getWorkers().indexOf(i);
 				Admin.getInstance().getWorkers().get(index).getContract().add(myNewContract);
+				i.getContract().add(myNewContract);
 			}
 	    }
 	    return contractCreated;
@@ -261,11 +262,8 @@ public class Admin implements Serializable{
 	}
 	public float givePrize() {
 		float aux = 0f;
-		for (Contract i: contracts) {
-			for (Worker j: i.getProject().getWorkers()) {
-				if (j==findBestWorker())
-					aux += i.getProject().getTotalPrice()*0.1f;
-			}
+		for (Contract i: findBestWorker().contract) {
+			aux += i.getFinalPrice()*0.1;
 		}
 		return aux;
 	}
@@ -385,7 +383,7 @@ public class Admin implements Serializable{
 		for (Worker i: Admin.getInstance().getWorkers()){
 			float counter=0;
 			for (Contract j: Admin.getInstance().getContracts()){
-				if (j.getProject().getWorkers().contains(i) && j.getProject().getState().equals("Finalizado")){
+				if (j.getProject().getWorkerName(i.getFirstName()) && j.getProject().getState().equals("Finalizado")){
 					if (j.getLostMoney()==0)
 						counter++;
 				}

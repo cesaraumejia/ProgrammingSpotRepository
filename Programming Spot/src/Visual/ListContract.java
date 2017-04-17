@@ -482,8 +482,7 @@ public class ListContract extends JDialog {
 		ArrayList<Worker> workers = contract.getProject().getWorkers();
 		for (Worker i: workers) {
 			int index = Admin.getInstance().getWorkers().indexOf(i);
-			if (index!=-1)
-				Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()-1);
+			Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()-1);
 		}
 	}
    private void remove(Contract contract) {

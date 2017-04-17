@@ -498,10 +498,12 @@ public class ListWorker extends JDialog {
 	   	projectsTable.getColumnModel().getColumn(2).setCellRenderer(tcr);
 	   	row1 = new Object[tableModel1.getColumnCount()];
 	   	for (Contract pr : contracts) {
-	   	    row1[0]=pr.getProject().getName();
-	   	    row1[1]=pr.getProject().getProgrammingType();
-	   	    row1[2]=pr.getProject().getProgrammingLanguage();
-	   	    tableModel1.addRow(row1);
+	   		if (pr.getProject().getState().equals("En progreso")) {
+	   			row1[0]=pr.getProject().getName();
+	   			row1[1]=pr.getProject().getProgrammingType();
+	   			row1[2]=pr.getProject().getProgrammingLanguage();
+	   			tableModel1.addRow(row1);
+	   		}
 	   	}
     }
     private boolean isWorking(Worker worker) {

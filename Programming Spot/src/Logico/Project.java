@@ -109,6 +109,14 @@ public class Project implements Serializable{
 	public float earnings(){
 		return calculateBasePrice() - calculate();
 	}
+	public boolean getWorkerName(String name) {
+		boolean aux = false;
+		for (Worker i: workers) {
+			if (i.getFirstName().equals(name))
+				aux = true;
+		}
+		return aux;
+	}
 	
 	
 	
