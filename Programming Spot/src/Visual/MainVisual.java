@@ -140,7 +140,7 @@ public class MainVisual extends JFrame implements Runnable{
         private Thread thread;  
         private String meridian;
         private JLabel lblAdministracion;
-        private JLabel helpIcon;
+        private JLabel helpicon;
         private JLabel help;
 	/**
 	 * Launch the application.
@@ -1014,16 +1014,16 @@ public class MainVisual extends JFrame implements Runnable{
 		help.setBounds(1010, 25, 42, 14);
 		panel.add(help);
 		
-		helpIcon = new JLabel("");
-		helpIcon.addMouseListener(new MouseAdapter() {
+		helpicon = new JLabel("");
+		helpicon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				helpIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/helpeffect.png")));
+				helpicon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/helpeffect.png")));
 				help.setForeground(new Color(255, 255, 255));
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				helpIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
+				helpicon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
 				help.setForeground(new Color(0, 0, 0));
 				if (Desktop.isDesktopSupported()) {
 				    try {
@@ -1035,10 +1035,10 @@ public class MainVisual extends JFrame implements Runnable{
 				}
 			}
 		});
-		helpIcon.setHorizontalAlignment(SwingConstants.RIGHT);
-		helpIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
-		helpIcon.setBounds(1010, 21, 76, 24);
-		panel.add(helpIcon);
+		helpicon.setHorizontalAlignment(SwingConstants.RIGHT);
+		helpicon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
+		helpicon.setBounds(1010, 21, 76, 24);
+		panel.add(helpicon);
 		
 		image = new ImageIcon("src/icons/code.png");
 		
@@ -1165,4 +1165,5 @@ public class MainVisual extends JFrame implements Runnable{
         	weekDay = "Sábado";
         
 	}
+	//Esto es un comentario 
 }
