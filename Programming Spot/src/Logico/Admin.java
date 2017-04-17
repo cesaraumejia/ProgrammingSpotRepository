@@ -295,7 +295,7 @@ public class Admin implements Serializable{
 	private ArrayList<String> getLanguages(){
 	    ArrayList<String> languageList = new ArrayList<>();
 	    for (Contract ct : contracts) {
-		String platform= ct.getProject().getProgrammingType();
+		String platform= ct.getProject().getProgrammingLanguage();
 		languageList.add(platform);
 	    }
 	    return languageList;
@@ -317,6 +317,7 @@ public class Admin implements Serializable{
 	    ReturnableGraphic mostUsedPlatform=new ReturnableGraphic(name, ocurrences);
 	    return mostUsedPlatform;
 	}
+	
 	public ReturnableGraphic getMostUsedLanguage(ArrayList<String>existingLanguages){
 	    ArrayList<String>everyLanguage=getLanguages();
 	    int timesUsed=0;
@@ -358,7 +359,7 @@ public class Admin implements Serializable{
 	public ReturnableGraphic getLessUsedLanguage(ArrayList<String>existingLanguages){
 	    ArrayList<String>everyLanguage=getLanguages();
 	    int timesUsed=0;
-	    int aux=0;
+	    int aux=50;
 	    int lessUsedIndex=0;
 	    for(int i=0; i<existingLanguages.size();i++){
 		    timesUsed=Collections.frequency(everyLanguage, existingLanguages.get(i));
@@ -369,8 +370,8 @@ public class Admin implements Serializable{
 	    }
 	    String name=existingLanguages.get(lessUsedIndex);
 	    int ocurrences=aux;
-	    ReturnableGraphic mostUsedLanguage=new ReturnableGraphic(name, ocurrences);
-	    return mostUsedLanguage;
+	    ReturnableGraphic lessUsedLanguage=new ReturnableGraphic(name, ocurrences);
+	    return lessUsedLanguage;
 	}
 	
 
