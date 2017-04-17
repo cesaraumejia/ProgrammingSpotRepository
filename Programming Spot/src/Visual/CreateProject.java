@@ -77,6 +77,12 @@ public class CreateProject extends JDialog {
     private JComboBox<String> cbxTester;
     private JLabel lblNewLabel_1;
     
+    
+    //Actual Type Filter
+    
+    private String programmerType;
+    private String programmerLanguague;
+    
     public CreateProject() {
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     	setUndecorated(true);
@@ -278,7 +284,7 @@ public class CreateProject extends JDialog {
 		lblClose.setIcon(windowsCloseIcon);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(17, 60, 667, 240);
+		panel.setBounds(17, 42, 667, 240);
 		panel.setBackground(new Color(220, 220, 220));
 		panel.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Detalles del proyecto", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel);
@@ -302,17 +308,17 @@ public class CreateProject extends JDialog {
 
 		tfdTitulo.setColumns(10);
 		
-		JLabel lblTitulo = new JLabel("T\u00EDtulo*:");
+		JLabel lblTitulo = new JLabel("T\u00EDtulo:");
 		lblTitulo.setBounds(10, 40, 75, 16);
 		panel.add(lblTitulo);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 13));
 		
-		JLabel lblTipo = new JLabel("Tipo*:");
+		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTipo.setBounds(10, 87, 75, 16);
 		panel.add(lblTipo);
 		
-		JLabel lblLenguaje = new JLabel("Lenguaje*:");
+		JLabel lblLenguaje = new JLabel("Lenguaje:");
 		lblLenguaje.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblLenguaje.setBounds(10, 131, 75, 16);
 		panel.add(lblLenguaje);
@@ -541,12 +547,13 @@ public class CreateProject extends JDialog {
 		lblNewLabel_1.setBounds(277, 171, 46, 41);
 		panel.add(lblNewLabel_1);
 		
-		fillCbxs();
+		JLabel label = new JLabel("Nota: Todos los campos son obligatorios");
+		label.setBounds(17, 286, 255, 16);
+		contentPane.add(label);
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		
-		JLabel lblParmetros = new JLabel("* -> Par\u00E1metros obligatorios");
-		lblParmetros.setBounds(17, 42, 197, 16);
-		lblParmetros.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		contentPane.add(lblParmetros);
+		fillCbxs();
 	    
 	    
 	    {
@@ -704,6 +711,5 @@ public class CreateProject extends JDialog {
 		   }
 		   return aux;
 	   }
-	
 }
 

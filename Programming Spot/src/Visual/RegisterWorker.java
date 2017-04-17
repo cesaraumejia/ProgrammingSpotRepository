@@ -84,6 +84,7 @@ public class RegisterWorker extends JDialog {
 	private JSpinner horasTrabajo;
 	private JSpinner aniosExperiencia;
 	private JSpinner numero;
+	private JLabel lblRd;
 
 	/**
 	 * Launch the application.
@@ -93,7 +94,7 @@ public class RegisterWorker extends JDialog {
 	 * Create the dialog.
 	 * @throws ParseException 
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
 	public RegisterWorker(final boolean registerModify, final Worker worker) throws ParseException {
 		this.worker = worker;
 		setUndecorated(true);
@@ -243,7 +244,7 @@ public class RegisterWorker extends JDialog {
 			
 			JLabel lblNewLabel_5 = new JLabel("Pago por hora: ");
 			lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNewLabel_5.setBounds(360, 154, 125, 16);
+			lblNewLabel_5.setBounds(360, 155, 110, 16);
 			panel.add(lblNewLabel_5);
 			
 			salario = new JTextField();
@@ -287,6 +288,8 @@ public class RegisterWorker extends JDialog {
 			dateChooser.getDateEditor().setEnabled(false);
 			dateChooser.setBounds(521, 69, 125, 22);
 			dateChooser.getJCalendar().setSelectableDateRange(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1970"), new Date());
+			Date auxDate=new Date();
+			dateChooser.setDate(new Date(auxDate.getYear()-21, 0, 1));
 			panel.add(dateChooser);
 			
 			horasTrabajo = new JSpinner();
@@ -294,6 +297,11 @@ public class RegisterWorker extends JDialog {
 			horasTrabajo.setModel(new SpinnerNumberModel(8, 8, 8, 1));
 			horasTrabajo.setBounds(167, 149, 146, 21);
 			panel.add(horasTrabajo);
+			
+			lblRd = new JLabel("RD$");
+			lblRd.setFont(new Font("Tahoma", Font.BOLD, 13));
+			lblRd.setBounds(472, 156, 32, 14);
+			panel.add(lblRd);
 		}
 		{
 			JLabel lblNewLabel_2 = new JLabel("Nota: Todos los campos son obligatorios");
@@ -581,6 +589,7 @@ public class RegisterWorker extends JDialog {
 		tipoProgramador.setBackground(new Color(230,230,250));
 		tipoProgramador.setVisible(false);
 		tipoProgramador.setBounds(189, 29, 168, 22);
+		((JLabel)tipoProgramador.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(tipoProgramador);
 
 		
@@ -596,6 +605,7 @@ public class RegisterWorker extends JDialog {
 		lenguajeDeProgramacion.setBackground(new Color(230,230,250));
 		lenguajeDeProgramacion.setVisible(false);
 		lenguajeDeProgramacion.setBounds(446, 28, 190, 22);
+		((JLabel)lenguajeDeProgramacion.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lenguajeDeProgramacion);
 
 		
