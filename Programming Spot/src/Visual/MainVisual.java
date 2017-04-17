@@ -145,6 +145,7 @@ public class MainVisual extends JFrame implements Runnable{
 			public void run() {
 				try {
 					SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.CremeSkin");
+					Admin.getInstance().createFilesDirectory();
 					Admin.getInstance().loadEverything();
 					frame = new MainVisual();
 					frame.setVisible(true);
@@ -154,7 +155,6 @@ public class MainVisual extends JFrame implements Runnable{
 					        } else {
 //					            System.err.println("System tray not supported!");
 					        }
-					
 				}
 				catch (Exception e) {
 					e.printStackTrace();

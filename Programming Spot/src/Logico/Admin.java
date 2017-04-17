@@ -1,4 +1,5 @@
 package Logico;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -612,6 +613,26 @@ public class Admin implements Serializable{
 	    } catch (IOException e) {
 		saveContractID();
 	    }
+	}
+	
+	public void createFilesDirectory(){
+	    File theDir = new File("files");
+	 // if the directory does not exist, create it
+	 if (!theDir.exists()) {
+	     System.out.println("creating directory: " + theDir.getName());
+	     boolean result = false;
+	     try{
+	         theDir.mkdir();
+	         result = true;
+	     } 
+	     catch(SecurityException se){
+	         //handle it
+	     }        
+	     if(result) {    
+	         System.out.println("DIR created");  
+	     }
+	 }
+	 
 	}
 	
 	
