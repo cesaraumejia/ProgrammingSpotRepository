@@ -119,7 +119,7 @@ public class CreateContract extends JDialog {
 	    		}
 	    	}
 	    });
-	    buttonPane.setBounds(0, 333, 577, 35);
+	    buttonPane.setBounds(0, 329, 577, 39);
 	    buttonPane.setBackground(new Color(220, 220, 220));
 	    buttonPane.setBorder(new LineBorder(new Color(112, 128, 144), 2));
 	    buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -167,15 +167,12 @@ public class CreateContract extends JDialog {
 				MainVisual.getInstance().getContractPanel().setVisible(true);
 				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
 				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+				//If closed remove project and release workers.
+				Admin.getInstance().removeProject(project);
 				dispose();
 			}
 		});
 		lblClose.setIcon(windowsCloseIcon);
-		
-		lblRegistrarContrato = new JLabel("Registrar Contrato");
-		lblRegistrarContrato.setFont(new Font("Century Schoolbook", Font.PLAIN, 17));
-		lblRegistrarContrato.setBounds(10, 0, 185, 27);
-		topPanel.add(lblRegistrarContrato);
 		
 		JPanel panel = new JPanel();
 		panel.addMouseMotionListener(new MouseMotionAdapter() {
@@ -347,7 +344,7 @@ public class CreateContract extends JDialog {
 		panel.add(lblId);
 		
 		IDLabel = new JLabel("New label");
-		IDLabel.setText(String.valueOf(Contract.IDnumber++));
+		IDLabel.setText(String.valueOf(Contract.IDnumber));
 		IDLabel.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
 		IDLabel.setBounds(104, 23, 150, 14);
 		panel.add(IDLabel);
@@ -454,11 +451,13 @@ public class CreateContract extends JDialog {
 		btnCancel.setBackground(new Color(255,255,240));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Admin.getInstance().getProjects().remove(project);
+			    Admin.getInstance().getProjects().remove(project);
 			    MainVisual.getInstance().getMenuPanel().setVisible(false);
 			    MainVisual.getInstance().getContractPanel().setVisible(true);
 			    MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
 			    MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+			    //If closed remove project and release workers.
+			    Admin.getInstance().removeProject(project);
 			    dispose();
 			}
 		});

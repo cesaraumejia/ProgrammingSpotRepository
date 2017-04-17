@@ -14,7 +14,7 @@ public class Contract implements Serializable{
 	private Project project;  
 	private double finalPrice;
 	private double lostMoney;
-	public static int IDnumber=0;
+	public static int IDnumber=1;
 	private int postpone=0;
 	
 

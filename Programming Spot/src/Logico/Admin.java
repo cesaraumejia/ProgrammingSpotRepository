@@ -176,6 +176,17 @@ public class Admin implements Serializable{
 	    return createdProject;
 	}
 	
+	public void removeProject(Project project){
+	    if(projects.contains(project)){
+		this.projects.remove(project);
+	    }
+	    for (Worker worker : project.getWorkers()) {
+		
+		this.workers.get(this.workers.indexOf(worker)).beAvailable();;
+		
+	    }
+	}
+	
 	///////////////////////////////////Dar el premio al mas destacado///////////////////////////////////////////////////////////////////
 	private Worker findBestWorker() {
 		setEficiency();

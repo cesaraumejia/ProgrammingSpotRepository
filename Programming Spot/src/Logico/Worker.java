@@ -166,6 +166,9 @@ public abstract class Worker implements Serializable{
 		this.available = available;
 	}
 	
+	public void beAvailable(){
+	    this.available--;
+	}
 	
 
 }
