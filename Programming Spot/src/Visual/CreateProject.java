@@ -368,6 +368,8 @@ public class CreateProject extends JDialog {
 		cbxLenguaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//function();
+				cbxProgramador1.removeAllItems();
+				cbxProgramador2.removeAllItems();
 				if ( cbxProgramador2.getSelectedIndex()>0) {
 					String aux = cbxProgramador2.getSelectedItem().toString();
 					cbxProgramador1.removeItem(aux);
