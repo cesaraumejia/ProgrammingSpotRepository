@@ -67,7 +67,6 @@ public class ListWorker extends JDialog {
     private JRadioButton todos;
     private JFormattedTextField busquedaCedula;
     private ArrayList<Worker> deleted = new ArrayList<>();
-    private JButton modificar;
 	/**
 	 * Launch the application.
 	 */
@@ -377,27 +376,6 @@ public class ListWorker extends JDialog {
 						}
 					}
 				});
-				
-				modificar = new JButton("Modificar");
-				modificar.setBackground(new Color(255, 255, 240));
-				modificar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (table.getSelectedRow()>=0) {
-						int index = table.getSelectedRow();
-						Worker work = notDeleted().get(index);
-						RegisterWorker modify;
-						try {
-							modify = new RegisterWorker(true, work);
-							modify.setVisible(true);
-						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						
-						}
-					}
-				});
-				buttonPane.add(modificar);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -520,10 +498,12 @@ public class ListWorker extends JDialog {
 	   	projectsTable.getColumnModel().getColumn(2).setCellRenderer(tcr);
 	   	row1 = new Object[tableModel1.getColumnCount()];
 	   	for (Contract pr : contracts) {
-	   	    row1[0]=pr.getProject().getName();
-	   	    row1[1]=pr.getProject().getProgrammingType();
-	   	    row1[2]=pr.getProject().getProgrammingLanguage();
-	   	    tableModel1.addRow(row1);
+	   		if (pr.getProject().getState().equals("En progreso")) {
+	   			row1[0]=pr.getProject().getName();
+	   			row1[1]=pr.getProject().getProgrammingType();
+	   			row1[2]=pr.getProject().getProgrammingLanguage();
+	   			tableModel1.addRow(row1);
+	   		}
 	   	}
     }
     private boolean isWorking(Worker worker) {
