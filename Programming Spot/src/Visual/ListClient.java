@@ -146,7 +146,7 @@ public class ListClient extends JDialog {
 	mainPanel.setLayout(null);
 	
 	JPanel panelSearchClient = new JPanel();
-	panelSearchClient.setBounds(716, 13, 263, 88);
+	panelSearchClient.setBounds(716, 13, 263, 74);
 	mainPanel.add(panelSearchClient);
 	panelSearchClient.setLayout(null);
 	panelSearchClient.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "B\u00FAsqueda de clientes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -156,11 +156,6 @@ public class ListClient extends JDialog {
 	label.setFont(new Font("Tahoma", Font.BOLD, 11));
 	label.setBounds(10, 37, 46, 14);
 	panelSearchClient.add(label);
-	
-	JLabel lblintroducirCdulaConguiones = new JLabel("*Introducir c\u00E9dula con guiones");
-	lblintroducirCdulaConguiones.setFont(new Font("Tahoma", Font.ITALIC, 10));
-	lblintroducirCdulaConguiones.setBounds(10, 63, 150, 14);
-	panelSearchClient.add(lblintroducirCdulaConguiones);
 	
 	formattedID = new JFormattedTextField(idFormatter);
 	formattedID.addKeyListener(new KeyAdapter() {
@@ -278,6 +273,7 @@ public class ListClient extends JDialog {
 		outContentPanel.add(lblName);
 		
 		tfdName = new JTextField();
+		tfdName.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdName.setBackground(new Color(220, 220, 220));
 		tfdName.setEditable(false);
 		tfdName.setBounds(42, 140, 116, 22);
@@ -289,6 +285,7 @@ public class ListClient extends JDialog {
 		outContentPanel.add(lblPrice);
 		
 		tfdPrice = new JTextField();
+		tfdPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdPrice.setBackground(new Color(220, 220, 220));
 		tfdPrice.setEditable(false);
 		tfdPrice.setBounds(42, 200, 116, 22);
@@ -300,6 +297,7 @@ public class ListClient extends JDialog {
 		outContentPanel.add(lblDeliverDate);
 		
 		tfdDeliverDate = new JTextField();
+		tfdDeliverDate.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdDeliverDate.setEditable(false);
 		tfdDeliverDate.setBackground(new Color(220, 220, 220));
 		tfdDeliverDate.setBounds(42, 260, 116, 22);
@@ -311,6 +309,7 @@ public class ListClient extends JDialog {
 		outContentPanel.add(lblPostpone);
 		
 		tfdPostpone = new JTextField();
+		tfdPostpone.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdPostpone.setBackground(new Color(220, 220, 220));
 		tfdPostpone.setEditable(false);
 		tfdPostpone.setBounds(42, 320, 116, 22);
@@ -460,7 +459,7 @@ public class ListClient extends JDialog {
     private void loadSideParams(){
 	    tfdName.setText(selectedContract.getProject().getName());
 		    tfdDeliverDate.setText(selectedContract.getFinalDate());
-		    tfdPrice.setText(String.valueOf(selectedContract.getFinalPrice()));
+		    tfdPrice.setText(String.format("%.2f", selectedContract.getFinalPrice()));
 		    if(selectedContract.getPostpone()>=1){
 			tfdPostpone.setText("Si");
 		    }else{

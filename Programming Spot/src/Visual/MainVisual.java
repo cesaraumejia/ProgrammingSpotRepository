@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.MouseInfo;
+import java.awt.SystemTray;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -147,6 +148,13 @@ public class MainVisual extends JFrame implements Runnable{
 					Admin.getInstance().loadEverything();
 					frame = new MainVisual();
 					frame.setVisible(true);
+					 if (SystemTray.isSupported() && Admin.getInstance().contractsExpiringSoon()) {
+					            TrayIconDemo td = new TrayIconDemo();
+					            td.displayTray();
+					        } else {
+//					            System.err.println("System tray not supported!");
+					        }
+					
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -1121,4 +1129,6 @@ public class MainVisual extends JFrame implements Runnable{
         	weekDay = "Sábado";
         
 	}
+	
+	
 }

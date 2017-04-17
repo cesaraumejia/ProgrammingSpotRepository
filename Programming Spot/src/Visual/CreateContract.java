@@ -323,6 +323,7 @@ public class CreateContract extends JDialog {
 						Admin.getInstance().getContracts().get(index).setFinalPrice(Double.parseDouble(priceLabel.getText()));
 						JOptionPane.showMessageDialog(null, "Se ha pospuesto correctamente el proyecto","", JOptionPane.INFORMATION_MESSAGE, null);
 						Admin.getInstance().getContracts().get(index).setPostpone(1);
+						
 						//Guardado
 						Admin.getInstance().saveContracts();
 						Admin.getInstance().saveContractID();
@@ -515,7 +516,12 @@ public class CreateContract extends JDialog {
     	}		
     }
     private void load () {
-         proyecto.setText(project.getName());
+	try{
+	        proyecto.setText(project.getName());
+	}catch(NullPointerException e){
+	    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar crear el proyecto, porfavor vuelva a intentarlo","Error Desconocido", JOptionPane.INFORMATION_MESSAGE, null);
+
+	}
          tipo.setText(project.getProgrammingType());
          lenguaje.setText(project.getProgrammingLanguage());
     }
@@ -622,7 +628,8 @@ public class CreateContract extends JDialog {
     	proyecto.setText(contract.getProject().getName());
     	tipo.setText(contract.getProject().getProgrammingType());
     	lenguaje.setText(contract.getProject().getProgrammingLanguage());
-    	priceLabel.setText(String.valueOf(contract.getFinalPrice()));
+    	String.valueOf(contract.getFinalPrice());
+	priceLabel.setText(String.format("%.2f", contract.getFinalPrice()));
     }
     private String createID() {
     	String aux = null;

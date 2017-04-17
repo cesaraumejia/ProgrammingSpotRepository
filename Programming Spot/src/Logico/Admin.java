@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 
 
@@ -186,6 +189,63 @@ public class Admin implements Serializable{
 		
 	    }
 	}
+	
+	public boolean contractsExpiringSoon(){
+	    boolean expiring=false;
+	    for (Contract ct : contracts) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date date=new Date();
+		if(calculateDays(dateFormat.format(date), ct.getFinalDate())<=7){
+		    expiring=true;
+		}
+	    }
+	    
+	    return expiring;
+	}
+	
+	  public int calculateDays(String entryDate, String outDate) {
+		int totalDays=0;
+		int dayEntry,monthEntry,yearEntry;
+		int dayOut,monthOut,yearOut;
+		int dd1,dd2;
+		String[]entryParts=entryDate.split("/");
+		String[]outParts = outDate.split("/");
+		
+		dayEntry=Integer.parseInt(entryParts[0]);
+		monthEntry=Integer.parseInt(entryParts[1]);
+		yearEntry=Integer.parseInt(entryParts[2]);
+		dayOut=Integer.parseInt(outParts[0]);
+		monthOut=Integer.parseInt(outParts[1]);
+		yearOut=Integer.parseInt(outParts[2]);
+		
+		dd1=0;
+		dd1=dater(monthEntry);
+		dd1=dd1+dayEntry+(yearEntry-yearOut)*365;
+		dd2=0; 
+		dd2=dater(monthOut)+dd2+dayOut+((yearOut-yearEntry)*365);
+		totalDays=dd2-dd1;
+		return totalDays;
+		
+	    }
+	  
+	    private int dater(int x){
+		int y=0;
+	        switch(x){
+	        	case 1: y=0; break;
+		        case 2: y=31; break;
+		        case 3: y=59; break;
+		        case 4: y=90; break;
+		        case 5: y=120;break;
+		        case 6: y=151; break;
+		        case 7: y=181; break;
+		        case 8: y=212; break;
+		        case 9: y=243; break;
+		        case 10:y=273; break;
+		        case 11:y=304; break;
+		        case 12:y=334; break;
+		        }
+		        return(y);
+	    }
 	
 	///////////////////////////////////Dar el premio al mas destacado///////////////////////////////////////////////////////////////////
 	private Worker findBestWorker() {

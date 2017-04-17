@@ -467,17 +467,20 @@ public class CreateProject extends JDialog {
 					cbxProgramador2.removeItem(aux);
 					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
-						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador2))
+						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador2)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1)
 							cbxProgramador2.addItem(aux1);
 					}
 			  }
 				else {
 					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
-						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)) {
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
 						cbxProgramador2.addItem(aux1);
 						}
-						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)) {
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
 						cbxProgramador1.addItem(aux1);
 						}
 					}
@@ -498,17 +501,20 @@ public class CreateProject extends JDialog {
 					cbxProgramador1.removeItem(aux);
 					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
-						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador1))
+						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador1)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1)
 							cbxProgramador1.addItem(aux1);
 					}
 			  }
 				else {
 					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
-						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)) {
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
 						cbxProgramador1.addItem(aux1);
 						}
-						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)) {
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
 						cbxProgramador2.addItem(aux1);
 						}
 					}

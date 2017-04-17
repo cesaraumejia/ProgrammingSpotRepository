@@ -46,15 +46,15 @@ public class ListContract extends JDialog {
 	private final JPanel contentPane = new JPanel();
 	private JTable table;
 	private static DefaultTableModel tableModel;
-    private static Object[] row;
+	private static Object[] row;
 	
-	private JTable table_1;
-    private static DefaultTableModel tableModel1;
-    private static Object[] row1;
-    private JFormattedTextField busqueda;
-    private static ListContract listInstance;
-    private ArrayList<Contract> active = new ArrayList<>();
-    private ArrayList<Contract> finished = new ArrayList<>();
+        private JTable table_1;
+        private static DefaultTableModel tableModel1;
+        private static Object[] row1;
+        private JFormattedTextField busqueda;
+        private static ListContract listInstance;
+        private ArrayList<Contract> active = new ArrayList<>();
+        private ArrayList<Contract> finished = new ArrayList<>();
     
     	private ImageIcon workerIcon = new ImageIcon(ListWorker.class.getResource("/icons/worker.png"));
 	private ImageIcon contractIcon =new ImageIcon(ListWorker.class.getResource("/icons/contract.png"));
@@ -80,7 +80,7 @@ public class ListContract extends JDialog {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "B\u00FAsqueda", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_1.setBackground(new Color(220,220,220));
-		panel_1.setBounds(460, 40, 336, 62);
+		panel_1.setBounds(460, 32, 336, 62);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -112,26 +112,29 @@ public class ListContract extends JDialog {
 		lblListarContratos.setBounds(12, 1, 185, 27);
 		panel.add(lblListarContratos);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.addMouseListener(new MouseAdapter() {
+		JLabel lblClose = new JLabel("");
+		lblClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			  	MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getContractPanel().setVisible(true);
-				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+//				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+//				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+				MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+				MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
 				refreshAdmin();
 				dispose();
 			}
 		});
-		label_1.setIcon(new ImageIcon(ListContract.class.getResource("/icons/close.png")));
-		label_1.setBounds(780, 2, 26, 26);
-		panel.add(label_1);
+		lblClose.setIcon(new ImageIcon(ListContract.class.getResource("/icons/close.png")));
+		lblClose.setBounds(780, 2, 26, 26);
+		panel.add(lblClose);
 		
 		JPanel activeContracts = new JPanel();
 		activeContracts.setBackground(new Color(220,220,220));
 		activeContracts.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), "Contratos Activos", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		activeContracts.setBounds(10, 40, 440, 371);
+		activeContracts.setBounds(10, 32, 440, 371);
 		contentPane.add(activeContracts);
 		activeContracts.setLayout(null);
 		
@@ -141,7 +144,7 @@ public class ListContract extends JDialog {
 
 		
 		///////////////////////////////////////Lo que se debe copiar para hacer las tablas/////////////////////////////////////////////////
-		String[] columnsHeaders = {"Cliente", "Proyecto", "Fecha de Entrega", "Cotización", "ID"};
+		String[] columnsHeaders = {"Cliente", "Proyecto", "Entrega", "Cotización", "ID"};
 		tableModel = new DefaultTableModel(){
 		    /**
 		     * 
@@ -161,6 +164,7 @@ public class ListContract extends JDialog {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 			    if(table.getSelectedRow()>=0){
+				
 			         
 			    }
 			}
@@ -175,7 +179,7 @@ public class ListContract extends JDialog {
 		JPanel finishedContracts = new JPanel();
 		finishedContracts.setBackground(new Color(220,220,220));
 		finishedContracts.setBorder(new TitledBorder(new LineBorder(new Color(70, 130, 180)), " Contratos Finalizados", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		finishedContracts.setBounds(460, 113, 336, 298);
+		finishedContracts.setBounds(460, 105, 336, 298);
 		contentPane.add(finishedContracts);
 		finishedContracts.setLayout(null);
 		
@@ -229,7 +233,24 @@ public class ListContract extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Finalizar");
+				
+				JButton btnPosponerContrato = new JButton("Posponer contrato");
+				btnPosponerContrato.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (table.getSelectedRow()>=0) {
+							int index = table.getSelectedRow();
+							Contract contract = Admin.getInstance().getContracts().get(index);
+							if (contract.getPostpone()==0) {
+								CreateContract cont = new CreateContract(null, true, contract, index);
+								cont.setVisible(true);
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Este contrato ya ha sido pospuesto 1 vez", null, JOptionPane.WARNING_MESSAGE, null);
+							}
+						}
+					}
+				});
+				JButton okButton = new JButton("Finalizar Contrato");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (table.getSelectedRow()>=0) {
@@ -249,29 +270,12 @@ public class ListContract extends JDialog {
 						}
 					}
 				});
-				
-				JButton btnPosponerContrato = new JButton("Posponer contrato");
-				btnPosponerContrato.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (table.getSelectedRow()>=0) {
-							int index = table.getSelectedRow();
-							Contract contract = Admin.getInstance().getContracts().get(index);
-							if (contract.getPostpone()==0) {
-								CreateContract cont = new CreateContract(null, true, contract, index);
-								cont.setVisible(true);
-							}
-							else {
-								JOptionPane.showMessageDialog(null, "Este contrato ya ha sido pospuesto 1 vez", null, JOptionPane.WARNING_MESSAGE, null);
-							}
-						}
-					}
-				});
-				btnPosponerContrato.setBackground(new Color(255,255,240));
-				buttonPane.add(btnPosponerContrato);
 				okButton.setBackground(new Color(255,255,240));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+				btnPosponerContrato.setBackground(new Color(255,255,240));
+				buttonPane.add(btnPosponerContrato);
 			}
 			{
 				JButton cancelButton = new JButton("Salir");
@@ -297,6 +301,7 @@ public class ListContract extends JDialog {
 	}
 	public void loadContracts(ArrayList<Contract> contracts) {
 	   	tableModel.setRowCount(0);
+	   	int actualRow=0;
 	   	DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 	   	tcr.setHorizontalAlignment(SwingConstants.CENTER);
 	   	table.getColumnModel().getColumn(0).setCellRenderer(tcr);
@@ -310,11 +315,18 @@ public class ListContract extends JDialog {
 	   	    row[0]=ct.getClient().getName() +" "+ ct.getClient().getLastName();
 	   	    row[1]=ct.getProject().getName();
 	   	    row[2]=ct.getFinalDate();
-	   	    row[3]=ct.getFinalPrice();
+	   	
+	   	    row[3]=String.format("%.2f",ct.getFinalPrice());
 	   	    row[4]=ct.getContractID();
 	   	    tableModel.addRow(row);
-	   		}
-	   	
+//	   	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//	   	    Date date=new Date();
+//	   	    int days = Admin.getInstance().calculateDays(dateFormat.format(date), ct.getFinalDate());
+	   	    /*if(days<=7){
+	   		table.getValueAt(row, colum);
+	   	    }*/
+	   	}
+	   	actualRow++;
 	  }
    }
     private void loadFinishedContracts(ArrayList<Contract> contracts) {
@@ -330,7 +342,7 @@ public class ListContract extends JDialog {
 	   		if (pr.getProject().getState().equals("Finalizado")) {
 	   	    row1[0]=pr.getClient().getName()+" "+pr.getClient().getLastName();
 	   	    row1[1]=pr.getProject().getName();
-	   	    row1[2]=pr.getFinalPrice();
+	   	    row1[2]=String.format("%.2f",pr.getFinalPrice());
 	   	    row1[3]=pr.getLostMoney();
 	   	    tableModel1.addRow(row1);
 	   		}
