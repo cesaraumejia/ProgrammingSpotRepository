@@ -23,6 +23,7 @@ public class Client implements Serializable{
 
 
 
+
 	public Client(String idNumber, String name,String address,String lastName,String email, String phone) {
 		super();
 		this.idNumber = idNumber;
@@ -33,6 +34,11 @@ public class Client implements Serializable{
 		this.email=email;
 		this.phone = phone;
 	
+	}
+	
+	public void replaceContract(Contract contract){
+	    this.contracts.set(this.contracts.indexOf(contract), contract);
+	    
 	}
 	
 	public Contract searchContractByID(String contractId) {

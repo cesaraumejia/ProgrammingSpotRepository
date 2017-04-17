@@ -80,6 +80,10 @@ public class Admin implements Serializable{
 	    }
 	    return foundClient;
 	}
+	
+	public void replaceContract(Client client,Contract contract){
+	    this.clients.get(clients.indexOf(client)).replaceContract(contract);
+	}
 		
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -323,11 +323,13 @@ public class CreateContract extends JDialog {
 						Admin.getInstance().getContracts().get(index).setFinalPrice(Double.parseDouble(priceLabel.getText()));
 						JOptionPane.showMessageDialog(null, "Se ha pospuesto correctamente el proyecto","", JOptionPane.INFORMATION_MESSAGE, null);
 						Admin.getInstance().getContracts().get(index).setPostpone(1);
+						Admin.getInstance().replaceContract(Admin.getInstance().getContracts().get(index).getClient(), Admin.getInstance().getContracts().get(index));
 						
 						//Guardado
 						Admin.getInstance().saveContracts();
 						Admin.getInstance().saveContractID();
 						Admin.getInstance().saveProjects();
+				
 						dispose();
 						try {
 							ListContract.getInstance().loadContracts(Admin.getInstance().getContracts());

@@ -38,6 +38,8 @@ public class Contract implements Serializable{
 	public String getInitialDate() {
 		return initialDate;
 	}
+	
+	
 
 
 	public void setInitialDate(String initialDate) {

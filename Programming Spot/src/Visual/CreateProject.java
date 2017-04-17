@@ -8,8 +8,6 @@ import java.awt.Font;
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -369,7 +367,9 @@ public class CreateProject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				//function();
 				cbxProgramador1.removeAllItems();
+				cbxProgramador1.addItem("<Seleccione>");
 				cbxProgramador2.removeAllItems();
+				cbxProgramador2.addItem("<Seleccione>");
 				if ( cbxProgramador2.getSelectedIndex()>0) {
 					String aux = cbxProgramador2.getSelectedItem().toString();
 					cbxProgramador1.removeItem(aux);
@@ -378,8 +378,10 @@ public class CreateProject extends JDialog {
 						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador1)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
 							if (cbxLenguaje.getSelectedIndex()!=0) {
-								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem())){
+								        cbxProgramador1.addItem("Seleccione");
 									cbxProgramador1.addItem(aux1);
+								}
 							}else {
 								if (cbxProgramador1.getItemCount()>1) {
 									cbxProgramador1.removeAllItems();
@@ -405,6 +407,7 @@ public class CreateProject extends JDialog {
 							}			
 							
 						}
+						
 						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
 							if (cbxLenguaje.getSelectedIndex()!=0) {
@@ -799,7 +802,8 @@ public class CreateProject extends JDialog {
 				getCbxJefeDeProyecto().addItem(worker.getFirstName() + " " + worker.getLastName());
 				
 			else if(worker instanceof Programmer && (worker.getAvailable() < 1)){
-				if(((Programmer)worker).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem())) {
+				
+			    if(((Programmer)worker).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem())) {
 					getCbxProgramador1().addItem(worker.getFirstName() + " " + worker.getLastName());
 					getCbxProgramador2().addItem(worker.getFirstName() + " " + worker.getLastName());
 				}
