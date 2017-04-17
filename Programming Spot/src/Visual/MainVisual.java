@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -9,6 +10,8 @@ import java.awt.SystemTray;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -137,6 +140,8 @@ public class MainVisual extends JFrame implements Runnable{
         private Thread thread;  
         private String meridian;
         private JLabel lblAdministracion;
+        private JLabel helpIcon;
+        private JLabel help;
 	/**
 	 * Launch the application.
 	 */
@@ -692,7 +697,7 @@ public class MainVisual extends JFrame implements Runnable{
 		panel.setLayout(null);
 		
 		JPanel rightPanel = new JPanel();
-		rightPanel.setBounds(panel.getWidth()-280, 13, 255, 377);
+		rightPanel.setBounds(843, 45, 255, 377);
 		rightPanel.setBackground(new Color(153,153,153));
 		panel.add(rightPanel);
 		rightPanel.setLayout(null);
@@ -1004,6 +1009,37 @@ public class MainVisual extends JFrame implements Runnable{
 		lblMonth.setBounds(189, 184, 93, 14);
 		clockPanel.add(lblMonth);
 		
+		help = new JLabel("Ayuda");
+		help.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
+		help.setBounds(1010, 25, 42, 14);
+		panel.add(help);
+		
+		helpIcon = new JLabel("");
+		helpIcon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				helpIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/helpeffect.png")));
+				help.setForeground(new Color(255, 255, 255));
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				helpIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
+				help.setForeground(new Color(0, 0, 0));
+				if (Desktop.isDesktopSupported()) {
+				    try {
+				        File myFile = new File("readme.pdf");
+				        Desktop.getDesktop().open(myFile);
+				    } catch (IOException ex) {
+				        // no application registered for PDFs
+				    }
+				}
+			}
+		});
+		helpIcon.setHorizontalAlignment(SwingConstants.RIGHT);
+		helpIcon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
+		helpIcon.setBounds(1010, 21, 76, 24);
+		panel.add(helpIcon);
+		
 		image = new ImageIcon("src/icons/code.png");
 		
 		thread = new Thread(this);
@@ -1129,6 +1165,4 @@ public class MainVisual extends JFrame implements Runnable{
         	weekDay = "Sábado";
         
 	}
-	
-	
 }
