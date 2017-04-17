@@ -300,7 +300,7 @@ public class CreateContract extends JDialog {
 								   MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
 								   dispose();
 								}else{
-									JOptionPane.showMessageDialog(null, "El cliente ha llegado al limite de contrats activos","ERROR", JOptionPane.WARNING_MESSAGE, null);
+									JOptionPane.showMessageDialog(null, "El cliente ha llegado al limite de contratos activos","ERROR", JOptionPane.WARNING_MESSAGE, null);
 								}
 							}
 							else {

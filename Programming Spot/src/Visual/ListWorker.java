@@ -67,7 +67,6 @@ public class ListWorker extends JDialog {
     private JRadioButton todos;
     private JFormattedTextField busquedaCedula;
     private ArrayList<Worker> deleted = new ArrayList<>();
-    private JButton modificar;
 	/**
 	 * Launch the application.
 	 */
@@ -377,27 +376,6 @@ public class ListWorker extends JDialog {
 						}
 					}
 				});
-				
-				modificar = new JButton("Modificar");
-				modificar.setBackground(new Color(255, 255, 240));
-				modificar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (table.getSelectedRow()>=0) {
-						int index = table.getSelectedRow();
-						Worker work = notDeleted().get(index);
-						RegisterWorker modify;
-						try {
-							modify = new RegisterWorker(true, work);
-							modify.setVisible(true);
-						} catch (ParseException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						
-						}
-					}
-				});
-				buttonPane.add(modificar);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

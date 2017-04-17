@@ -34,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import Logico.Admin;
+import Logico.Client;
 import Logico.Contract;
 import Logico.Worker;
 
@@ -257,14 +258,15 @@ public class ListContract extends JDialog {
 							   int index = table.getSelectedRow();
 							   int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea finalizar este contrato?", null, JOptionPane.WARNING_MESSAGE);
 								if(JOptionPane.OK_OPTION==resp) {
+									if (validarFecha(active.get(index).getFinalDate(),new Date())) {
+									freeWorkers(active.get(index));
+									remove(active.get(index));
 									if (finishContract(index)) {
-										int i  = Admin.getInstance().getClients().indexOf(Admin.getInstance().getContracts().get(index));
-										Admin.getInstance().getClients().get(i).setActiveProjects(Admin.getInstance().getClients().get(i).getActiveProjects() - 1);
-										freeWorkers(Admin.getInstance().getContracts().get(index));
 										JOptionPane.showMessageDialog(null, "Se ha finalizado el contrato", null, JOptionPane.INFORMATION_MESSAGE, null);
 									}
 									else {
 										JOptionPane.showMessageDialog(null, "No se podido finalizar el contrato. No se ha cumplido el tiempo estipulado", null, JOptionPane.WARNING_MESSAGE, null);
+									}
 									}
 								}
 						}
@@ -355,9 +357,9 @@ public class ListContract extends JDialog {
     	Contract contract = active.get(index);
      	if (validarFecha(active.get(index).getFinalDate(),today)) {
      		String[] separate = contract.getFinalDate().split("/");
-    		long finalTime = Date.parse(separate[1]+"/"+separate[0]+"/"+separate[2]);  // Chequear esto, puede que de errores
+    		long finalTime = Date.parse(giveMonth(Integer.parseInt(separate[1]))+" "+separate[0]+", "+separate[2]);  // Chequear esto, puede que de errores
 			long time = finalTime - today.getTime();
-    		long days = (TimeUnit.DAYS.convert(time, TimeUnit.MILLISECONDS))/30;
+    		long days = (TimeUnit.DAYS.convert(time, TimeUnit.MILLISECONDS));
     		active.get(index).setLostMoney(contract.getFinalPrice()*days*0.01);
     		active.get(index).setFinalPrice(contract.getFinalPrice() - contract.getLostMoney());
     		active.get(index).getProject().setState("Finalizado");
@@ -480,7 +482,14 @@ public class ListContract extends JDialog {
 		ArrayList<Worker> workers = contract.getProject().getWorkers();
 		for (Worker i: workers) {
 			int index = Admin.getInstance().getWorkers().indexOf(i);
-			Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()-1);
+			if (index!=-1)
+				Admin.getInstance().getWorkers().get(index).setAvailable(Admin.getInstance().getWorkers().get(index).getAvailable()-1);
 		}
 	}
+   private void remove(Contract contract) {
+	   for (Client i: Admin.getInstance().getClients()) {
+		   if (i.getContracts().contains(contract))
+			   i.getContracts().remove(contract);
+	   }
+   }
 }

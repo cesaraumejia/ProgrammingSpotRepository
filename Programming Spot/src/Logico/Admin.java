@@ -117,6 +117,7 @@ public class Admin implements Serializable{
 	    boolean contractCreated=false;
 	    Contract myNewContract=new Contract(initialDate, finalDate, contractID, client, project, finalPrice);
 	    if(!client.getContracts().contains(myNewContract) && client.getActiveProjects()<5){
+	    	myNewContract.setClient(client);
 	    	contracts.add(myNewContract);	  
 	    	this.clients.get(this.clients.indexOf(client)).getContracts().add(myNewContract);
 	    	contractCreated=true;
