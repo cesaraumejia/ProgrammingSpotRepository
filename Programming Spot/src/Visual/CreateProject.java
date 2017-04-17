@@ -84,6 +84,7 @@ public class CreateProject extends JDialog {
     private String programmerLanguague;
     
     public CreateProject() {
+ 
  ///////////////////////////////////////////////Base form of every window (copy for each new window)//////////////////////////////////////
     	setUndecorated(true);
 	setBounds(100, 100, 702, 346);
@@ -364,6 +365,60 @@ public class CreateProject extends JDialog {
 		((JLabel)cbxTipo.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);	
 		panel.add(cbxTipo);
 		cbxLenguaje = new JComboBox<String>();
+		cbxLenguaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//function();
+				if ( cbxProgramador2.getSelectedIndex()>0) {
+					String aux = cbxProgramador2.getSelectedItem().toString();
+					cbxProgramador1.removeItem(aux);
+					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
+						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
+						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador1)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+									cbxProgramador1.addItem(aux1);
+							}else {
+								if (cbxProgramador1.getItemCount()>1) {
+									cbxProgramador1.removeAllItems();
+									cbxProgramador1.addItem("<Seleccione>");
+								}
+							}
+						}
+					}
+			  }
+				else {
+					for (int i =0;i<Admin.getInstance().getWorkers().size();i++) {
+						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+									cbxProgramador1.addItem(aux1);
+							}		else {
+								if (cbxProgramador1.getItemCount()>1) {
+									cbxProgramador1.removeAllItems();
+									cbxProgramador1.addItem("<Seleccione>");
+								}
+							}			
+							
+						}
+						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)
+							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+									cbxProgramador2.addItem(aux1);
+							}		else {
+								if (cbxProgramador2.getItemCount()>1) {
+									cbxProgramador2.removeAllItems();
+									cbxProgramador2.addItem("<Seleccione>");
+								}
+							}			
+						}
+					}
+				}
+			}
+		});
 		cbxLenguaje.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione un tipo>"}));
 		cbxLenguaje.setBackground(new Color(230, 230, 250));
 		cbxLenguaje.setBounds(87, 129, 236, 22);
@@ -460,8 +515,8 @@ public class CreateProject extends JDialog {
 		panel_1.add(cbxJefeDeProyecto);
 		
 		cbxProgramador1 = new JComboBox<String>();
-		cbxProgramador1.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
+		cbxProgramador1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				if ( cbxProgramador1.getSelectedIndex()>0) {
 					String aux = cbxProgramador1.getSelectedItem().toString();
 					cbxProgramador2.removeItem(aux);
@@ -469,11 +524,14 @@ public class CreateProject extends JDialog {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
 						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador2)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
-							if (!cbxLenguaje.equals("<Seleccione un lenguaje>")) {
-								if (!((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
 									cbxProgramador2.addItem(aux1);
 							}else {
-								cbxProgramador2.addItem(aux1);
+								if (cbxProgramador2.getItemCount()>1) {
+									cbxProgramador2.removeAllItems();
+									cbxProgramador2.addItem("<Seleccione>");
+								}
 							}
 						}
 					}
@@ -483,24 +541,31 @@ public class CreateProject extends JDialog {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
 						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
-							if (!cbxLenguaje.equals("<Seleccione un lenguaje>")) {
-								if (!((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
 									cbxProgramador2.addItem(aux1);
 							}else {
-								cbxProgramador2.addItem(aux1);
+								if (cbxProgramador2.getItemCount()>1) {
+									cbxProgramador2.removeAllItems();
+									cbxProgramador2.addItem("<Seleccione>");
+								}
 							}						
 						}
 						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
-							if (!cbxLenguaje.equals("<Seleccione un lenguaje>")) {
-								if (!((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
 									cbxProgramador1.addItem(aux1);
-							}else {
-								cbxProgramador1.addItem(aux1);
-							}						
+							}		else {
+								if (cbxProgramador1.getItemCount()>1) {
+									cbxProgramador1.removeAllItems();
+									cbxProgramador1.addItem("<Seleccione>");
+								}
+							}			
 						}
 					}
 				}
+
 			}
 		});
 		cbxProgramador1.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
@@ -510,8 +575,8 @@ public class CreateProject extends JDialog {
 		panel_1.add(cbxProgramador1);
 		
 		cbxProgramador2 = new JComboBox<String>();
-		cbxProgramador2.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
+		cbxProgramador2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				if ( cbxProgramador2.getSelectedIndex()>0) {
 					String aux = cbxProgramador2.getSelectedItem().toString();
 					cbxProgramador1.removeItem(aux);
@@ -519,11 +584,14 @@ public class CreateProject extends JDialog {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
 						if (Admin.getInstance().getWorkers().get(i) instanceof Programmer && !aux1.equals(aux) && !contains(aux1, cbxProgramador1)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
-							if (!cbxLenguaje.equals("<Seleccione un lenguaje>")) {
-								if (!((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
 									cbxProgramador1.addItem(aux1);
 							}else {
-								cbxProgramador1.addItem(aux1);
+								if (cbxProgramador1.getItemCount()>1) {
+									cbxProgramador1.removeAllItems();
+									cbxProgramador1.addItem("<Seleccione>");
+								}
 							}
 						}
 					}
@@ -533,25 +601,33 @@ public class CreateProject extends JDialog {
 						String aux1 = Admin.getInstance().getWorkers().get(i).getFirstName()+" "+Admin.getInstance().getWorkers().get(i).getLastName();
 						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador1)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
-							if (!cbxLenguaje.equals("<Seleccione un lenguaje>")) {
-								if (!((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
 									cbxProgramador1.addItem(aux1);
-							}else {
-								cbxProgramador1.addItem(aux1);
-							}						
+							}	else {
+								if (cbxProgramador1.getItemCount()>1) {
+									cbxProgramador1.removeAllItems();
+									cbxProgramador1.addItem("<Seleccione>");
+								}
+							}				
 							
-						}
+						} 
 						if ( Admin.getInstance().getWorkers().get(i) instanceof Programmer && !contains(aux1, cbxProgramador2)
 							&& Admin.getInstance().getWorkers().get(i).getAvailable()<1) {
-							if (!cbxLenguaje.equals("<Seleccione un lenguaje>")) {
-								if (!((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
+							if (cbxLenguaje.getSelectedIndex()!=0) {
+								if (((Programmer)Admin.getInstance().getWorkers().get(i)).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem()))
 									cbxProgramador2.addItem(aux1);
-							}else {
-								cbxProgramador2.addItem(aux1);
-							}						
+							}	else {
+								if (cbxProgramador2.getItemCount()>1) {
+									cbxProgramador2.removeAllItems();
+									cbxProgramador2.addItem("<Seleccione>");
+								}
+							}		
+							
 						}
 					}
 				}
+
 			}
 		});
 		cbxProgramador2.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>"}));
@@ -721,8 +797,10 @@ public class CreateProject extends JDialog {
 				getCbxJefeDeProyecto().addItem(worker.getFirstName() + " " + worker.getLastName());
 				
 			else if(worker instanceof Programmer && (worker.getAvailable() < 1)){
-				getCbxProgramador1().addItem(worker.getFirstName() + " " + worker.getLastName());
-				getCbxProgramador2().addItem(worker.getFirstName() + " " + worker.getLastName());
+				if(((Programmer)worker).getProgrammingLanguage().equals(cbxLenguaje.getSelectedItem())) {
+					getCbxProgramador1().addItem(worker.getFirstName() + " " + worker.getLastName());
+					getCbxProgramador2().addItem(worker.getFirstName() + " " + worker.getLastName());
+				}
 			}
 			else if(worker instanceof Planner && (worker.getAvailable() < 3))
 				getCbxPlaneador().addItem(worker.getFirstName() + " " + worker.getLastName());
@@ -756,5 +834,44 @@ public class CreateProject extends JDialog {
 		   }
 		   return aux;
 	   }
+	   private Worker getWorker(String completeName) {
+		   Worker worker = null;
+		   for (Worker i: Admin.getInstance().getWorkers()) {
+			   String aux = i.getFirstName()+" "+i.getLastName();
+			   if (aux.equals(completeName))
+				   worker = i;
+		   }
+		   return worker;
+	   }
+	   private void function() {
+		   if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Escritorio")){
+				cbxLenguaje.removeAllItems();
+				cbxLenguaje.addItem("<Seleccione un lenguaje>");
+				cbxLenguaje.addItem("Java");
+				cbxLenguaje.addItem("C#");
+				cbxLenguaje.addItem("Visual Basic");
+			}
+			else if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("M\u00F3vil")){
+				cbxLenguaje.removeAllItems();
+				cbxLenguaje.addItem("<Seleccione un lenguaje>");
+				cbxLenguaje.addItem("C++");
+				cbxLenguaje.addItem("Objective C");
+				cbxLenguaje.addItem("Java");	
+				cbxLenguaje.addItem("Swift");
+			}
+			else if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Web")){
+				cbxLenguaje.removeAllItems();
+				cbxLenguaje.addItem("<Seleccione un lenguaje>");
+				cbxLenguaje.addItem("HTML & CSS");
+				cbxLenguaje.addItem("PHP");
+				cbxLenguaje.addItem("JavaScript");	
+				cbxLenguaje.addItem("Swift");
+			}
+			else{
+				cbxLenguaje.removeAllItems();
+				cbxLenguaje.addItem("<Seleccione un tipo>");
+			}
+	   }
+
 }
 
