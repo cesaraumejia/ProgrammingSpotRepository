@@ -697,7 +697,7 @@ public class MainVisual extends JFrame implements Runnable{
 		panel.setLayout(null);
 		
 		JPanel rightPanel = new JPanel();
-		rightPanel.setBounds(843, 45, 255, 377);
+		rightPanel.setBounds(panel.getWidth()-280, 50, 255, 377);
 		rightPanel.setBackground(new Color(153,153,153));
 		panel.add(rightPanel);
 		rightPanel.setLayout(null);
@@ -1011,7 +1011,9 @@ public class MainVisual extends JFrame implements Runnable{
 		
 		help = new JLabel("Ayuda");
 		help.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
-		help.setBounds(1010, 25, 42, 14);
+		help.setBounds(panel.getWidth()-120, 25, 50, 14);
+		//panel.getWidth()-280, 13, 255, 377
+
 		panel.add(help);
 		
 		helpicon = new JLabel("");
@@ -1037,7 +1039,7 @@ public class MainVisual extends JFrame implements Runnable{
 		});
 		helpicon.setHorizontalAlignment(SwingConstants.RIGHT);
 		helpicon.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/help.png")));
-		helpicon.setBounds(1010, 21, 76, 24);
+		helpicon.setBounds(panel.getWidth()-115, 21, 76, 24);
 		panel.add(helpicon);
 		
 		image = new ImageIcon("src/icons/code.png");
