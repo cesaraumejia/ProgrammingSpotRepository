@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -116,12 +117,8 @@ public class RegisterClient extends JDialog {
 					Admin.getInstance().saveClients();
 					//
 					JOptionPane.showMessageDialog(null, "¡El cliente ha sido agregado!", "Cliente Agregado", JOptionPane.INFORMATION_MESSAGE, clientIcon);
-					MainVisual.getInstance().getMenuPanel().setVisible(false);
-					MainVisual.getInstance().getClientsPanel().setVisible(true);
-					MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
-					MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
-					MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
-					dispose();
+				
+					cleanWindows();
 					
 				    }
 				    else {
@@ -149,6 +146,8 @@ public class RegisterClient extends JDialog {
 				JOptionPane.showMessageDialog(null, "Asegurese de seleccionar una provincia", "Provincia no válida", JOptionPane.WARNING_MESSAGE, null);
 			    }else if(tfdLocation.getText().equalsIgnoreCase("")){
 				JOptionPane.showMessageDialog(null, "Asegurese de introducir una localidad", "No se ha encontrado una localidad", JOptionPane.WARNING_MESSAGE, null);
+			    }else if(tfdStreet.getText().equalsIgnoreCase("")){
+				JOptionPane.showMessageDialog(null, "Asegurese de introducir una calle", "No se ha encontrado una calle", JOptionPane.WARNING_MESSAGE, null);
 			    }else {
 				Admin.getInstance().getClients().get(index).setAddress(address);
 				Admin.getInstance().getClients().get(index).setEmail(email);
@@ -242,6 +241,7 @@ public class RegisterClient extends JDialog {
 		panel.add(tfdName);
 		tfdName.setBackground(new Color(230, 230, 250));
 		tfdName.setHorizontalAlignment(SwingConstants.CENTER);
+		
 
 		tfdName.setColumns(10);
 		
@@ -271,7 +271,7 @@ public class RegisterClient extends JDialog {
 
 		panel.add(tfdLastName);
 		
-		JLabel lblTelfono = new JLabel("Tel\u00E9fono*:");
+		JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
 		lblTelfono.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTelfono.setBounds(355, 128, 75, 16);
 		panel.add(lblTelfono);
@@ -312,7 +312,7 @@ public class RegisterClient extends JDialog {
 		formatedID.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(formatedID);
 		
-		JLabel tfdID = new JLabel("C\u00E9dula*:");
+		JLabel tfdID = new JLabel("C\u00E9dula:");
 		tfdID.setFont(new Font("Tahoma", Font.BOLD, 13));
 		tfdID.setBounds(12, 34, 75, 16);
 		panel.add(tfdID);
@@ -353,7 +353,7 @@ public class RegisterClient extends JDialog {
 		lblCalle.setBounds(562, 89, 30, 16);
 		panel_1.add(lblCalle);
 		
-		JLabel tfdLocal = new JLabel("Localidad:*");
+		JLabel tfdLocal = new JLabel("Localidad:");
 		tfdLocal.setFont(new Font("Tahoma", Font.BOLD, 13));
 		tfdLocal.setBounds(12, 88, 75, 16);
 		panel_1.add(tfdLocal);
@@ -378,7 +378,7 @@ public class RegisterClient extends JDialog {
 		lblCalle_1.setBounds(320, 89, 45, 16);
 		panel_1.add(lblCalle_1);
 		
-		JLabel lblProvincia = new JLabel("Provincia*:");
+		JLabel lblProvincia = new JLabel("Provincia:");
 		lblProvincia.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblProvincia.setBounds(12, 36, 75, 16);
 		panel_1.add(lblProvincia);
@@ -398,14 +398,6 @@ public class RegisterClient extends JDialog {
 		panel_1.add(cbxProvince);
 		
 		tfdStreet = new JTextField();
-		tfdStreet.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
-					e.consume();
-			}
-		});
 		tfdStreet.setHorizontalAlignment(SwingConstants.CENTER);
 		tfdStreet.setColumns(10);
 		tfdStreet.setBackground(new Color(230, 230, 250));
@@ -413,6 +405,7 @@ public class RegisterClient extends JDialog {
 		panel_1.add(tfdStreet);
 		
 		spnNumber = new JSpinner();
+		spnNumber.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnNumber.setBackground(new Color(230, 230, 250));
 		spnNumber.setBounds(587, 86, 60, 22);
 		panel_1.add(spnNumber);
@@ -422,9 +415,10 @@ public class RegisterClient extends JDialog {
 		panel_1.add(lblDominicanIcon);
 		lblDominicanIcon.setIcon(new ImageIcon(RegisterClient.class.getResource("/icons/domincan.png")));
 		
-		JLabel lblParmetros = new JLabel("* -> Par\u00E1metros obligatorios");
+		JLabel lblParmetros = new JLabel("Nota: Todos los campos son obligatorios");
+		lblParmetros.setForeground(new Color(255, 0, 0));
 		lblParmetros.setFont(new Font("Tahoma", Font.ITALIC, 13));
-		lblParmetros.setBounds(17, 42, 197, 16);
+		lblParmetros.setBounds(17, 42, 308, 16);
 		contentPane.add(lblParmetros);
 	    
 	    
@@ -438,6 +432,7 @@ public class RegisterClient extends JDialog {
 			    MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
 			    MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
 			    MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
+			    
 			    dispose();
 			}
 		});
@@ -460,6 +455,20 @@ public class RegisterClient extends JDialog {
     	}
     	return aux;
     }
+    
+    private void cleanWindows(){
+	tfdEmailFirst.setText("");
+	tfdEmailSecond.setText("");
+	tfdLastName.setText("");
+	tfdName.setText("");
+	spnNumber.setValue(new Integer(1));
+	tfdLocation.setText("");
+	tfdStreet.setText("");
+	formatedID.setText("");
+	formatedPhone.setText("");
+	cbxProvince.setSelectedIndex(0);
+    }
+    
     private void load(Client client){
     	formatedID.setText(client.getIdNumber());
     	tfdName.setText(client.getName());

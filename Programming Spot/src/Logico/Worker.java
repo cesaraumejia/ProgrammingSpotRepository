@@ -16,7 +16,7 @@ public abstract class Worker implements Serializable{
 	protected String birthday;
 	protected float salary;
 	protected String anualEvaluation;
-	protected int hourlyPayment;
+	protected float hourlyPayment;
 	protected int workedHours;
 	protected int available = 0;
 	protected String telefono;
@@ -29,7 +29,7 @@ public abstract class Worker implements Serializable{
 	}
 
 	public Worker(String idNumber, String firstName, String lastName, String address, String sex, String birthday,
-			String projetName, String anualEvaluation, int hourlyPayment, int workedHours, int projectsQuant, String telefono, ArrayList<Contract> contract) {
+			String projetName, String anualEvaluation, float hourlyPayment, int workedHours, int projectsQuant, String telefono, ArrayList<Contract> contract) {
 		super();
 		this.idNumber = idNumber;
 		this.firstName = firstName;
@@ -105,12 +105,12 @@ public abstract class Worker implements Serializable{
 		this.anualEvaluation = anualEvaluation;
 	}
 	
-	public int getHourlyPayment() {
+	public float getHourlyPayment() {
 		return hourlyPayment;
 	}
 
-	public void setHourlyPayment(int hourlyPayment) {
-		this.hourlyPayment = hourlyPayment;
+	public void setHourlyPayment(float f) {
+		this.hourlyPayment = f;
 	}
 
 	public int getWorkedHours() {

@@ -226,18 +226,19 @@ public class RegisterWorker extends JDialog {
 			
 			JLabel lblSexo = new JLabel("Sexo: ");
 			lblSexo.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblSexo.setBounds(12, 155, 75, 14);
+			lblSexo.setBounds(12, 112, 75, 14);
 			panel.add(lblSexo);
 			
 			sexo = new JComboBox<String>();
 			sexo.setBackground(new Color(230,230,250));
 			sexo.setModel(new DefaultComboBoxModel<String>(new String[] {"<Seleccione>", "Masculino ", "Femenino"}));
-			sexo.setBounds(106, 152, 207, 22);
+			sexo.setBounds(106, 108, 207, 22);
+			((JLabel)sexo.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 			panel.add(sexo);
 			
 			JLabel lblNewLabel_4 = new JLabel("Fecha de nacimiento: ");
 			lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNewLabel_4.setBounds(360, 70, 157, 14);
+			lblNewLabel_4.setBounds(360, 73, 157, 14);
 			panel.add(lblNewLabel_4);
 			
 			JLabel lblNewLabel_5 = new JLabel("Pago por hora: ");
@@ -266,7 +267,7 @@ public class RegisterWorker extends JDialog {
 			
 			JLabel lblNewLabel_6 = new JLabel("Horas de trabajo: ");
 			lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNewLabel_6.setBounds(12, 110, 145, 16);
+			lblNewLabel_6.setBounds(12, 150, 145, 16);
 			panel.add(lblNewLabel_6);
 			
 			JLabel lblTelfono = new JLabel("Tel\u00E9fono: ");
@@ -289,8 +290,9 @@ public class RegisterWorker extends JDialog {
 			panel.add(dateChooser);
 			
 			horasTrabajo = new JSpinner();
-			horasTrabajo.setModel(new SpinnerNumberModel(1, 1, 12, 1));
-			horasTrabajo.setBounds(167, 109, 146, 21);
+			horasTrabajo.setEnabled(false);
+			horasTrabajo.setModel(new SpinnerNumberModel(8, 8, 8, 1));
+			horasTrabajo.setBounds(167, 149, 146, 21);
 			panel.add(horasTrabajo);
 		}
 		{
@@ -310,12 +312,12 @@ public class RegisterWorker extends JDialog {
 			
 			JLabel lblProvincia = new JLabel("Provincia: ");
 			lblProvincia.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblProvincia.setBounds(10, 29, 81, 14);
+			lblProvincia.setBounds(10, 35, 81, 14);
 			panel.add(lblProvincia);
 			
 			JLabel lblLocalidad = new JLabel("Localidad: ");
 			lblLocalidad.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblLocalidad.setBounds(358, 34, 81, 14);
+			lblLocalidad.setBounds(358, 35, 81, 14);
 			panel.add(lblLocalidad);
 			
 			localidad = new JTextField();
@@ -329,33 +331,26 @@ public class RegisterWorker extends JDialog {
 				}
 			});
 			localidad.setBackground(new Color(230,230,250));
-			localidad.setBounds(445, 26, 207, 22);
+			localidad.setBounds(445, 30, 207, 22);
 			panel.add(localidad);
 			localidad.setColumns(10);
 			
 			JLabel lblCalle = new JLabel("Calle: ");
 			lblCalle.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblCalle.setBounds(10, 80, 57, 14);
+			lblCalle.setBounds(10, 84, 57, 14);
 			panel.add(lblCalle);
 			
 			calle = new JTextField();
 			calle.setHorizontalAlignment(SwingConstants.CENTER);
-			calle.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyTyped(KeyEvent e) {
-					char c = e.getKeyChar();
-					if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
-						e.consume();
-				}
-			});
+		
 			calle.setBackground(new Color(230,230,250));
-			calle.setBounds(106, 77, 207, 22);
+			calle.setBounds(106, 80, 207, 22);
 			panel.add(calle);
 			calle.setColumns(10);
 			
 			JLabel lblNo = new JLabel("No: ");
 			lblNo.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNo.setBounds(358, 80, 57, 14);
+			lblNo.setBounds(358, 84, 57, 14);
 			panel.add(lblNo);
 			
 			provincia = new JComboBox<String>();
@@ -365,16 +360,19 @@ public class RegisterWorker extends JDialog {
 					"Monte Cristi", "Monte Plata", "Pedernales", "Peravia", "Puerto Plata", "Saman\u00E1", "San Crist\u00F3bal", 
 					"San Jos\u00E9 De Ocoa", "San Juan", "San Pedro de Macor\u00EDs", "S\u00E1nchez Ramirez", "Santiago",
 					"Santiago Rodr\u00EDguez", "Santo Domingo", "Valverde"}));
-			provincia.setBounds(106, 26, 207, 22);
+			provincia.setBounds(106, 29, 207, 22);
+			((JLabel)provincia.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 			panel.add(provincia);
 			
 			numero = new JSpinner();
-			numero.setBounds(445, 78, 207, 20);
+			numero.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+			numero.setBackground(new Color(230, 230, 250));
+			numero.setBounds(445, 82, 207, 21);
 			panel.add(numero);
 		}
 		
 		jefeProyecto = new JRadioButton("Jefe de Proyecto");
-        jefeProyecto.setSelected(true);
+		jefeProyecto.setSelected(true);
 		jefeProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jefeProyecto.setSelected(true);
@@ -620,17 +618,20 @@ public class RegisterWorker extends JDialog {
 		metodologia = new JComboBox();
 		metodologia.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Scrum\t", "Cristal", "XP (Xtreme Programming)"}));
 		metodologia.setBounds(138, 29, 219, 22);
+		((JLabel)metodologia.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(metodologia);
 		
 		orientacion = new JComboBox();
 		orientacion.setVisible(false);
 		orientacion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Web", "Desktop"}));
 		orientacion.setBounds(178, 29, 179, 22);
+		((JLabel)orientacion.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(orientacion);
 		
 		aniosExperiencia = new JSpinner();
+		aniosExperiencia.setBackground(new Color(230, 230, 250));
 		aniosExperiencia.setModel(new SpinnerNumberModel(0, 0, 50, 1));
-		aniosExperiencia.setBounds(178, 29, 179, 20);
+		aniosExperiencia.setBounds(178, 29, 179, 21);
 		panel.add(aniosExperiencia);
 		super.getToolkit().getScreenSize(); 
 		this.setResizable(false);
@@ -705,7 +706,7 @@ public class RegisterWorker extends JDialog {
 					        worker.setSex(sexo.getSelectedItem().toString());
 					    	worker.setBirthday(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
 					    	worker.setTelefono(telefonoText.getText());
-					    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
+					    	worker.setHourlyPayment(Float.parseFloat(salario.getText()));
 					    	Admin.getInstance().addWorker(worker);
 					    	//Guardado
 					    	Admin.getInstance().saveWorkers();
@@ -764,7 +765,7 @@ public class RegisterWorker extends JDialog {
 						        worker.setSex(sexo.getSelectedItem().toString());
 						    	worker.setBirthday(((JTextField)dateChooser.getDateEditor().getUiComponent()).getText());
 						    	worker.setTelefono(telefonoText.getText());
-						    	worker.setHourlyPayment(Integer.parseInt(salario.getText()));
+						    	worker.setHourlyPayment(Float.parseFloat((salario.getText())));
 						    	worker.setAvailable(0);
 						    	Admin.getInstance().getWorkers().remove(index);
 						    	Admin.getInstance().getWorkers().add(worker);

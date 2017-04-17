@@ -606,7 +606,7 @@ public class MainVisual extends JFrame implements Runnable{
 				lblContractMain.setBounds(58, 80, 143, 37);
 				extendedPanel.add(lblContractMain);
 				
-				lblWorkerMain = new JLabel("Empleados");
+				lblWorkerMain = new JLabel("Trabajadores");
 				lblWorkerMain.addMouseListener(new MouseAdapter() {
 					public void mousePressed(MouseEvent e) {
 						lblWorkerMain.setForeground(new Color(240, 240, 240));
@@ -942,7 +942,7 @@ public class MainVisual extends JFrame implements Runnable{
 		
 		clockPanel = new JPanel();
 		clockPanel.setBackground(new Color(153, 153, 153));
-		clockPanel.setBounds(panel.getWidth() - 320, 435, 349, 216);
+		clockPanel.setBounds(panel.getWidth() - 320,  panel.getHeight()-220, 349, 216);
 		panel.add(clockPanel);
 		clockPanel.setLayout(null);
 		
@@ -968,7 +968,7 @@ public class MainVisual extends JFrame implements Runnable{
 		
 		lblWeekDay = new JLabel("Mi\u00E9rcoles");
 		lblWeekDay.setFont(new Font("Dialog", Font.PLAIN, 24));
-		lblWeekDay.setBounds(22, 167, 124, 38);
+		lblWeekDay.setBounds(32, 169, 124, 38);
 		clockPanel.add(lblWeekDay);
 		
 		lblDay = new JLabel("21");
