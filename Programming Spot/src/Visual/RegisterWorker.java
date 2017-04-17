@@ -60,8 +60,8 @@ public class RegisterWorker extends JDialog {
 	private ImageIcon clientIcon = new ImageIcon(RegisterClient.class.getResource("/icons/client.png"));
 	private JFormattedTextField cedulaText;
 	private JComboBox<String> sexo;
-	private JTextField tipoProgramador;
-	private JTextField lenguajeDeProgramacion;
+	private JComboBox<String> tipoProgramador;
+	private JComboBox<String> lenguajeDeProgramacion;
 	private JRadioButton planeador;
 	private JRadioButton programador;
 	private JRadioButton diseniador;
@@ -543,21 +543,46 @@ public class RegisterWorker extends JDialog {
 		lblTipoDeProgramador.setBounds(10, 31, 169, 16);
 		panel.add(lblTipoDeProgramador);
 		
-		tipoProgramador = new JTextField();
-		tipoProgramador.setHorizontalAlignment(SwingConstants.CENTER);
-		tipoProgramador.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
-					e.consume();
+		tipoProgramador = new JComboBox<String>();
+		tipoProgramador.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "M\u00F3vil", "Web", "Escritorio"}));
+		tipoProgramador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tipoProgramador.getSelectedItem().toString().equalsIgnoreCase("Escritorio")){
+					lenguajeDeProgramacion.removeAllItems();
+					lenguajeDeProgramacion.addItem("<Seleccione un lenguaje>");
+					lenguajeDeProgramacion.addItem("Java");
+					lenguajeDeProgramacion.addItem("C#");
+					lenguajeDeProgramacion.addItem("Visual Basic");
+				}
+				else if(tipoProgramador.getSelectedItem().toString().equalsIgnoreCase("M\u00F3vil")){
+					lenguajeDeProgramacion.removeAllItems();
+					lenguajeDeProgramacion.addItem("<Seleccione un lenguaje>");
+					lenguajeDeProgramacion.addItem("C++");
+					lenguajeDeProgramacion.addItem("Objective C");
+					lenguajeDeProgramacion.addItem("Java");	
+					lenguajeDeProgramacion.addItem("Swift");
+				}
+				else if(tipoProgramador.getSelectedItem().toString().equalsIgnoreCase("Web")){
+					lenguajeDeProgramacion.removeAllItems();
+					lenguajeDeProgramacion.addItem("<Seleccione un lenguaje>");
+					lenguajeDeProgramacion.addItem("HTML & CSS");
+					lenguajeDeProgramacion.addItem("PHP");
+					lenguajeDeProgramacion.addItem("JavaScript");	
+					lenguajeDeProgramacion.addItem("Swift");
+				}
+				else{
+					lenguajeDeProgramacion.removeAllItems();
+					lenguajeDeProgramacion.addItem("<Seleccione un tipo>");
+				}
 			}
 		});
+
+
 		tipoProgramador.setBackground(new Color(230,230,250));
 		tipoProgramador.setVisible(false);
 		tipoProgramador.setBounds(189, 29, 168, 22);
 		panel.add(tipoProgramador);
-		tipoProgramador.setColumns(10);
+
 		
 		lblLenguaje = new JLabel("Lenguaje: ");
 		lblLenguaje.setVisible(false);
@@ -565,21 +590,14 @@ public class RegisterWorker extends JDialog {
 		lblLenguaje.setBounds(367, 31, 203, 16);
 		panel.add(lblLenguaje);
 		
-		lenguajeDeProgramacion = new JTextField();
-		lenguajeDeProgramacion.setHorizontalAlignment(SwingConstants.CENTER);
-		lenguajeDeProgramacion.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != ' ' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú'))
-					e.consume();
-			}
-		});
+		lenguajeDeProgramacion = new JComboBox<String>();
+		lenguajeDeProgramacion.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>"}));
+
 		lenguajeDeProgramacion.setBackground(new Color(230,230,250));
 		lenguajeDeProgramacion.setVisible(false);
 		lenguajeDeProgramacion.setBounds(446, 28, 190, 22);
 		panel.add(lenguajeDeProgramacion);
-		lenguajeDeProgramacion.setColumns(10);
+
 		
 		lblOrientacion = new JLabel("Orientaci\u00F3n de Dise\u00F1o: ");
 		lblOrientacion.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -666,7 +684,7 @@ public class RegisterWorker extends JDialog {
 						if (!registerModify) {
 					    if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals(""))
 							JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-					    else if ((programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals("")))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))) {
+					    else if ((programador.isSelected()&&(lenguajeDeProgramacion.getSelectedIndex()==0||tipoProgramador.getSelectedIndex()==0))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))) {
 					    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 					    }
 					    else if (!validarFecha(dateChooser))
@@ -685,8 +703,8 @@ public class RegisterWorker extends JDialog {
 					    	}
 					    	else if (programador.isSelected()) {
 					    		worker = new Programmer();
-					    		((Programmer)worker).setProgrammerType(tipoProgramador.getText());
-					    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getText());
+					    		((Programmer)worker).setProgrammerType(tipoProgramador.getSelectedItem().toString());
+					    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getSelectedItem().toString());
 					    	}
 					    	else if (tester.isSelected()) {
 					    		worker = new SoftwareTester();
@@ -724,7 +742,7 @@ public class RegisterWorker extends JDialog {
 							
 							if (cedulaText.getText().equals("___-_______-_")||apellidos.getText().equals("")||provincia.getSelectedIndex()==0||nombres.getText().equals("")||sexo.getSelectedIndex()==0||telefonoText.getText().equals("___-___-____")||salario.getText().equals("")||localidad.getText().equals("")||((JTextField)dateChooser.getDateEditor().getUiComponent()).getText().equals("")||calle.getText().equals(""))
 								JOptionPane.showMessageDialog(null, "Rellene todos los campos para continuar","Hay campos obligatorios vacios", JOptionPane.WARNING_MESSAGE, null);
-							else if ((jefeProyecto.isSelected())||(programador.isSelected()&&(lenguajeDeProgramacion.getText().equals("")||tipoProgramador.getText().equals("")))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))){
+							else if ((jefeProyecto.isSelected())||(programador.isSelected()&&(lenguajeDeProgramacion.getSelectedIndex()==0||tipoProgramador.getSelectedIndex()==0))||(planeador.isSelected()&&(metodologia.getSelectedIndex()==0))||(tester.isSelected()&&testingSoftware.getText().equals(""))||(diseniador.isSelected()&&(orientacion.getSelectedIndex()==0||softwareDisenio.getText().equals("")))){
 						    	JOptionPane.showMessageDialog(null, "Hay campos obligatorios vacios","Rellene todos los campos para continuar", JOptionPane.WARNING_MESSAGE, null);
 						    }
 						    else if (!validarFecha(dateChooser))
@@ -743,8 +761,8 @@ public class RegisterWorker extends JDialog {
 						    	}
 						    	else if (programador.isSelected()) {
 						    		worker = new Programmer();
-						    		((Programmer)worker).setProgrammerType(tipoProgramador.getText());
-						    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getText());
+						    		((Programmer)worker).setProgrammerType(tipoProgramador.getSelectedItem().toString());
+						    		((Programmer)worker).setProgrammingLanguage(lenguajeDeProgramacion.getSelectedItem().toString());
 						    	}
 						    	else if (tester.isSelected()) {
 						    		worker = new SoftwareTester();
@@ -889,8 +907,14 @@ public class RegisterWorker extends JDialog {
 	    }
 	    else {
 	    	programador.setSelected(true);
-	    	tipoProgramador.setText(((Programmer)worker).getProgrammerType());
-	    	lenguajeDeProgramacion.setText(((Programmer)worker).getProgrammingLanguage());
+	    	for (int i =0;i<tipoProgramador.getItemCount();i++) {
+	    		if (tipoProgramador.getItemAt(i).equals(((Programmer)worker).getProgrammerType()))
+	    			tipoProgramador.setSelectedItem(((Programmer)worker).getProgrammerType());
+	    	}
+	    	for (int i =0;i<lenguajeDeProgramacion.getItemCount();i++) {
+	    		if (lenguajeDeProgramacion.getItemAt(i).equals(((Programmer)worker).getProgrammingLanguage()))
+	    			lenguajeDeProgramacion.setSelectedItem(((Programmer)worker).getProgrammingLanguage());
+	    	}
 	    }
 	    	jefeProyecto.setEnabled(false);
 	    	planeador.setEnabled(false);
@@ -908,9 +932,16 @@ public class RegisterWorker extends JDialog {
 	   apellidos.setText("");
 	   nombres.setText("");
 	   sexo.setSelectedIndex(0);
-	   ((JTextField)dateChooser.getDateEditor().getUiComponent()).setText("");
+	   Date date = new Date();
+	   SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yyyy");
+	   String aux = simple.format(date);
+	   String[] aux2 = aux.split("/");
+	   int aux1 = Integer.parseInt(aux2[2]);
+	   aux1 = aux1 - 18;
+	   aux = String.valueOf(aux1);
+	   ((JTextField)dateChooser.getDateEditor().getUiComponent()).setText(aux2[0]+"/"+aux2[1]+"/"+aux);
 	   salario.setText("");
-	   horasTrabajo.setValue(1);
+	   horasTrabajo.setValue(8);
 	   telefonoText.setValue(null);
 	   provincia.setSelectedIndex(0);
 	   localidad.setText("");
@@ -921,8 +952,8 @@ public class RegisterWorker extends JDialog {
 	   programador.setSelected(false);
 	   diseniador.setSelected(false);
 	   tester.setSelected(false);
-	   tipoProgramador.setText("");
-	   lenguajeDeProgramacion.setText("");
+	   tipoProgramador.setSelectedIndex(0);
+	   lenguajeDeProgramacion.setSelectedIndex(0);
 	   aniosExperiencia.setValue(0);
 	   
 	   lblcontrasea.setVisible(true);
