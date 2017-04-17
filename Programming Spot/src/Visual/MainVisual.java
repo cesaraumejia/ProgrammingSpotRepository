@@ -248,7 +248,8 @@ public class MainVisual extends JFrame implements Runnable{
 		    public void mouseReleased(MouseEvent e) {
 			lblIcon1.setIcon(contractIcon);
 			lblIcon2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
-			lblIcon3.setVisible(false);
+			lblIcon3.setIcon(listClientIcon);;
+			
 			menuPanel.setVisible(true);
 			contractPanel.setVisible(false);
 			lblContractCreate.setForeground(new Color(0, 0, 0));
@@ -271,8 +272,15 @@ public class MainVisual extends JFrame implements Runnable{
 				lblListContract.setForeground(new Color(0,0,0));
 				ListContract list;
 				try {
+				    	lblIcon1.setIcon(contractIcon);
+					lblIcon2.setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+					lblIcon3.setIcon(listClientIcon);;
+					menuPanel.setVisible(true);
+					contractPanel.setVisible(false);
+					
 					list = new ListContract();
 					list.setVisible(true);
+					
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -354,6 +362,8 @@ public class MainVisual extends JFrame implements Runnable{
 			lblIcon1.setIcon(clientIcon);
 			lblIcon2.setIcon(registerClienticon);
 			lblIcon3.setIcon(listClientIcon);
+			
+			
 			menuPanel.setVisible(true);
 			clientsPanel.setVisible(false);
 			lblClientRegister.setForeground(new Color(0, 0, 0));

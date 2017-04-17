@@ -53,9 +53,10 @@ public class CreateContract extends JDialog {
     private JLabel lblClose;
     private JLabel lblBuscar;
     private ImageIcon windowsCloseIcon =new ImageIcon(CreateContract.class.getResource("/icons/close.png"));
-    //private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
-    //private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
-    //private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+    private ImageIcon workerIcon = new ImageIcon("src/icons/worker.png");
+    private ImageIcon contractIcon =new ImageIcon("src/icons/contract.png");
+    private ImageIcon clientIcon = new ImageIcon("src/icons/client.png");
+
     private JTextField tfdClientName;
     private JTextField proyecto;
     private JTextField tipo;
@@ -165,9 +166,14 @@ public class CreateContract extends JDialog {
 				Admin.getInstance().getProjects().remove(project);
 			    	MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getContractPanel().setVisible(true);
-				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+//				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+//				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+				MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+				MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
 				//If closed remove project and release workers.
+				
+				
 				Admin.getInstance().removeProject(project);
 				dispose();
 			}
@@ -454,8 +460,13 @@ public class CreateContract extends JDialog {
 			    Admin.getInstance().getProjects().remove(project);
 			    MainVisual.getInstance().getMenuPanel().setVisible(false);
 			    MainVisual.getInstance().getContractPanel().setVisible(true);
-			    MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-			    MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+			   // MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+			//   MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+			   
+			    MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+			    MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+			    MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
+			    
 			    //If closed remove project and release workers.
 			    Admin.getInstance().removeProject(project);
 			    dispose();

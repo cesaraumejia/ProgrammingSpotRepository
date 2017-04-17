@@ -55,6 +55,10 @@ public class ListContract extends JDialog {
     private static ListContract listInstance;
     private ArrayList<Contract> active = new ArrayList<>();
     private ArrayList<Contract> finished = new ArrayList<>();
+    
+    	private ImageIcon workerIcon = new ImageIcon(ListWorker.class.getResource("/icons/worker.png"));
+	private ImageIcon contractIcon =new ImageIcon(ListWorker.class.getResource("/icons/contract.png"));
+	private ImageIcon clientIcon = new ImageIcon(ListWorker.class.getResource("/icons/client.png"));
 	/**
 	 * Launch the application.
 	 */
@@ -275,8 +279,11 @@ public class ListContract extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						  MainVisual.getInstance().getMenuPanel().setVisible(false);
 						  MainVisual.getInstance().getContractPanel().setVisible(true);
-						  MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-						  MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+//						  MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+//						  MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+						   MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+						    MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+						    MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
 						  refreshAdmin();
 						  dispose();
 					}

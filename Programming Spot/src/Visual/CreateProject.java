@@ -276,8 +276,11 @@ public class CreateProject extends JDialog {
 			public void mouseReleased(MouseEvent e) {
 			    	MainVisual.getInstance().getMenuPanel().setVisible(false);
 				MainVisual.getInstance().getContractPanel().setVisible(true);
-				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+//				MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+//				MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+				MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+				    MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+				    MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
 				dispose();
 			}
 		});
@@ -563,8 +566,11 @@ public class CreateProject extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 			    MainVisual.getInstance().getMenuPanel().setVisible(false);
 			    MainVisual.getInstance().getContractPanel().setVisible(true);
-			    MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
-			    MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+//			    MainVisual.getInstance().getLblIcon1().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/contract.png")));
+//			    MainVisual.getInstance().getLblIcon2().setIcon(new ImageIcon(MainVisual.class.getResource("/icons/createContract.png")));
+			    MainVisual.getInstance().getLblIcon1().setIcon(clientIcon);
+			    MainVisual.getInstance().getLblIcon2().setIcon(contractIcon);
+			    MainVisual.getInstance().getLblIcon3().setIcon(workerIcon);
 			    dispose();
 			}
 		});
